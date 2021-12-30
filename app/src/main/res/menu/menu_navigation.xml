@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_main"
+        android:title="@string/main"
+        android:icon="@drawable/ic_nav_main"/>
+    <item
+        android:id="@+id/nav_transaction"
+        android:title="@string/transaction"
+        android:icon="@drawable/ic_nav_transaction"/>
+<!--    <item-->
+<!--        android:id="@+id/nav_admin"-->
+<!--        android:title="@string/admin"-->
+<!--        android:icon="@drawable/ic_nav_admin"/>-->
+    <item
+        android:id="@+id/nav_init"
+        android:title="@string/initialize"
+        android:icon="@drawable/ic_nav_init"/>
+</menu>

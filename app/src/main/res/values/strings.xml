@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Yokke Android</string>
+    <string name="welcome">Welcome !</string>
+    <string name="choose_payment">Choose Payment Method</string>
+    <string name="date">Sunday, 12 12 2021</string>
+    <string name="main">Main</string>
+    <string name="transaction">Transaction</string>
+    <string name="admin">Admin</string>
+    <string name="initialize">Initialize</string>
+    <string name="dip_card">Dip Your Card</string>
+    <string name="tap_card">Tap Your Card</string>
+    <string name="pay_with_qr">Pay With QR</string>
+    <string name="initialize_device">Initialize Device</string>
+    <string name="transaction_menu">Transaction Menu</string>
+    <string name="void_icon">Void</string>
+    <string name="settlement_icon">Settlement</string>
+    <string name="initialize_btn">Initialize This Device</string>
+
+    <string name="mid">MID</string>
+    <string name="tid">TID</string>
+    <string name="site_name">Site name</string>
+    <string name="address_1">Address 1</string>
+    <string name="address_2">Address 2</string>
+    <string name="address_3">Address 3</string>
+
+</resources>
