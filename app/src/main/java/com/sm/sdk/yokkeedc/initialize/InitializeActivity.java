@@ -163,16 +163,9 @@ public class InitializeActivity extends AppCompatActivity implements View.OnClic
                 }
                 else if (stParam.equalsIgnoreCase("emv_tag")){
                     JSONObject objParam = obj.getJSONObject(stParam);
+                    System.out.println(objParam);
+                    System.out.println("testing emv tag---");
 
-//                    JSONArray  arrParam = obj.getJSONArray(objParam);
-//                    for (int k = 0 ; k<arrParam.length(); k++){
-//                        JSONObject  objParam2 = obj.getJSONObject(String.valueOf(arrParam));
-//                        JSONArray   arrParam2 = obj.getJSONArray(String.valueOf(objParam2));
-//
-//                        for (int j = 0 ; j < arrParam2.length() ; j++){
-//
-//                        }
-//                    }
 
                 }
             }

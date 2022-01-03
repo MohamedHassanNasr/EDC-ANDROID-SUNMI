@@ -38,4 +38,6 @@ public class AIDList implements Serializable, BaseColumns {
     public String getAid() {
         return aid;
     }
+
+
 }

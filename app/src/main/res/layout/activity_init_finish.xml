@@ -6,13 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.sm.sdk.yokkeedc.initialize.InitFinishActivity"
-    tools:ignore="InvalidId">
+    tools:ignore="InvalidId"
+    android:layout_margin="80dp">
 
     <LinearLayout
         android:id="@+id/print_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="150dp"
         android:background="@color/colorBackground"
         android:orientation="vertical">
 
@@ -20,9 +20,8 @@
             android:id="@+id/text_merchant_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:gravity="center_horizontal"
             android:maxLines="1"
+            android:textAlignment="center"
             android:text="MERCHANT NAME"
             android:textSize="10sp" />
 
@@ -32,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
             android:maxLines="1"
+            android:textAlignment="center"
             android:text="MERCHANT ADDRESS 1"
             android:textSize="10sp" />
 
@@ -43,8 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
             android:maxLines="1"
+            android:textAlignment="center"
             android:text="MERCHANT ADDRESS 2"
             android:textSize="10sp" />
 
@@ -54,8 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:gravity="center_horizontal"
             android:maxLines="1"
+            android:textAlignment="center"
             android:text="MERCHANT ADDRESS 3"
             android:textSize="10sp" />
 
@@ -66,9 +65,8 @@
 
             <TextView
                 android:id="@+id/text_tid_label"
-                android:layout_width="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:text="TID : "
@@ -78,16 +76,14 @@
                 android:id="@+id/text_tid_value"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/text_mid_label"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:text="MID : "
@@ -97,7 +93,6 @@
                 android:id="@+id/text_mid_value"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:textSize="10sp" />
