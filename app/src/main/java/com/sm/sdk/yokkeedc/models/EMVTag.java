@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class EMVTag implements Serializable, BaseColumns {
     public static final String TABLE_NAME = "tbEMVTag";
+    public static final String COL_EMV_APP_ID = "EMV_APP_ID";
     public static final String COL_TAG_CD = "TAG_CD";
     public static final String COL_TAG_VAL = "TAG_VAL";
     public static final String SQL_CREATE = "create table tbEMVTag " +
@@ -14,13 +15,23 @@ public class EMVTag implements Serializable, BaseColumns {
     public static final String SQL_DELETE = "drop table if exists tbEMVTag";
 
     private String id;
+    private String emvAppId;
     private String tagCode;
     private String tagVal;
 
-    public EMVTag (String id, String tagCode, String tagVal) {
-        this.id = id;
+    public EMVTag (String emvAppId, String tagCode, String tagVal) {
+//        this.id = id;
+        this.emvAppId = emvAppId;
         this.tagCode = tagCode;
         this.tagVal = tagVal;
+    }
+
+    public String getEmvAppId() {
+        return emvAppId;
+    }
+
+    public void setEmvAppId(String emvAppId) {
+        this.emvAppId = emvAppId;
     }
 
     public String getId() {

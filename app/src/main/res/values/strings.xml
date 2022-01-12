@@ -22,5 +22,27 @@
     <string name="address_1">Address 1</string>
     <string name="address_2">Address 2</string>
     <string name="address_3">Address 3</string>
+    <string name="emv_app_select">Please select app</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+
+    <!--keyboard number-->
+    <string name="num_0">0</string>
+    <string name="num_1">1</string>
+    <string name="num_2">2</string>
+    <string name="num_3">3</string>
+    <string name="num_4">4</string>
+    <string name="num_5">5</string>
+    <string name="num_6">6</string>
+    <string name="num_7">7</string>
+    <string name="num_8">8</string>
+    <string name="num_9">9</string>
+    <string name="num_00">00</string>
+    <string name="num_000">000</string>
+    <string name="num_ok">OK</string>
+    <string name="num_back">&#060;</string>
+    <string name="num_delete_str">&#8592;</string>
+    <string name="num_cancel_str">&#215;</string>
+    <string name="num_ok_str">OK</string>
 
 </resources>

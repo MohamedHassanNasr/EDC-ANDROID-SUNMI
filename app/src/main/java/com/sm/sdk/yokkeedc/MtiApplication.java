@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class MtiApplication extends Application {
     public SunmiPrinterService sunmiPrinterService;
     //public IScanInterface scanInterface;
     private boolean connectPaySDK;//是否已连接PaySDK
+    private static Handler handler;
 
     @Override
     public void onCreate() {
@@ -52,9 +54,15 @@ public class MtiApplication extends Application {
         initLocaleLanguage();
         bindPaySDKService();
         bindPrintService();
+        init();
         //bindScannerService();
     }
 
+    public static void init() {
+        handler = new Handler();
+        //packer = Packer.getInstance(app).getPacker();
+
+    }
 
     public static void initLocaleLanguage() {
         Resources resources = app.getResources();
@@ -120,6 +128,10 @@ public class MtiApplication extends Application {
                 //Utility.showToast(R.string.connect_fail);
             }
         });
+    }
+
+    public void runOnUiThread(final Runnable runnable) {
+        handler.post(runnable);
     }
 
     /** bind printer service */

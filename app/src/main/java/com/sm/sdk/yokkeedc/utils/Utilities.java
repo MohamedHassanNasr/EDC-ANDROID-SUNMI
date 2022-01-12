@@ -26,7 +26,7 @@ public class Utilities {
 
         for(i = 0; i<lstEDCParam.size(); i++) {
             EDCParam param = lstEDCParam.get(i);
-            paramName = param.getParamName();
+            paramName = param.getParamCode();
             paramVal = param.getParamVal();
             value.put(paramName, paramVal);
         }

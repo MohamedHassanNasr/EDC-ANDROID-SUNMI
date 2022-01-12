@@ -14,11 +14,13 @@ import com.sm.sdk.yokkeedc.models.EMVTag;
 import com.sm.sdk.yokkeedc.models.JspeedyParam;
 import com.sm.sdk.yokkeedc.models.PaypassParam;
 import com.sm.sdk.yokkeedc.models.PaywaveParam;
+import com.sm.sdk.yokkeedc.models.TransDataDB;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
     public static final String DB_NAME = "mti_edc.db";
     public  static final int DB_VERSION = 2;
 
@@ -36,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(PaywaveParam.SQL_CREATE);
         database.execSQL(PaypassParam.SQL_CREATE);
         database.execSQL(JspeedyParam.SQL_CREATE);
+        database.execSQL(TransDataDB.SQL_CREATE);
     }
 
     @Override
@@ -46,22 +49,104 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(PaywaveParam.SQL_DELETE);
         database.execSQL(PaypassParam.SQL_DELETE);
         database.execSQL(JspeedyParam.SQL_DELETE);
+        database.execSQL(TransDataDB.SQL_DELETE);
         onCreate(database);
+    }
+
+    /*
+     *   Insert Parameter to table TransDataDB
+     *
+     * */
+
+    public void insertTransData(List<TransDataDB> lstTrans) {
+        int i;
+        String paramName, paramVal;
+        TransDataDB param;
+
+        db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for (TransDataDB trans : lstTrans){
+            values.put(TransDataDB.COL_AMOUNT,trans.getAmount());
+            values.put(TransDataDB.COL_APP_CD,trans.getAppCD());
+            values.put(TransDataDB.COL_BATCH_NO,trans.getBatchNo());
+            values.put(TransDataDB.COL_CARD_BRAND,trans.getCardBrand());
+            values.put(TransDataDB.COL_CARD_HOLDER_NAME,trans.getCardHolderName());
+            values.put(TransDataDB.COL_CARD_NO,trans.getCardNo());
+            values.put(TransDataDB.COL_CARD_TYPE,trans.getCardType());
+            values.put(TransDataDB.COL_DATE,trans.getDate());
+            values.put(TransDataDB.COL_Exp_Date,trans.getExpDate());
+            values.put(TransDataDB.COL_id,trans.getId());
+            values.put(TransDataDB.COL_MID,trans.getMID());
+            values.put(TransDataDB.COL_TIP,trans.getTip());
+            values.put(TransDataDB.COL_ONOFF,trans.getONOFF());
+            values.put(TransDataDB.COL_TRACE_NO,trans.getTraceNo());
+            values.put(TransDataDB.COL_TIME,trans.getTime());
+            values.put(TransDataDB.COL_REFF_NO,trans.getReffNo());
+            values.put(TransDataDB.COL_POS_ENTRY_MODE,trans.getPosEntryMode());
+            values.put(TransDataDB.COL_TID,trans.getTID());
+        }
+
+        db.close();
+    }
+
+    /**
+     * Get all parameter data from table tbTransData
+     * @return merchantInfo
+     */
+    public List<TransDataDB> getTransData() {
+        db = getReadableDatabase();
+        List<TransDataDB> transDatumDBS = new ArrayList<>();
+
+        transDatumDBS.clear();
+
+        Cursor cursor = db.rawQuery("select * from "+ TransDataDB.TABLE_NAME+
+                " order by "+ TransDataDB._ID, null);
+
+        TransDataDB newTransDataDB;
+        try{
+            while (cursor.moveToNext()){
+                newTransDataDB = new TransDataDB( cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5),
+                        cursor.getString(6),
+                        cursor.getString(7),
+                        cursor.getString(8),
+                        cursor.getString(9),
+                        cursor.getString(10),
+                        cursor.getString(11),
+                        cursor.getString(12),
+                        cursor.getString(13),
+                        cursor.getString(14),
+                        cursor.getString(15),
+                        cursor.getString(16),
+                        cursor.getString(17),
+                        cursor.getString(18));
+                transDatumDBS.add(newTransDataDB);
+            }
+        } finally {
+            cursor.close();
+        }
+        db.close();
+        return transDatumDBS;
+
     }
 
     /** INSERT EDC PARAM TO TABLE **/
     public void insertEDCParam(List<EDCParam> lstParam) {
         int i;
-        String paramName, paramVal;
+        String paramCode, paramVal;
         EDCParam param;
         db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         for(i=0; i<lstParam.size(); i++) {
             param = lstParam.get(i);
-            paramName = param.getParamName();
+            paramCode = param.getParamCode();
             paramVal = param.getParamVal();
-            values.put(EDCParam.COL_PARAM_NAME, paramName);
+            values.put(EDCParam.COL_PARAM_CODE, paramCode);
             values.put(EDCParam.COL_PARAM_VAL, paramVal);
 
             db.insert(EDCParam.TABLE_NAME, null, values);
@@ -71,6 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /** DELETE EDC PARAM **/
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void deleteEDCParam() {
         int i, lstSize = 0;
         //EDCParam param;
@@ -80,17 +166,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db = getWritableDatabase();
 
-        for(EDCParam param : newListParam) {
-            db.delete(EDCParam.TABLE_NAME, EDCParam._ID+" = ?",
-                    new String[]{param.getId()});
+        if(lstSize > 0) {
+            newListParam.forEach((param) -> {
+                db.delete(EDCParam.TABLE_NAME, EDCParam._ID+" = ?",
+                        new String[]{param.getId()});
+            });
         }
-
-//        if(lstSize > 0) {
-//            newListParam.forEach((param) -> {
-//                db.delete(EDCParam.TABLE_NAME, EDCParam._ID+" = ?",
-//                        new String[]{param.getId()});
-//            });
-//        }
 
         //db.execSQL(EDCParam.SQL_DELETE);
         db.close();

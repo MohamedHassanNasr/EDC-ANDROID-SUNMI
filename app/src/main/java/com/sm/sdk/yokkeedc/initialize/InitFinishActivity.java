@@ -34,6 +34,7 @@ public class InitFinishActivity extends AppCompatActivity {
     private TextView tvMerchantAddr3;
     private TextView tvTID;
     private TextView tvMID;
+    private TextView tvAID;
 
     private SunmiPrinterService sunmiPrinterService;
 
@@ -67,6 +68,16 @@ public class InitFinishActivity extends AppCompatActivity {
         tvMerchantAddr3 = (TextView) findViewById(R.id.text_merchant_addr_3);
         tvTID = (TextView) findViewById(R.id.text_tid_value);
         tvMID = (TextView) findViewById(R.id.text_mid_value);
+
+        String AidList;
+
+        LinkedHashMap<String, String> mapAidList = new LinkedHashMap<>();
+        Utilities util2 = new Utilities();
+
+
+
+
+        tvAID = (TextView) findViewById(R.id.aidTex);
 
         strMerchantNM = mapMerchantInfo.get("Site name").toString();
         strMerchantAddr1 = mapMerchantInfo.get("Address 1").toString();
