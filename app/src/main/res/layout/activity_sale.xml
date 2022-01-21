@@ -124,6 +124,18 @@
             android:fontFamily="@font/montserrat_500"
             />
 
+        <Button
+            android:layout_width="312dp"
+            android:layout_height="56dp"
+            android:backgroundTint="@color/yokke"
+            android:layout_gravity="center_horizontal"
+            android:text="CONFIRM"
+            android:textColor="@color/white"
+            android:id="@+id/btn_confirm_pin"
+            android:fontFamily="@font/montserrat_500"
+            android:visibility="gone"
+            />
+
     </LinearLayout>
 
     <ImageView

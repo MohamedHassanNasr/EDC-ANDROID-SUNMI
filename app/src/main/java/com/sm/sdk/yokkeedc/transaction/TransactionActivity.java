@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sm.sdk.yokkeedc.MainActivity;
 import com.sm.sdk.yokkeedc.R;
 import com.sm.sdk.yokkeedc.initialize.InitializeActivity;
+import com.sm.sdk.yokkeedc.transaction.print.PrintActivity;
 import com.sm.sdk.yokkeedc.transaction.sale.SaleActivity;
 import com.sm.sdk.yokkeedc.utils.Constant;
 import com.sunmi.pay.hardware.aidlv2.AidlConstantsV2;
@@ -63,6 +64,15 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TransactionActivity.this, SaleActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        CardView btnVoid = (CardView) findViewById(R.id.btn_void);
+        btnVoid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TransactionActivity.this, VoidActivity.class);
                 startActivity(intent);
             }
         });

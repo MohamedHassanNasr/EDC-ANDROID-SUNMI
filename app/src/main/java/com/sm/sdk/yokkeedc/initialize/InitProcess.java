@@ -1,11 +1,7 @@
 package com.sm.sdk.yokkeedc.initialize;
 
 import android.content.Context;
-import android.os.Build;
 
-import androidx.annotation.RequiresApi;
-
-import com.sm.sdk.yokkeedc.database.DatabaseHelper;
 import com.sm.sdk.yokkeedc.models.EDCParam;
 
 import org.json.JSONArray;
@@ -38,9 +34,9 @@ public class InitProcess {
         String keyObj, paramVal, strTID, strMID;
         EDCParam edcParam;
         List<EDCParam> lstEdcParam = new ArrayList<>();
-        DatabaseHelper dbHelper = new DatabaseHelper(context);
-
-        dbHelper.deleteEDCParam();
+//        DatabaseHelper dbHelper = new DatabaseHelper(context);
+//
+//        dbHelper.deleteEDCParam();
 
         try {
             set();
@@ -55,7 +51,7 @@ public class InitProcess {
                 }
             }
 
-            dbHelper.insertEDCParam(lstEdcParam);
+            //dbHelper.insertEDCParam(lstEdcParam);
 
             deleteObj();
             iRet = 1;

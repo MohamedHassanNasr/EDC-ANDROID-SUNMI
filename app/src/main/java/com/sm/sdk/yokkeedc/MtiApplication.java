@@ -11,6 +11,12 @@ import android.widget.Toast;
 
 import com.pax.dal.IDAL;
 import com.pax.neptunelite.api.NeptuneLiteUser;
+import com.sm.sdk.yokkeedc.database.BatchRecordDB;
+import com.sm.sdk.yokkeedc.database.TransDataDB;
+import com.sm.sdk.yokkeedc.database.TransParamDB;
+import com.sm.sdk.yokkeedc.isopacker.IPacker;
+import com.sm.sdk.yokkeedc.isopacker.Packer;
+import com.sm.sdk.yokkeedc.transaction.TransParam;
 import com.sm.sdk.yokkeedc.utils.CacheHelper;
 import com.sm.sdk.yokkeedc.utils.Constant;
 import com.sunmi.pay.hardware.aidlv2.emv.EMVOptV2;
@@ -43,25 +49,41 @@ public class MtiApplication extends Application {
     public ETCOptV2 etcOptV2;               // 获取ETC操作模块
     public PrinterOptV2 printerOptV2;       // 获取打印操作模块
     public SunmiPrinterService sunmiPrinterService;
-    //public IScanInterface scanInterface;
+//    public IScanInterface scanInterface;
     private boolean connectPaySDK;//是否已连接PaySDK
     private static Handler handler;
+    private static IPacker packer;
+    private static TransParamDB transParamDB;
+    private static TransParam transParam;
+    private static BatchRecordDB batchRecordDB;
 
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
-        initLocaleLanguage();
+
         bindPaySDKService();
         bindPrintService();
         init();
+
         //bindScannerService();
     }
 
     public static void init() {
-        handler = new Handler();
-        //packer = Packer.getInstance(app).getPacker();
+        initLocaleLanguage();
+        initISOPackager();
+        initDatabase();
+    }
 
+    public static void initISOPackager() {
+        handler = new Handler();
+        packer = Packer.getInstance(app).getPacker();
+
+    }
+
+    public static void initDatabase() {
+        transParamDB = TransParamDB.getInstance();
+        batchRecordDB = BatchRecordDB.getInstance();
     }
 
     public static void initLocaleLanguage() {
@@ -94,6 +116,12 @@ public class MtiApplication extends Application {
     public boolean isConnectPaySDK() {
         return connectPaySDK;
     }
+
+    public static MtiApplication getInstance() {
+        return app;
+    }
+
+    Context context;
 
     /** bind PaySDK service */
     public void bindPaySDKService() {
@@ -151,6 +179,17 @@ public class MtiApplication extends Application {
         } catch (InnerPrinterException e) {
             e.printStackTrace();
         }
+    }
+
+    public static IPacker getPacker() {
+        return packer;
+    }
+
+    public static TransParamDB getTransParamDBHelper() {
+        return transParamDB;
+    }
+    public static BatchRecordDB getBatchRecordDBHelper() {
+        return batchRecordDB;
     }
 
     /** bind scanner service */

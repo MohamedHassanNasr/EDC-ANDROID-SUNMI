@@ -1,9 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".transaction.VoidActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rectangle"
+        android:layout_marginTop="140dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etTrace"
+            android:layout_width="311dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginStart="30dp"
+            android:paddingStart="20dp"
+            android:background="@drawable/rounded_et"
+            android:fontFamily="@font/montserrat_500"
+            android:hint="No Trace"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/btn_okTrace"
+            android:layout_width="311dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etTrace"
+            android:backgroundTint="@color/yokke"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/montserrat_500"
+            android:text="OK"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imgCard"
+        android:layout_width="312dp"
+        android:layout_height="168dp"
+        android:layout_marginTop="47dp"
+        android:src="@drawable/card"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/tvVoid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Void"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvCardNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:fontFamily="@font/montserrat_500"
+        android:text="@string/print_num_card"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tvExpDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:fontFamily="@font/montserrat_500"
+        android:textSize="18sp"
+        android:text="22/02"
+        android:layout_marginStart="80dp"
+        android:textColor="@color/white"
+        android:visibility="gone"/>
+
+</FrameLayout>

@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation files('libs\\PaxGLPacker_V1.00.07_20170808.jar')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -48,4 +49,8 @@ dependencies {
     implementation 'com.sunmi:printerlibrary:1.0.7'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-android
+    implementation 'com.j256.ormlite:ormlite-android:6.1'
+    // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-core
+    //implementation 'com.j256.ormlite:ormlite-core:6.1'
 }

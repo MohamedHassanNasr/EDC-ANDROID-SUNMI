@@ -8,6 +8,9 @@ import com.pax.gl.pack.IIso8583;
 import com.pax.gl.pack.exception.Iso8583Exception;
 import com.sm.sdk.yokkeedc.MtiApplication;
 import com.sm.sdk.yokkeedc.transaction.TransData;
+import com.sm.sdk.yokkeedc.utils.FieldConstant;
+import com.sm.sdk.yokkeedc.utils.TransConstant;
+import com.sm.sdk.yokkeedc.utils.Utility;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -72,7 +75,7 @@ public abstract class PackIso8583 {
         return "".getBytes();
     }
 
-    public int unpack(byte[] rsp) {
+    public HashMap<String, byte[]> unpack(byte[] rsp) {
 
         HashMap<String, byte[]> map;
         try {
@@ -81,11 +84,39 @@ public abstract class PackIso8583 {
 
         } catch (Iso8583Exception e) {
             Log.e(TAG, "", e);
-            return 1;
+            return null;
         }
 
         byte[] header = map.get("h");
-        return 0;
+        return map;
+    }
+
+    protected void setMandatoryData(TransData transData) {
+        //widya set temp data
+        try {
+            entity.setFieldValue(FieldConstant.MESSAGE_HEADER, "6000910085"); //tpdu
+            entity.setFieldValue(FieldConstant.MESSAGE_TYPE,"0200");//mti
+            entity.setFieldValue(FieldConstant.BIT_PROCESSING_CODE,transData.getProcCode()); //procode
+            entity.setFieldValue(FieldConstant.BIT_SYSTEM_TRACE_AUDIT_NUMBER, Utility.getTraceNum()); //stan
+            entity.setFieldValue(FieldConstant.BIT_NETWORK_INTERNATIONAL_IDENTIFIER,"107"); //nii
+
+        } catch (Iso8583Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    protected void setFinancialData(TransData transData) {
+        try {
+
+            entity.setFieldValue("4", transData.getAmount() + "00"); //amount
+            entity.setFieldValue("41", "73003495"); //tid
+            entity.setFieldValue("42", "000071000243621"); //mid
+        } catch (Iso8583Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @NonNull

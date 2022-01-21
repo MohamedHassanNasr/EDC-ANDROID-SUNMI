@@ -15,6 +15,7 @@
     <string name="void_icon">Void</string>
     <string name="settlement_icon">Settlement</string>
     <string name="initialize_btn">Initialize This Device</string>
+    <string name="card_cost_hint">Please input correct cost amount</string>
 
     <string name="mid">MID</string>
     <string name="tid">TID</string>
@@ -44,5 +45,19 @@
     <string name="num_delete_str">&#8592;</string>
     <string name="num_cancel_str">&#215;</string>
     <string name="num_ok_str">OK</string>
+
+    <string name="please_card">Please Dip / Swipe / Tap your Card</string>
+    <string name="print_id">Test Android Yokke \n MCC \n Jakarta</string>
+    <string name="print_num_card">**** ***** ***** 0285</string>
+    <string name="print_tid">TID:73011233</string>
+    <string name="print_mid">MID:7100243621</string>
+    <string name="print_sale">sale</string>
+    <string name="print_batch">batch:000002</string>
+    <string name="print_trace">trace No:000118</string>
+    <string name="print_date">date:22/11/2021</string>
+    <string name="print_time">Time:14:20:22</string>
+    <string name="print_reffNo">Reff No:132614584851</string>
+    <string name="print_appr">appr code:062981</string>
+    <string name="print_signature">NO SIGNATURE REQUIRED \n ** MERCHANT COPY **</string>
 
 </resources>

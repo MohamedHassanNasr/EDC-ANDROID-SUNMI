@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,23 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sm.sdk.yokkeedc.MainActivity;
-import com.sm.sdk.yokkeedc.MtiApplication;
 import com.sm.sdk.yokkeedc.R;
-import com.sm.sdk.yokkeedc.database.DatabaseHelper;
-import com.sm.sdk.yokkeedc.models.EDCParam;
-import com.sm.sdk.yokkeedc.models.EMVTag;
 import com.sm.sdk.yokkeedc.transaction.TransactionActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class InitializeActivity extends AppCompatActivity{
     @Override

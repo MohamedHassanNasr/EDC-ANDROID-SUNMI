@@ -1,6 +1,8 @@
 package com.sm.sdk.yokkeedc.transaction.sale;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -23,13 +25,19 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.sm.sdk.yokkeedc.MtiApplication;
 import com.sm.sdk.yokkeedc.R;
 import com.sm.sdk.yokkeedc.card.wrapper.CheckCardCallbackV2Wrapper;
+import com.sm.sdk.yokkeedc.comm.CommProcess;
 import com.sm.sdk.yokkeedc.emv.TLV;
 import com.sm.sdk.yokkeedc.emv.TLVUtil;
+import com.sm.sdk.yokkeedc.isopacker.PackIso8583;
+import com.sm.sdk.yokkeedc.transaction.BatchRecord;
 import com.sm.sdk.yokkeedc.transaction.TransData;
 import com.sm.sdk.yokkeedc.transaction.TransactionActivity;
+import com.sm.sdk.yokkeedc.transaction.print.PrintActivity;
 import com.sm.sdk.yokkeedc.utils.ByteUtil;
 import com.sm.sdk.yokkeedc.utils.Constant;
 import com.sm.sdk.yokkeedc.utils.CurrencyConverter;
+import com.sm.sdk.yokkeedc.utils.Tools;
+import com.sm.sdk.yokkeedc.utils.TransConstant;
 import com.sm.sdk.yokkeedc.utils.Utility;
 import com.sm.sdk.yokkeedc.view.DigitKeyboard;
 import com.sm.sdk.yokkeedc.view.EditorActionListener;
@@ -40,6 +48,7 @@ import com.sunmi.pay.hardware.aidlv2.AidlConstantsV2;
 import com.sunmi.pay.hardware.aidlv2.AidlErrorCodeV2;
 import com.sunmi.pay.hardware.aidlv2.bean.EMVCandidateV2;
 import com.sunmi.pay.hardware.aidlv2.bean.PinPadConfigV2;
+import com.sunmi.pay.hardware.aidlv2.bean.PinPadTextConfigV2;
 import com.sunmi.pay.hardware.aidlv2.emv.EMVListenerV2;
 import com.sunmi.pay.hardware.aidlv2.emv.EMVOptV2;
 import com.sunmi.pay.hardware.aidlv2.pinpad.PinPadListenerV2;
@@ -47,6 +56,7 @@ import com.sunmi.pay.hardware.aidlv2.pinpad.PinPadOptV2;
 import com.sunmi.pay.hardware.aidlv2.readcard.CheckCardCallbackV2;
 import com.sunmi.pay.hardware.aidlv2.readcard.ReadCardOptV2;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -65,7 +75,10 @@ public class SaleActivity extends AppCompatActivity{
     //AppCompatActivity -> dari android
     //BaseAppCompatActivity -> dari sunmi
 
-    //variable from sdk sunmi
+    /**
+     * variable from sdk sunmi
+     */
+
     private EMVOptV2 mEMVOptV2;
     private PinPadOptV2 mPinPadOptV2;
     private ReadCardOptV2 mReadCardOptV2;
@@ -96,10 +109,16 @@ public class SaleActivity extends AppCompatActivity{
 
     private final Map<String, Long> timeMap = new LinkedHashMap<>();
     private final Handler handler = new Handler();
+    private ProgressDialog progressDialog;
+
+    /**
+     * Variable Made In
+     */
 
     TransData transData = new TransData();
 
-    Button btnContinue, btnConfirm, btnCancel;
+
+    Button btnContinue, btnConfirm, btnCancel, btnConfirmPin;
     private EditText etAmount, pinInputText;
     TextView pleaseDip, tapYourCard, tvCardNo, tvExpDate, enterAmount, tvAmount, tvTotalAmount, tvEnterPin;
     private View digitKeyboard;
@@ -110,10 +129,17 @@ public class SaleActivity extends AppCompatActivity{
     public String tempAmount            = "";
     public String tempCardHolderName    = "";
     public String cardType              = "";
+    public String tempTag55             = "";
+    public String tempTrack2Data        = "";
+    public String tempCardSeqNo         = "";
+    private String amount = "";
+    private long parseLong = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        transData.setTransactionType(TransConstant.TRANS_TYPE_SALE);
+        transData.setProcCode(TransConstant.PROCODE_SALE);
         setContentView(R.layout.activity_sale);
         initView();
     }
@@ -154,6 +180,7 @@ public class SaleActivity extends AppCompatActivity{
         tvTotalAmount   = findViewById(R.id.tvTotalAmount);
         tvEnterPin      = findViewById(R.id.tvEnterPin);
         pinInputText    = findViewById(R.id.pin_input_text);
+        btnConfirmPin   = findViewById(R.id.btn_confirm_pin);
 
         transData.setCardNo("");
         transData.setExpDate("");
@@ -162,16 +189,26 @@ public class SaleActivity extends AppCompatActivity{
         EditorActionListener editorActionListener = new EditorActionListener() {
             @Override
             protected void onKeyOk(TextView view) {
-                Log.i("TAG", "onKeyOk: " + view.getId() + ",amount str:" + CurrencyConverter.parse(etAmount.getText().toString()));
-                Log.i("TAG", "trans amount:" + etAmount.getText().toString() + ",other amount:" );
-                digitKeyboard.setVisibility(View.INVISIBLE);
-                enterAmount.setText("Amount :");
+                amount = String.valueOf(CurrencyConverter.parse(etAmount.getText().toString()));
+                parseLong = Long.parseLong(amount);
+                if (parseLong > 0){
+                    digitKeyboard.setVisibility(View.INVISIBLE);
+                    enterAmount.setText("Amount :");
+                }else if (parseLong <= 0){
+                    Toast toast = Toast.makeText(SaleActivity.this, R.string.card_cost_hint, Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
             }
         };
 
         EnterAmountTextWatcher enterAmountTextWatcher = new EnterAmountTextWatcher();
         etAmount.setOnEditorActionListener(editorActionListener);
         etAmount.addTextChangedListener(enterAmountTextWatcher);
+
+        /**
+         * Action When Press Button
+         */
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,10 +221,11 @@ public class SaleActivity extends AppCompatActivity{
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
-                overridePendingTransition(0,0);
+                //startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
                 timeMap.clear();
                 onDestroy();
+                Intent intent = new Intent(SaleActivity.this, TransactionActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -199,22 +237,33 @@ public class SaleActivity extends AppCompatActivity{
                 tvTotalAmount.setVisibility(View.VISIBLE);
                 tvAmount.setVisibility(View.VISIBLE);
                 tvAmount.setText(etAmount.getText().toString());
-                pinInputText.setVisibility(View.VISIBLE);
-                tvEnterPin.setVisibility(View.VISIBLE);
+                pinInputText.setVisibility(View.GONE);
+                tvEnterPin.setVisibility(View.GONE);
                 btnCancel.setVisibility(View.GONE);
                 btnConfirm.setVisibility(View.GONE);
+                btnConfirmPin.setVisibility(View.GONE);
 
                 transData.setAmount(tempAmount);
                 transData.setCardHolderName(tempCardHolderName);
                 transData.setCardNo(tempCardNo);
                 transData.setExpDate(tempExpDate);
+
+                transData.setTrack2Data(tempTrack2Data);
+                transData.setCardSeqNo(Tools.paddingLeft(tempCardSeqNo,'0',4));
+                importCardNoStatus(0);
             }
         });
+
+
+
     }
+
+    /**
+     * Start EMV Process
+     */
 
     private void emvProcess(){
         if (mProcessStep == 0) {
-            String amount = String.valueOf(CurrencyConverter.parse(etAmount.getText().toString()));
             tempAmount    = amount;
             try {
                 // Before check card, initialize emv process(clear all TLV)
@@ -223,24 +272,18 @@ public class SaleActivity extends AppCompatActivity{
                 timeMap.put("initEmvProcess", System.currentTimeMillis());
                 mEMVOptV2.initEmvProcess();
                 initEmvTlvData();
-                long parseLong = Long.parseLong(amount);
                 LogUtil.i("TAG", String.valueOf(parseLong));
-                if (parseLong > 0) {
-                    checkCard();
-                } else {
-                    //showToast(R.string.card_cost_hint);
-                }
+                checkCard();
+
             } catch (Exception e) {
                 e.printStackTrace();
-                //showToast(R.string.card_cost_hint);
+                Toast toast = Toast.makeText(SaleActivity.this, R.string.card_cost_hint, Toast.LENGTH_LONG);
+                toast.show();
             }
         }
         else if (mProcessStep == EMV_CONFIRM_CARD_NO) {
-            //showLoadingDialog(R.string.handling);
             importCardNoStatus(0);
-            //tvCardNo.setText(mCardNo);
         } else if (mProcessStep == EMV_CERT_VERIFY) {
-            //showLoadingDialog(R.string.handling);
             importCertStatus(0);
         }
     }
@@ -251,16 +294,6 @@ public class SaleActivity extends AppCompatActivity{
             importAppSelect(-1);
         } else if (mProcessStep == EMV_FINAL_APP_SELECT) {
             importFinalAppSelectStatus(-1);
-        } else if (mProcessStep == EMV_CONFIRM_CARD_NO) {
-            importCardNoStatus(1);
-        } else if (mProcessStep == EMV_CERT_VERIFY) {
-            importCertStatus(1);
-        } else if (mProcessStep == PIN_ERROR) {
-            importPinInputStatus(3);
-        } else if (mProcessStep == EMV_ONLINE_PROCESS) {
-            importOnlineProcessStatus(1);
-        } else if (mProcessStep == EMV_SIGNATURE) {
-            importSignatureStatus(1);
         }
         super.onBackPressed();
     }
@@ -300,10 +333,15 @@ public class SaleActivity extends AppCompatActivity{
      */
     private void importCardNoStatus(int status) {
         LogUtil.e(Constant.TAG, "importCardNoStatus status:" + status);
-        try {
-            mEMVOptV2.importCardNoStatus(status);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (cardType.equals("Dip")){
+            try {
+                mEMVOptV2.importCardNoStatus(status);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (cardType.equals("Swipe")){
+            mProcessStep = EMV_SHOW_PIN_PAD;
+            mHandler.obtainMessage(EMV_SHOW_PIN_PAD).sendToTarget();
         }
     }
 
@@ -403,8 +441,6 @@ public class SaleActivity extends AppCompatActivity{
     private void checkCard() {
         try {
             timeMap.put("checkCard", System.currentTimeMillis());
-            //showLoadingDialog(R.string.emv_swing_card_ic);
-            //actionAfterInputAmount();
             int cardType = AidlConstantsV2.CardType.MAGNETIC.getValue() | AidlConstantsV2.CardType.NFC.getValue() | AidlConstantsV2.CardType.IC.getValue();
             LogUtil.i("tag","process before");
             mReadCardOptV2.checkCard(cardType, mCheckCardCallback, 60);
@@ -415,7 +451,7 @@ public class SaleActivity extends AppCompatActivity{
     }
 
     /**
-     * Check card callback
+     * Check card callback when EMV Process
      */
     private CheckCardCallbackV2 mCheckCardCallback = new CheckCardCallbackV2Wrapper() {
 
@@ -423,6 +459,8 @@ public class SaleActivity extends AppCompatActivity{
         public void findMagCard(Bundle bundle) throws RemoteException {
             timeMap.put("findMagCard", System.currentTimeMillis());
             LogUtil.e(Constant.TAG, "findMagCard:" + bundle);
+            mCardType = AidlConstantsV2.CardType.MAGNETIC.getValue();
+            transData.setEnterMode(TransData.EnterMode.SWIPE);
             handleResult(bundle);
         }
 
@@ -433,6 +471,7 @@ public class SaleActivity extends AppCompatActivity{
             //IC card Beep buzzer when check card success
             MtiApplication.app.basicOptV2.buzzerOnDevice(1, 2750, 200, 0);
             mCardType = AidlConstantsV2.CardType.IC.getValue();
+            transData.setEnterMode(TransData.EnterMode.INSERT);
             transactProcess();
         }
 
@@ -455,10 +494,15 @@ public class SaleActivity extends AppCompatActivity{
             overridePendingTransition(0,0);
             timeMap.clear();
         }
+
+        @Override
+        public void onErrorEx(Bundle info) throws RemoteException {
+            super.onErrorEx(info);
+        }
     };
 
-    /*
-        Function for get Magnetic Card Info
+    /**
+     * Function for get Magnetic Card Info
      */
     private void handleResult(Bundle bundle) {
         if (isFinishing()) {
@@ -476,6 +520,7 @@ public class SaleActivity extends AppCompatActivity{
             tempCardNo              = mCardNo;
             tempExpDate             = Utility.getExpDate(track2);
             tempCardHolderName      = Utility.getHolderName(track1);
+            tempTrack2Data          = track2;
 
             int code1 = bundle.getInt("track1ErrorCode");
             int code2 = bundle.getInt("track2ErrorCode");
@@ -484,14 +529,12 @@ public class SaleActivity extends AppCompatActivity{
                     "track1ErrorCode:%d,track1:%s\ntrack2ErrorCode:%d,track2:%s\ntrack3ErrorCode:%d,track3:%s",
                     code1, track1, code2, track2, code3, track3));
             if ((code1 != 0 && code1 != -1) || (code2 != 0 && code2 != -1) || (code3 != 0 && code3 != -1)) {
-                //showResult(false, track1, track2, track3);
                 cardType = "Swipe";
                 mProcessStep = EMV_CONFIRM_CARD_NO;
                 mHandler.obtainMessage(EMV_CONFIRM_CARD_NO).sendToTarget();
             } else {
                 //showResult(true, track1, track2, track3);
             }
-            // 继续检卡
             if (!isFinishing()) {
                 handler.postDelayed(this::checkCard, 500);
             }
@@ -509,19 +552,13 @@ public class SaleActivity extends AppCompatActivity{
             Bundle bundle = new Bundle();
             bundle.putString("amount", String.valueOf(CurrencyConverter.parse(etAmount.getText().toString())));
             bundle.putString("transType", "00");
-            //flowType:0x01-emv standard, 0x04：NFC-Speedup
-            //Note:(1) flowType=0x04 only valid for QPBOC,PayPass,PayWave contactless transaction
-            //     (2) set fowType=0x04, only EMVListenerV2.onRequestShowPinPad(),
-            //         EMVListenerV2.onCardDataExchangeComplete() and EMVListenerV2.onTransResult() may will be called.
-            if (mCardType == AidlConstantsV2.CardType.NFC.getValue()) {
-                bundle.putInt("flowType", AidlConstantsV2.EMV.FlowType.TYPE_NFC_SPEEDUP);
-            } else {
-                bundle.putInt("flowType", AidlConstantsV2.EMV.FlowType.TYPE_EMV_STANDARD);
-            }
-            bundle.putInt("cardType", mCardType);
-//            bundle.putBoolean("preProcessCompleted", false);
-//            bundle.putInt("emvAuthLevel", 0);
-            mEMVOptV2.transactProcessEx(bundle, mEMVListener);
+           if (mCardType == AidlConstantsV2.CardType.NFC.getValue()) {
+               bundle.putInt("flowType", AidlConstantsV2.EMV.FlowType.TYPE_NFC_SPEEDUP);
+           } else {
+               bundle.putInt("flowType", AidlConstantsV2.EMV.FlowType.TYPE_EMV_STANDARD);
+           }
+           bundle.putInt("cardType", mCardType);
+           mEMVOptV2.transactProcessEx(bundle, mEMVListener);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -531,14 +568,6 @@ public class SaleActivity extends AppCompatActivity{
      * EMV process callback
      */
     private final EMVListenerV2 mEMVListener = new EMVListenerV2.Stub() {
-        /**
-         * Notify client to do multi App selection, this method may called when card have more than one Application
-         * <br/> For Contactless and flowType set as AidlConstants.FlowType.TYPE_NFC_SPEEDUP, this
-         * method will not be called
-         *
-         * @param appNameList   The App list for selection
-         * @param isFirstSelect is first time selection
-         */
         @Override
         public void onWaitAppSelect(List<EMVCandidateV2> appNameList, boolean isFirstSelect) throws RemoteException {
             timeMap.put("onWaitAppSelect", System.currentTimeMillis());
@@ -548,13 +577,6 @@ public class SaleActivity extends AppCompatActivity{
             mHandler.obtainMessage(EMV_APP_SELECT, candidateNames).sendToTarget();
         }
 
-        /**
-         * Notify client the final selected Application
-         * <br/> For Contactless and flowType set as AidlConstants.FlowType.TYPE_NFC_SPEEDUP, this
-         * method will not be called
-         *
-         * @param tag9F06Value The final selected Application id
-         */
         @Override
         public void onAppFinalSelect(String tag9F06Value) throws RemoteException {
             timeMap.put("onAppFinalSelect_start", System.currentTimeMillis());
@@ -598,13 +620,6 @@ public class SaleActivity extends AppCompatActivity{
             timeMap.put("onAppFinalSelect_end", System.currentTimeMillis());
         }
 
-        /**
-         * Notify client to confirm card number
-         * <br/> For Contactless and flowType set as AidlConstants.FlowType.TYPE_NFC_SPEEDUP, this
-         * method will not be called
-         *
-         * @param cardNo The card number
-         */
         @Override
         public void onConfirmCardNo(String cardNo) throws RemoteException {
             timeMap.put("onConfirmCardNo", System.currentTimeMillis());
@@ -613,17 +628,8 @@ public class SaleActivity extends AppCompatActivity{
             cardType     = "Dip" ;
             mProcessStep = EMV_CONFIRM_CARD_NO;
             mHandler.obtainMessage(EMV_CONFIRM_CARD_NO).sendToTarget();
-//            importCardNoStatus(0);
         }
 
-        /**
-         * Notify client to input PIN
-         *
-         * @param pinType    The PIN type, 0-online PIN，1-offline PIN
-         * @param remainTime The the remain retry times of offline PIN, for online PIN, this param
-         *                   value is always -1, and if this is the first time to input PIN, value
-         *                   is -1 too.
-         */
         @Override
         public void onRequestShowPinPad(int pinType, int remainTime) throws RemoteException {
             timeMap.put("onRequestShowPinPad", System.currentTimeMillis());
@@ -717,6 +723,7 @@ public class SaleActivity extends AppCompatActivity{
             showStepTimestamp();
             if (mCardNo == null) {
                 mCardNo = getCardNo();
+                getCardInfo();
             }
             LogUtil.e(Constant.TAG, "onTransResult code:" + code + " desc:" + desc);
             LogUtil.e(Constant.TAG, "***************************************************************");
@@ -835,13 +842,14 @@ public class SaleActivity extends AppCompatActivity{
             expiryDate = track_2.substring(index + 1, index + 5);
         }
         String serviceCode = "";
-        if (track_2.length() > index + 8) {
-            serviceCode = track_2.substring(index + 5, index + 8);
-        }
+//        if (track_2.length() > index + 8) {
+//            serviceCode = track_2.substring(index + 5, index + 8);
+//        }
         LogUtil.e(Constant.TAG, "cardNumber:" + cardNumber + " expireDate:" + expiryDate + " serviceCode:" + serviceCode);
         cardInfo.cardNo = cardNumber;
         cardInfo.expireDate = expiryDate;
         cardInfo.serviceCode = serviceCode;
+        cardInfo.track2     =   track_2;
         return cardInfo;
     }
     /*
@@ -893,6 +901,33 @@ public class SaleActivity extends AppCompatActivity{
         return "";
     }
 
+    private String getCardInfo() {
+        LogUtil.e(Constant.TAG, "getCardNo");
+        try {
+            String[] tagList = {"57", "5A"};
+            byte[] outData = new byte[256];
+            int len = mEMVOptV2.getTlvList(AidlConstantsV2.EMV.TLVOpCode.OP_NORMAL, tagList, outData);
+            if (len <= 0) {
+                LogUtil.e(Constant.TAG, "getCardNo error,code:" + len);
+                return null;
+            }
+            byte[] bytes = Arrays.copyOf(outData, len);
+            Map<String, TLV> tlvMap = TLVUtil.buildTLVMap(bytes);
+            if (!TextUtils.isEmpty(Objects.requireNonNull(tlvMap.get("57")).getValue())) {
+                TLV tlv57 = tlvMap.get("57");
+                CardInfo cardInfo = parseTrack2(tlv57.getValue());
+
+                String trackDua = cardInfo.track2;
+                LogUtil.i("TAG",trackDua);
+                return cardInfo.track2;
+            }
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * remove characters not number,=,D
      */
@@ -909,8 +944,35 @@ public class SaleActivity extends AppCompatActivity{
         LogUtil.e(Constant.TAG, "initPinPad");
         try {
             PinPadConfigV2 pinPadConfig = new PinPadConfigV2();
+            PinPadTextConfigV2 textConfigV2 = new PinPadTextConfigV2();
+
+            textConfigV2.confirm = "INPUT PIN";
+            textConfigV2.inputPin = "INPUT PIN";
+            MtiApplication.app.pinPadOptV2.setPinPadText(textConfigV2);
+
             pinPadConfig.setPinPadType(0);
             pinPadConfig.setPinType(mPinType);
+            pinPadConfig.setOrderNumKey(true);
+            byte[] panBytes = mCardNo.substring(mCardNo.length() - 13, mCardNo.length() - 1).getBytes("US-ASCII");
+            pinPadConfig.setPan(panBytes);
+            pinPadConfig.setTimeout(60 * 1000); // input password timeout
+            pinPadConfig.setPinKeyIndex(12);    // pik index
+            pinPadConfig.setMaxInput(6);
+            pinPadConfig.setMinInput(0);
+            pinPadConfig.setKeySystem(0);
+            pinPadConfig.setAlgorithmType(0);
+            mPinPadOptV2.initPinPad(pinPadConfig, mPinPadListener);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initPinPadMag() {
+        LogUtil.e(Constant.TAG, "initPinPadMag");
+        try {
+            PinPadConfigV2 pinPadConfig = new PinPadConfigV2();
+            pinPadConfig.setPinPadType(0);
+            pinPadConfig.setPinType(0);
             pinPadConfig.setOrderNumKey(false);
             byte[] panBytes = mCardNo.substring(mCardNo.length() - 13, mCardNo.length() - 1).getBytes("US-ASCII");
             pinPadConfig.setPan(panBytes);
@@ -918,8 +980,6 @@ public class SaleActivity extends AppCompatActivity{
             pinPadConfig.setPinKeyIndex(12);    // pik index
             pinPadConfig.setMaxInput(12);
             pinPadConfig.setMinInput(0);
-            pinPadConfig.setKeySystem(0);
-            pinPadConfig.setAlgorithmType(0);
             mPinPadOptV2.initPinPad(pinPadConfig, mPinPadListener);
         } catch (Exception e) {
             e.printStackTrace();
@@ -971,89 +1031,101 @@ public class SaleActivity extends AppCompatActivity{
      * client should connect to a really POSP at this step.
      */
     private void mockRequestToServer() {
-        new Thread(() -> {
-            try {
-                //showLoadingDialog(R.string.requesting);
-                if (AidlConstantsV2.CardType.MAGNETIC.getValue() != mCardType) {
-                    getTlvData();
-                }
-                Thread.sleep(1500);
-                // notice  ==  import the online result to SDK and end the process.
-                importOnlineProcessStatus(0);
-            } catch (Exception e) {
-                e.printStackTrace();
-                importOnlineProcessStatus(-1);
-            } finally {
-                //dismissLoadingDialog();
+//        new Thread(() -> {
+//
+//        }).start();
+
+        try {
+            //showLoadingDialog(R.string.requesting);
+            if (AidlConstantsV2.CardType.MAGNETIC.getValue() != mCardType) {
+//                    getTlvData();
+                tempTag55           = getTlvData();
+                transData.setICCData(tempTag55);
+                progressDialog = new ProgressDialog(SaleActivity.this);
+                progressDialog.setMessage("Connect to server ...");
+                progressDialog.setTitle("Send Receive Message");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                progressDialog.setCancelable(false);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            //Thread.sleep(3000);
+                            AsyncTask task =  new CommProcess(transData);
+                            task.execute();
+                            synchronized (task){
+                                task.wait();
+                            }
+                            String rcCode = transData.getResponseCode();
+                            if (rcCode == null || !rcCode.equals("00")){
+                                returnFailed();
+                            }else{
+                                importOnlineProcessStatus(0);
+                                BatchRecord batchRecord = new BatchRecord(transData);
+                                Utility.saveTransactionToDb(batchRecord);
+                                Intent intent = new Intent(SaleActivity.this, PrintActivity.class);
+                                intent.putExtra(PrintActivity.EXTRA_TRANS,transData);
+                                startActivity(intent);
+                            }
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                    }
+                }).start();
+                //new CommProcess(this::afterCommProcess, transData).execute();
             }
-        }).start();
+            else if (AidlConstantsV2.CardType.MAGNETIC.getValue() == mCardType){
+                //new CommProcess(this::afterCommProcess, transData).execute();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            importOnlineProcessStatus(-1);
+        } finally {
+            //dismissLoadingDialog();
+        }
+    }
+
+    public void returnFailed(){
+        importOnlineProcessStatus(-1);
+        //showToast
+//        Toast toast = Toast.makeText(SaleActivity.this,"Transaction Failed", Toast.LENGTH_LONG);
+//        toast.show();
+        startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
+        checkAndRemoveCard();
+        //back to main menu
+
     }
 
     /**
      * Read we interested tlv data
      */
-    private void getTlvData() {
+    private String getTlvData() {
+        String hexStr = "";
         try {
             String[] tagList = {
-                    "DF02", "5F34", "9F06", "FF30", "FF31", "95", "9B", "9F36", "9F26",
-                    "9F27", "DF31", "5A", "57", "5F24", "9F1A", "9F33", "9F35", "9F40",
-                    "9F03", "9F10", "9F37", "9C", "9A", "9F02", "5F2A", "82", "9F34", "9F1E",
-                    "84", "4F", "9F66", "9F6C", "9F09", "9F41", "9F63", "5F20", "9F12", "50",
+                    "9F27", "9F26", "95", "9F34", "9F02", "9F03", "5F2A", "9A",
+                    "9F37", "82", "84", "9F10", "9F36", "9C", "9F1A", "9F33",
+                    "9F35", "9F1E",
             };
             byte[] outData = new byte[2048];
             Map<String, TLV> map = new TreeMap<>();
             int tlvOpCode;
-            if (AidlConstantsV2.CardType.NFC.getValue() == mCardType) {
-                if (mAppSelect == 2) {
-                    tlvOpCode = AidlConstantsV2.EMV.TLVOpCode.OP_PAYPASS;
-                } else if (mAppSelect == 1) {
-                    tlvOpCode = AidlConstantsV2.EMV.TLVOpCode.OP_PAYWAVE;
-                } else {
-                    tlvOpCode = AidlConstantsV2.EMV.TLVOpCode.OP_NORMAL;
-                }
-            } else {
-                tlvOpCode = AidlConstantsV2.EMV.TLVOpCode.OP_NORMAL;
-            }
+            tlvOpCode = AidlConstantsV2.EMV.TLVOpCode.OP_NORMAL;
             int len = mEMVOptV2.getTlvList(tlvOpCode, tagList, outData);
             if (len > 0) {
                 byte[] bytes = Arrays.copyOf(outData, len);
-                String hexStr = ByteUtil.bytes2HexStr(bytes);
+                hexStr = ByteUtil.bytes2HexStr(bytes);
                 Map<String, TLV> tlvMap = TLVUtil.buildTLVMap(hexStr);
                 map.putAll(tlvMap);
             }
-
-            // payPassTags
-            String[] payPassTags = {
-                    "DF811E", "DF812C", "DF8118", "DF8119", "DF811F", "DF8117", "DF8124",
-                    "DF8125", "9F6D", "DF811B", "9F53", "DF810C", "9F1D", "DF8130", "DF812D",
-                    "DF811C", "DF811D", "9F7C",
-            };
-            len = mEMVOptV2.getTlvList(AidlConstantsV2.EMV.TLVOpCode.OP_PAYPASS, payPassTags, outData);
-            if (len > 0) {
-                byte[] bytes = Arrays.copyOf(outData, len);
-                String hexStr = ByteUtil.bytes2HexStr(bytes);
-                Map<String, TLV> tlvMap = TLVUtil.buildTLVMap(hexStr);
-                map.putAll(tlvMap);
-            }
-
-            final StringBuilder sb = new StringBuilder();
-            Set<String> keySet = map.keySet();
-            for (String key : keySet) {
-                TLV tlv = map.get(key);
-                sb.append(key);
-                sb.append(":");
-                if (tlv != null) {
-                    String value = tlv.getValue();
-                    sb.append(value);
-                }
-                sb.append("\n");
-            }
-//            runOnUiThread(
-//                    () -> mTvShowInfo.setText(sb)
-//            );
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return hexStr;
     }
 
     /**
@@ -1204,7 +1276,13 @@ public class SaleActivity extends AppCompatActivity{
                     importPinInputStatus(0);
                     break;
                 case PIN_CLICK_CONFIRM:
-                    importPinInputStatus(2);
+                    if (cardType.equals("Dip")){
+                        importPinInputStatus(2);
+                    }
+                    else if (cardType.equals("Swipe")){
+                        mockRequestToServer();
+                    }
+
                     break;
                 case PIN_CLICK_CANCEL:
                     //showToast("user cancel");
@@ -1220,6 +1298,25 @@ public class SaleActivity extends AppCompatActivity{
                     break;
                 case EMV_TRANS_SUCCESS:
                     //resetUI();
+//                    ProgressDialog progressDialog = new ProgressDialog(SaleActivity.this);
+//                    progressDialog.setMessage("Connect to server ...");
+//                    progressDialog.setTitle("Send Receive Message");
+//                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                    progressDialog.show();
+//                    progressDialog.setCancelable(false);
+//                    new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                Thread.sleep(45000);
+//                                startActivity(new Intent(SaleActivity.this, PrintActivity.class));
+//                                checkAndRemoveCard();
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                            progressDialog.dismiss();
+//                        }
+//                    }).start();
                     checkAndRemoveCard();
                     //showToast(R.string.success);
                     break;
@@ -1233,6 +1330,8 @@ public class SaleActivity extends AppCompatActivity{
     private void confirmPAN(String cardNo){
         String expDate = tempExpDate;
         String cardHolderName = "";
+        String cardSeqno = "";
+
         if (cardType.equals("Dip")){
             expDate = getExpDate();
             tempExpDate         =   expDate;
@@ -1240,10 +1339,16 @@ public class SaleActivity extends AppCompatActivity{
             cardHolderName = getCardHolderName();
             LogUtil.i("TAG",cardHolderName);
 
+            tempCardSeqNo       = getCardSeqNo();
             tempCardNo          = cardNo;
             tempCardHolderName  = cardHolderName;
+
+            tempTrack2Data      = getCardInfo();
+
         }
         expDate = expDate.substring(2, 4) + "/" +expDate.substring(0, 2);
+
+        //LogUtil.i("TAG", track2);
 
         btnConfirm.setVisibility(View.VISIBLE);
         btnCancel.setVisibility(View.VISIBLE);
@@ -1257,7 +1362,7 @@ public class SaleActivity extends AppCompatActivity{
      * format card no with spaces
      *
      * @param cardNo the original card no
-     * @return spaced card no
+     * @return spaced card no, if card no is null return empty string
      */
     public static String separateWithSpace(String cardNo) {
         if (cardNo == null)
@@ -1276,5 +1381,38 @@ public class SaleActivity extends AppCompatActivity{
             temp.append(cardNo.substring(total * 4, cardNo.length()));
         }
         return temp.toString();
+    }
+
+    /**
+     * Get Card Seq No From Card (dip only)
+     * @return card sequence no, if no data return empty string
+     */
+
+    public String getCardSeqNo(){
+        try {
+            byte[] out = new byte[64];
+            String[] tags = {
+                    "5F34"
+            };
+            int len = mEMVOptV2.getTlvList(AidlConstantsV2.EMV.TLVOpCode.OP_NORMAL, tags, out);
+            if (len > 0) {
+                byte[] bytesOut = Arrays.copyOf(out, len);
+                String hexStr = ByteUtil.bytes2HexStr(bytesOut);
+                Map<String, TLV> map = TLVUtil.buildTLVMap(hexStr);
+                TLV tlv5F34 = map.get("5F34"); // cardholder name
+                String cardSeqNo = "";
+                if (tlv5F34 != null && tlv5F34.getValue() != null) {
+                    String value = tlv5F34.getValue();
+                    //byte[] bytes = ByteUtil.hexStr2Bytes(value);
+                    cardSeqNo = value;
+                }
+                LogUtil.i("TAG",cardSeqNo);
+                return cardSeqNo;
+
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

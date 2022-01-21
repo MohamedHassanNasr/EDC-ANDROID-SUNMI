@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sm.sdk.yokkeedc.MtiApplication;
 import com.sm.sdk.yokkeedc.R;
-import com.sm.sdk.yokkeedc.printer.PrintProcess;
 import com.sm.sdk.yokkeedc.utils.Constant;
-import com.sm.sdk.yokkeedc.utils.Utilities;
 import com.sunmi.peripheral.printer.InnerResultCallbcak;
 import com.sunmi.peripheral.printer.SunmiPrinterService;
 
@@ -17,7 +15,6 @@ import android.os.Bundle;
 import android.os.RemoteException;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.LinkedHashMap;
 import android.os.Handler;
@@ -59,20 +56,20 @@ public class InitFinishActivity extends AppCompatActivity {
     private void vdInitViewAndReceiptFormat(Context context) {
         String strMerchantNM, strMerchantAddr1, strMerchantAddr2, strMerchantAddr3, strTID, strMID;
         LinkedHashMap<String, String> mapMerchantInfo = new LinkedHashMap<>();
-        Utilities util = new Utilities();
-
-        mapMerchantInfo = util.getMerchantInfo(context);
-        tvMerhcantName = (TextView) findViewById(R.id.text_merchant_name);
-        tvMerchantAddr1 = (TextView) findViewById(R.id.text_merchant_addr_1);
-        tvMerchantAddr2 = (TextView) findViewById(R.id.text_merchant_addr_2);
-        tvMerchantAddr3 = (TextView) findViewById(R.id.text_merchant_addr_3);
-        tvTID = (TextView) findViewById(R.id.text_tid_value);
-        tvMID = (TextView) findViewById(R.id.text_mid_value);
-
-        String AidList;
-
-        LinkedHashMap<String, String> mapAidList = new LinkedHashMap<>();
-        Utilities util2 = new Utilities();
+//        Utilities util = new Utilities();
+//
+//        mapMerchantInfo = util.getMerchantInfo(context);
+//        tvMerhcantName = (TextView) findViewById(R.id.text_merchant_name);
+//        tvMerchantAddr1 = (TextView) findViewById(R.id.text_merchant_addr_1);
+//        tvMerchantAddr2 = (TextView) findViewById(R.id.text_merchant_addr_2);
+//        tvMerchantAddr3 = (TextView) findViewById(R.id.text_merchant_addr_3);
+//        tvTID = (TextView) findViewById(R.id.text_tid_value);
+//        tvMID = (TextView) findViewById(R.id.text_mid_value);
+//
+//        String AidList;
+//
+//        LinkedHashMap<String, String> mapAidList = new LinkedHashMap<>();
+//        Utilities util2 = new Utilities();
 
 
 

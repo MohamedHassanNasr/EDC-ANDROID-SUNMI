@@ -51,6 +51,17 @@ public class Tools {
         return sb.toString();
     }
 
+    public static String hexToAscii(String hexStr) {
+        StringBuilder output = new StringBuilder("");
+
+        for (int i = 0; i < hexStr.length(); i += 2) {
+            String str = hexStr.substring(i, i + 2);
+            output.append((char) Integer.parseInt(str, 16));
+        }
+
+        return output.toString();
+    }
+
     public static String bcd2Str(byte[] b, int length) {
         if (b == null) {
             return null;
@@ -116,6 +127,23 @@ public class Tools {
             }
         }
         return new byte[]{0x00};
+    }
+
+    /**
+     * todo : error handling
+     * @param hex
+     * @return
+     */
+    public static String hexToString(String hex) {
+        StringBuilder sb = new StringBuilder();
+        char[] hexData = hex.toCharArray();
+        for (int count = 0; count < hexData.length - 1; count += 2) {
+            int firstDigit = Character.digit(hexData[count], 16);
+            int lastDigit = Character.digit(hexData[count + 1], 16);
+            int decimal = firstDigit * 16 + lastDigit;
+            sb.append((char) decimal);
+        }
+        return sb.toString();
     }
 
     public static void int2ByteArray(int i, byte[] to, int offset) {
@@ -240,5 +268,34 @@ public class Tools {
 
     public static byte boolean2Byte(boolean b) {
         return (byte) (b ? 1 : 0);
+    }
+
+    public static String paddingLeft(String inputString, char ch, int maxLength) {
+
+        if (inputString.length() >= maxLength)
+        {
+            return inputString;
+        }
+        StringBuilder sb = new StringBuilder();
+        while (sb.length() < maxLength - inputString.length()) {
+            sb.append(ch);
+        }
+        sb.append(inputString);
+        return sb.toString();
+    }
+
+    public static String paddingRight(String inputString, char ch, int maxLength) {
+
+        if (inputString.length() >= maxLength)
+        {
+            return inputString;
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(inputString);
+        while (sb.length() < maxLength - inputString.length()) {
+            sb.append(ch);
+        }
+
+        return sb.toString();
     }
 }

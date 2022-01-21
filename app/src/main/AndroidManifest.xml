@@ -39,6 +39,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YokkeEDC">
         <activity
+            android:name=".transaction.VoidActivity"
+            android:exported="false" />
+        <activity
             android:name=".initialize.InitFinishActivity"
             android:exported="false" />
         <activity
@@ -60,6 +63,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".transaction.sale.SaleActivity" />
+        <activity android:name=".transaction.print.PrintActivity" />
     </application>
 
 </manifest>

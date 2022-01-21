@@ -2,10 +2,15 @@ package com.sm.sdk.yokkeedc.transaction.sale;
 
 import androidx.annotation.NonNull;
 
-import com.pax.dal.exceptions.PedDevException;
 import com.pax.gl.pack.exception.Iso8583Exception;
 import com.sm.sdk.yokkeedc.isopacker.PackIso8583;
 import com.sm.sdk.yokkeedc.transaction.TransData;
+import com.sm.sdk.yokkeedc.utils.FieldConstant;
+import com.sm.sdk.yokkeedc.utils.Tools;
+import com.sm.sdk.yokkeedc.utils.TransConstant;
+import com.sm.sdk.yokkeedc.utils.Utility;
+
+import java.util.HashMap;
 
 public class PackTrans extends PackIso8583 {
 
@@ -18,58 +23,63 @@ public class PackTrans extends PackIso8583 {
     public byte[] pack(TransData transData) {
 
         switch(transData.getTransactionType()) {
-            case "SALE":
+            case TransConstant.TRANS_TYPE_SALE:
                 setSaleData(transData);
                 break;
-            case "VOID":
+            case TransConstant.TRANS_TYPE_VOID:
+                setVoidData(transData);
                 break;
-            case "SETTLEMENT":
+            case TransConstant.TRANS_TYPE_SETTLEMENT:
                 break;
         }
         byte[] packData = pack();
         return packData;
     }
 
-    protected void setFinancialData(TransData transData) {
-        try {
-            entity.setFieldValue("4", transData.getAmount()); //amount
-            entity.setFieldValue("41", "73003495"); //tid
-            entity.setFieldValue("42", "000071000243621"); //mid
-        } catch (Iso8583Exception e) {
-            e.printStackTrace();
-        }
 
-    }
-
-    protected void setMandatoryData(TransData transData) {
-        //widya set temp data
-        try {
-            entity.setFieldValue("h", "6000910085"); //tpdu
-            entity.setFieldValue("m","0200");//mti
-            entity.setFieldValue("3","000000"); //procode
-            entity.setFieldValue("11","000001"); //stan
-            entity.setFieldValue("24","107"); //nii
-
-        } catch (Iso8583Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     protected void setSaleData(TransData transData) {
         setFinancialData(transData);
         setMandatoryData(transData);
         try {
-            entity.setFieldValue("35", transData.getTrack2Data()); //track2data
-            entity.setFieldValue("55", transData.getICCData());//icc data
-            entity.setFieldValue("22", transData.getPosEntryMode());//pos entry mode
+            entity.setFieldValue(FieldConstant.BIT_PAN, transData.getCardNo());
+            entity.setFieldValue(FieldConstant.BIT_DATE_EXPIRATION,transData.getExpDate());
+            entity.setFieldValue(FieldConstant.BIT_TRACK_2_DATA, transData.getTrack2Data()); //track2data
+            if(transData.getEnterMode() == TransData.EnterMode.INSERT)
+            {
+                entity.setFieldValue(FieldConstant.BIT_APPLICATION_PAN_SEQUENCE_NUMBER, transData.getCardSeqNo());//card seq no
+                entity.setFieldValue(FieldConstant.BIT_EMV_DATA, Tools.str2Bcd(transData.getICCData()));//icc data
+            }
+            entity.setFieldValue(FieldConstant.BIT_POINT_OF_SERVICE_ENTRY_MODE, "052");//pos entry mode
+            entity.setFieldValue(FieldConstant.BIT_ADDITIONAL_DATA_NATIONAL, "1");
+
+            String strInvoiceNo = Utility.getInvoiceNum();
+            entity.setFieldValue(FieldConstant.BIT_RESERVED_PRIVATE_BIT62,strInvoiceNo );//Invoice No
+            transData.setTraceNo(strInvoiceNo);
         } catch (Iso8583Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void setVoidData(TransData transData) {
+        setFinancialData(transData);
+        setMandatoryData(transData);
+        try {
+            entity.setFieldValue(FieldConstant.BIT_PAN, transData.getCardNo());
+            entity.setFieldValue(FieldConstant.BIT_DATE_EXPIRATION,transData.getExpDate());
+            entity.setFieldValue(FieldConstant.BIT_TIME_LOCAL_TRANSACTION,transData.getTime());
+            entity.setFieldValue(FieldConstant.BIT_DATE_LOCAL_TRANSACTION,transData.getDate());
+            entity.setFieldValue(FieldConstant.BIT_POINT_OF_SERVICE_ENTRY_MODE, "052");//pos entry mode
+            entity.setFieldValue(FieldConstant.BIT_ADDITIONAL_DATA_NATIONAL, "1");
+            entity.setFieldValue(FieldConstant.BIT_POINT_OF_SERVICE_CONDITION_CODE,"00");
+            entity.setFieldValue(FieldConstant.BIT_RETRIEVAL_REFERENCE_NUMBER,transData.getReffNo());
+            entity.setFieldValue(FieldConstant.BIT_AUTHORIZATION_IDENTIFICATION_RESPONSE, transData.getApprCode());
 
+            entity.setFieldValue(FieldConstant.BIT_RESERVED_PRIVATE_BIT62,transData.getInvoiceNo() );//Invoice No
 
+        } catch (Iso8583Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

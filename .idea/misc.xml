@@ -3,10 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/EDC Android/Project-Sunmi-20 Januari 2022/app/src/main/res/layout/activity_void.xml" value="0.209375" />
         <entry key="..\:/EDC Android/Project/app/src/main/res/layout/activity_init_finish.xml" value="0.25" />
         <entry key="..\:/EDC Android/Project/app/src/main/res/layout/activity_initialize.xml" value="0.1" />
         <entry key="..\:/EDC Android/Project/app/src/main/res/layout/activity_swipe_card.xml" value="0.1" />
         <entry key="..\:/EDC Android/Project/app/src/main/res/menu/menu_navigation.xml" value="0.22" />
+        <entry key="..\:/EDC Android/Sunmi-APp -2/Project/app/src/main/res/layout/activity_sale.xml" value="0.1" />
+        <entry key="..\:/EDC_ANDROID_FINAL/Project-Sunmi-1801/app/src/main/res/layout/activity_print.xml" value="0.38202247191011235" />
+        <entry key="..\:/EDC_ANDROID_FINAL/Project-Sunmi-1801/app/src/main/res/layout/activity_print_temp.xml" value="0.5" />
+        <entry key="..\:/EDC_ANDROID_FINAL/Project-Sunmi-1801/app/src/main/res/layout/activity_transaction.xml" value="0.3333333333333333" />
+        <entry key="..\:/EDC_ANDROID_FINAL/Sunmi-APp -2 update 17 Januari 2022 - sore/Sunmi-APp -2 - 20220117-sore/Project/app/src/main/res/layout/activity_print.xml" value="0.4466666666666667" />
+        <entry key="..\:/EDC_ANDROID_FINAL/Sunmi-APp -2 update 17 Januari 2022 - sore/Sunmi-APp -2 - 20220117-sore/Project/app/src/main/res/layout/activity_sale.xml" value="0.1" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Project-Sunmi-20 Januari 2022/app/src/main/res/drawable/rounded_et.xml" value="0.1171875" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Project-Sunmi-20 Januari 2022/app/src/main/res/layout/activity_print.xml" value="0.13858695652173914" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Project-Sunmi-20 Januari 2022/app/src/main/res/layout/activity_print_temp.xml" value="0.4466666666666667" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Project-Sunmi-20 Januari 2022/app/src/main/res/layout/activity_void.xml" value="0.22" />
         <entry key="..\:/EDC_Android_New/Project/app/src/main/res/drawable/btn_bg_light.xml" value="0.1" />
         <entry key="..\:/EDC_Android_New/Project/app/src/main/res/drawable/selector_keyboard_num_bg.xml" value="0.1" />
         <entry key="..\:/EDC_Android_New/Project/app/src/main/res/layout/activity_init_finish.xml" value="0.4466666666666667" />

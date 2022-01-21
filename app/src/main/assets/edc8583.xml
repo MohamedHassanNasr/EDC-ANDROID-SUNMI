@@ -85,7 +85,7 @@ NOTE:
     <!--<field id="22" format="N3" paddingpos="L"
         desc="服务点输入方式码(Point Of Service Entry Mode)" />    &lt;!&ndash; NOTE: by default, N is left-padding &ndash;&gt;-->
 <!--    ======================================================================-->
-    <field id="23" format="N3" desc="卡序列号(Card Sequence Number)" />
+    <field id="23" format="N4" desc="卡序列号(Card Sequence Number)" />
     <field id="24" format="N3" desc="NII" />
     <field id="25" format="N2" desc="服务点条件码(Point Of Service Condition Mode)" />
     <field id="35" format="Z..38" desc="2磁道数据(Track 2 Data)" />
@@ -95,8 +95,9 @@ NOTE:
     <field id="39" format="AN2" desc="应答码(Response Code)" />
     <field id="41" format="ANS8" desc="受卡机终端标识码(Card Acceptor Terminal Identification)" />
     <field id="42" format="ANS15" desc="受卡方标识码(Card Acceptor Identification Code)" />
-    <field id="44" format="ANS3" desc="附加响应数据(Additional Response Data)" />
+    <field id="44" format="ANS...999" desc="附加响应数据(Additional Response Data)" />
     <field id="45" format="AN..76" desc="1磁道数据(Track 1 Data)" />
+    <field id="47" format="ANS...999" desc="Additional Data" />
     <field id="48" format="ANS...100" desc="附加响应数据(Additional Response Data)" />
     <field id="52" format="B64" desc="个人标识码数据(PIN Data)" />
     <field id="53" format="N16" desc="安全控制信息(Security Related Control Information)" />

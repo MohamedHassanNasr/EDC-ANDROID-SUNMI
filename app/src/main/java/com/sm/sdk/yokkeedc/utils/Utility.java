@@ -6,6 +6,9 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.sm.sdk.yokkeedc.MtiApplication;
+import com.sm.sdk.yokkeedc.transaction.BatchRecord;
+import com.sm.sdk.yokkeedc.transaction.TransData;
+import com.sm.sdk.yokkeedc.transaction.TransParam;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,6 +142,179 @@ public final class Utility {
         return track1.substring(index1 + 1, index2);
     }
 
+    public static String getDateFromBit13(byte[] date) {
+        if (date != null) {
+            return Tools.hexToString(Tools.bcd2Str(date));
+        }
 
+        return "";
+    }
+
+    public static String getTimeFromBit12(byte[] time) {
+        if (time != null) {
+            return Tools.hexToString(Tools.bcd2Str(time));
+        }
+
+        return "";
+    }
+
+    public enum CardBrand {
+        MASTER_CARD("M","MASTER"),
+        VISA("V","VISA"),
+        JCB("J","JCB"),
+        CUP("C","UNIONPAY"),
+        DFS("D","DFS"),
+        LOCAL("E","LOCAL"),
+        ARTAJASA("1","ARTAJASA"),
+        RINTIS("2","RINTIS"),
+        ALTO("3","ALTO"),
+        LINK("4","LINK");
+
+        private String symbol;
+        private String brand;
+
+        private CardBrand(String symbol, String brand) {
+            this.symbol = symbol;
+            this.brand = brand;
+        }
+
+        public String getBrandName() {
+            return brand;
+        }
+
+        public String getSymbol() {
+            return symbol;
+        }
+    }
+
+    public static String getCardBrandNameFromBit44(String symbol) {
+        String cardBrand;
+        if (symbol != null || symbol.equals("")) {
+            for (CardBrand cb : CardBrand.values()) {
+                if(cb.getSymbol().equalsIgnoreCase(symbol)) {
+                    return cb.getBrandName().toString();
+                }
+            }
+        }
+        return "";
+    }
+
+    public static String getOnUsOrOfUsTypeFromBit44(String str) {
+        if (str != null) {
+            if (str.equalsIgnoreCase("1")) {
+                return "On Us";
+            }
+            else if (str.equalsIgnoreCase("2")) {
+                return "Off Us";
+            }
+        }
+        return "";
+    }
+
+    public static String getCardTypeFromBit44(String str) {
+        if(str != null) {
+            if(str.equalsIgnoreCase("1")) {
+                return "CREDIT";
+            }
+            else if(str.equalsIgnoreCase("2")) {
+                return "DEBIT";
+            }
+            else if(str.equalsIgnoreCase("3")) {
+                return "PREPAID";
+            }
+        }
+        return "";
+    }
+
+    public static String getInvoiceNum() {
+        String strInvoiceNum = "";
+        String defaultInvoiceNum = "000001";
+        boolean isSaved = false;
+
+        TransParam transParam = MtiApplication.getTransParamDBHelper().findTransParamByParamName(TransParam.INVOICE_NUM);
+        if (transParam != null) {
+            strInvoiceNum = transParam.getParamVal();
+            if(strInvoiceNum != null) {
+                int iInvoiceNum = Integer.parseInt(strInvoiceNum);
+                if (iInvoiceNum > 999999 || iInvoiceNum < 0)
+                {
+                    iInvoiceNum = 0;
+                }
+                iInvoiceNum++;
+
+                String invoiceNum = Tools.paddingLeft(String.valueOf(iInvoiceNum), '0', 6);
+//                TransParam newTransParam = new TransParam();
+                transParam.setParamVal(invoiceNum);
+                updateInvoiceNum(transParam);
+                return invoiceNum;
+            }
+        }
+        else {
+            TransParam newTransParam = new TransParam();
+            newTransParam.setParamName(TransParam.INVOICE_NUM);
+            newTransParam.setParamVal(defaultInvoiceNum);
+            isSaved = MtiApplication.getTransParamDBHelper().insertTransParam(newTransParam);
+            if(isSaved) {
+                return defaultInvoiceNum;
+            }
+            else {
+                return "";
+            }
+        }
+        return "";
+    }
+
+    public static void updateInvoiceNum(TransParam transParam) {
+        MtiApplication.getTransParamDBHelper().updateTransParam(transParam);
+    }
+
+    public static String getTraceNum() {
+        String strTraceNum;
+        String defaultTraceNum = "000001";
+        boolean isSaved;
+
+        TransParam transParam = MtiApplication.getTransParamDBHelper().findTransParamByParamName(TransParam.TRACE_AUDIT_NUM);
+        if (transParam != null) {
+            strTraceNum = transParam.getParamVal();
+            if(strTraceNum != null) {
+                int iTraceNum = Integer.parseInt(strTraceNum);
+                if (iTraceNum > 999999 || iTraceNum < 0)
+                {
+                    iTraceNum = 0;
+                }
+                iTraceNum++;
+
+                String TraceNum = Tools.paddingLeft(String.valueOf(iTraceNum), '0', 6);
+                transParam.setParamVal(TraceNum);
+                updateTraceNum(transParam);
+                return TraceNum;
+            }
+        }
+        else {
+            TransParam newTransParam = new TransParam();
+            newTransParam.setParamName(TransParam.TRACE_AUDIT_NUM);
+            newTransParam.setParamVal(defaultTraceNum);
+            isSaved = MtiApplication.getTransParamDBHelper().insertTransParam(newTransParam);
+            if(isSaved) {
+                return defaultTraceNum;
+            }
+            else {
+                return "";
+            }
+        }
+        return "";
+    }
+
+    public static void updateTraceNum(TransParam transParam) {
+        MtiApplication.getTransParamDBHelper().updateTransParam(transParam);
+    }
+
+    public static void saveTransactionToDb(BatchRecord batchRecord) {
+        MtiApplication.getBatchRecordDBHelper().insertBatchRecordDb(batchRecord);
+    }
+
+    public static BatchRecord getTransactionByTraceNo(String traceNo) {
+        return MtiApplication.getBatchRecordDBHelper().findBatchRecordByTraceNo(traceNo);
+    }
 
 }
