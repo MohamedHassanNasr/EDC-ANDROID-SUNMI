@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearStruk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/yokke_print" />
+
+        <TextView
+            android:id="@+id/print_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/print_id"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="10sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvTid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="@string/print_tid"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvMid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/montserrat"
+                android:gravity="end"
+                android:text="@string/print_mid"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvCardType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="card type: "
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvNumCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvSearchCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="DIP"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvExpDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="**/**"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="@string/print_sale"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvBatch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="@string/print_batch"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvTrace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="end"
+                android:text="@string/print_trace"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="@string/print_date"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="end"
+                android:text="@string/print_time"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvReffNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="@string/print_reffNo"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvAppr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="end"
+                android:text="@string/print_appr"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvBase"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="base"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="end"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvTip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="tip"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="end"
+                android:text="-------------"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvTotalAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:gravity="start"
+                android:text="total amount"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvSignature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/print_signature"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearStruk"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/grey_50"
+            android:text="Close"
+            android:textColor="@color/white"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/yokke"
+            android:text="Print"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+</RelativeLayout>
