@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.sm.sdk.yokkeedc.MtiApplication;
 import com.sm.sdk.yokkeedc.transaction.BatchRecord;
-import com.sm.sdk.yokkeedc.transaction.TransData;
 import com.sm.sdk.yokkeedc.transaction.TransParam;
 
 import java.util.ArrayList;
@@ -268,7 +267,7 @@ public final class Utility {
         MtiApplication.getTransParamDBHelper().updateTransParam(transParam);
     }
 
-    public static String getTraceNum() {
+    public static String getSTAN() {
         String strTraceNum;
         String defaultTraceNum = "000001";
         boolean isSaved;
@@ -286,7 +285,7 @@ public final class Utility {
 
                 String TraceNum = Tools.paddingLeft(String.valueOf(iTraceNum), '0', 6);
                 transParam.setParamVal(TraceNum);
-                updateTraceNum(transParam);
+                updateSTAN(transParam);
                 return TraceNum;
             }
         }
@@ -305,7 +304,7 @@ public final class Utility {
         return "";
     }
 
-    public static void updateTraceNum(TransParam transParam) {
+    public static void updateSTAN(TransParam transParam) {
         MtiApplication.getTransParamDBHelper().updateTransParam(transParam);
     }
 
@@ -313,8 +312,12 @@ public final class Utility {
         MtiApplication.getBatchRecordDBHelper().insertBatchRecordDb(batchRecord);
     }
 
-    public static BatchRecord getTransactionByTraceNo(String traceNo) {
-        return MtiApplication.getBatchRecordDBHelper().findBatchRecordByTraceNo(traceNo);
+    public static BatchRecord getTransactionByTraceNo(String traceNo, String useYN) {
+        return MtiApplication.getBatchRecordDBHelper().findBatchRecordByTraceNo(traceNo, useYN);
+    }
+
+    public static boolean updateTraceYN(String traceNo, String useYN){
+        return MtiApplication.getBatchRecordDBHelper().updateFlagAfterVoidSuccess(traceNo,useYN);
     }
 
 }

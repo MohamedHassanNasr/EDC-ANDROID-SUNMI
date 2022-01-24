@@ -1,17 +1,34 @@
 package com.sm.sdk.yokkeedc.utils;
 
+import static android.provider.Settings.System.getString;
+
+import android.os.RemoteException;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.sm.sdk.yokkeedc.emv.TLV;
+import com.sm.sdk.yokkeedc.emv.TLVUtil;
+import com.sunmi.pay.hardware.aidl.bean.CardInfo;
+import com.sunmi.pay.hardware.aidlv2.AidlConstantsV2;
+import com.sunmi.pay.hardware.aidlv2.AidlErrorCodeV2;
+import com.sunmi.pay.hardware.aidlv2.emv.EMVOptV2;
 
 import java.io.UnsupportedEncodingException;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.CRC32;
+
+import sunmi.sunmiui.utils.LogUtil;
 
 public class Tools {
 
     private static final String TAG = "Tools";
     private static final String UTF8 = "UTF-8";
     private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
 
     public static byte[] string2Bytes(String source) {
         byte[] result = new byte[0];
@@ -297,5 +314,79 @@ public class Tools {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * format card no with spaces
+     *
+     * @param cardNo the original card no
+     * @return spaced card no, if card no is null return empty string
+     */
+    public static String separateWithSpace(String cardNo) {
+        if (cardNo == null)
+            return "";
+        String finalCardNo = cardNo.substring(12,16);
+        cardNo = "";
+        for (int i = 1 ; i <= 12 ; i++){
+            cardNo += "*";
+        }
+        finalCardNo = cardNo+finalCardNo;
+
+        StringBuilder temp = new StringBuilder();
+        int total = finalCardNo.length() / 4;
+        for (int i = 0; i < total; i++) {
+            temp.append(finalCardNo.substring(i * 4, i * 4 + 4));
+            if (i != (total - 1)) {
+                temp.append(" ");
+            }
+        }
+        if (total * 4 < finalCardNo.length()) {
+            temp.append(" ");
+            temp.append(finalCardNo.substring(total * 4, finalCardNo.length()));
+        }
+        return temp.toString();
+    }
+
+    /**
+     * Parse track2 data
+     */
+    public static CardInfo parseTrack2(String track2) {
+        LogUtil.e(Constant.TAG, "track2:" + track2);
+        String track_2 = stringFilter(track2);
+        int index = track_2.indexOf("=");
+        if (index == -1) {
+            index = track_2.indexOf("D");
+        }
+        CardInfo cardInfo = new CardInfo();
+        if (index == -1) {
+            return cardInfo;
+        }
+        String cardNumber = "";
+        if (track_2.length() > index) {
+            cardNumber = track_2.substring(0, index);
+        }
+        String expiryDate = "";
+        if (track_2.length() > index + 5) {
+            expiryDate = track_2.substring(index + 1, index + 5);
+        }
+        String serviceCode = "";
+//        if (track_2.length() > index + 8) {
+//            serviceCode = track_2.substring(index + 5, index + 8);
+//        }
+        LogUtil.e(Constant.TAG, "cardNumber:" + cardNumber + " expireDate:" + expiryDate + " serviceCode:" + serviceCode);
+        cardInfo.cardNo = cardNumber;
+        cardInfo.expireDate = expiryDate;
+        cardInfo.serviceCode = serviceCode;
+        cardInfo.track2     =   track_2;
+        return cardInfo;
+    }
+    /**
+     * remove characters not number,=,D
+     */
+    static String stringFilter(String str) {
+        String regEx = "[^0-9=D]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher matcher = p.matcher(str);
+        return matcher.replaceAll("").trim();
     }
 }

@@ -9,7 +9,6 @@ import com.pax.gl.pack.exception.Iso8583Exception;
 import com.sm.sdk.yokkeedc.MtiApplication;
 import com.sm.sdk.yokkeedc.transaction.TransData;
 import com.sm.sdk.yokkeedc.utils.FieldConstant;
-import com.sm.sdk.yokkeedc.utils.TransConstant;
 import com.sm.sdk.yokkeedc.utils.Utility;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -97,7 +96,7 @@ public abstract class PackIso8583 {
             entity.setFieldValue(FieldConstant.MESSAGE_HEADER, "6000910085"); //tpdu
             entity.setFieldValue(FieldConstant.MESSAGE_TYPE,"0200");//mti
             entity.setFieldValue(FieldConstant.BIT_PROCESSING_CODE,transData.getProcCode()); //procode
-            entity.setFieldValue(FieldConstant.BIT_SYSTEM_TRACE_AUDIT_NUMBER, Utility.getTraceNum()); //stan
+            entity.setFieldValue(FieldConstant.BIT_SYSTEM_TRACE_AUDIT_NUMBER, Utility.getSTAN()); //stan
             entity.setFieldValue(FieldConstant.BIT_NETWORK_INTERNATIONAL_IDENTIFIER,"107"); //nii
 
         } catch (Iso8583Exception e) {

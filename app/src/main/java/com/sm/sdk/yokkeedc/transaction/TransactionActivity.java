@@ -77,6 +77,15 @@ public class TransactionActivity extends AppCompatActivity {
             }
         });
 
+        CardView btnSttl = (CardView) findViewById(R.id.btn_settlement);
+        btnSttl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TransactionActivity.this, PrintActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private final Map<String, Long> timeMap = new LinkedHashMap<>();

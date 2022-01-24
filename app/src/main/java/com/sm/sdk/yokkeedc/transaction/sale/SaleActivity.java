@@ -117,7 +117,6 @@ public class SaleActivity extends AppCompatActivity{
 
     TransData transData = new TransData();
 
-
     Button btnContinue, btnConfirm, btnCancel, btnConfirmPin;
     private EditText etAmount, pinInputText;
     TextView pleaseDip, tapYourCard, tvCardNo, tvExpDate, enterAmount, tvAmount, tvTotalAmount, tvEnterPin;
@@ -221,11 +220,16 @@ public class SaleActivity extends AppCompatActivity{
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
-                timeMap.clear();
-                onDestroy();
-                Intent intent = new Intent(SaleActivity.this, TransactionActivity.class);
-                startActivity(intent);
+                try {
+                    if (cardType.equals("DIP")){
+                        mEMVOptV2.abortTransactProcess();
+                    }
+                    checkAndRemoveCard();
+                    Intent cancel = new Intent(SaleActivity.this, TransactionActivity.class);
+                    startActivity(cancel);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -253,8 +257,6 @@ public class SaleActivity extends AppCompatActivity{
                 importCardNoStatus(0);
             }
         });
-
-
 
     }
 
@@ -368,6 +370,12 @@ public class SaleActivity extends AppCompatActivity{
         LogUtil.e(Constant.TAG, "importPinInputStatus:" + inputResult);
         try {
             mEMVOptV2.importPinInputStatus(mPinType, inputResult);
+            /**
+             * when user click cancel , then the screen return to TransactionActivity
+             */
+            if (inputResult == 1){
+                checkAndRemoveCard();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -488,9 +496,8 @@ public class SaleActivity extends AppCompatActivity{
             timeMap.put("checkcard_onError", System.currentTimeMillis());
             String error = "onError:" + message + " -- " + code;
             LogUtil.e(Constant.TAG, error);
-            Toast toast = Toast.makeText(SaleActivity.this, error, Toast.LENGTH_LONG);
-            toast.show();
             startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
+            tryAgain("Please Use Card Correctly");
             overridePendingTransition(0,0);
             timeMap.clear();
         }
@@ -722,8 +729,10 @@ public class SaleActivity extends AppCompatActivity{
             }
             showStepTimestamp();
             if (mCardNo == null) {
-                mCardNo = getCardNo();
-                getCardInfo();
+                tryAgain("Card Number is Null, \n Please Try Again");
+                startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
+                //mCardNo = getCardNo();
+                //getCardInfo();
             }
             LogUtil.e(Constant.TAG, "onTransResult code:" + code + " desc:" + desc);
             LogUtil.e(Constant.TAG, "***************************************************************");
@@ -732,7 +741,7 @@ public class SaleActivity extends AppCompatActivity{
             if (code == 0) {
                 mHandler.obtainMessage(EMV_TRANS_SUCCESS, code, code, desc).sendToTarget();
             } else if (code == 4) {
-                //tryAgain();
+                tryAgain("Please Try Again");
             } else {
                 mHandler.obtainMessage(EMV_TRANS_FAIL, code, code, desc).sendToTarget();
             }
@@ -791,7 +800,6 @@ public class SaleActivity extends AppCompatActivity{
         }
     };
 
-
     /** getCard number */
     private String getCardNo() {
         LogUtil.e(Constant.TAG, "getCardNo");
@@ -807,7 +815,7 @@ public class SaleActivity extends AppCompatActivity{
             Map<String, TLV> tlvMap = TLVUtil.buildTLVMap(bytes);
             if (!TextUtils.isEmpty(Objects.requireNonNull(tlvMap.get("57")).getValue())) {
                 TLV tlv57 = tlvMap.get("57");
-                CardInfo cardInfo = parseTrack2(tlv57.getValue());
+                CardInfo cardInfo = Tools.parseTrack2(tlv57.getValue());
                 return cardInfo.cardNo;
             }
             if (!TextUtils.isEmpty(Objects.requireNonNull(tlvMap.get("5A")).getValue())) {
@@ -817,40 +825,6 @@ public class SaleActivity extends AppCompatActivity{
             e.printStackTrace();
         }
         return "";
-    }
-
-    /**
-     * Parse track2 data
-     */
-    public static CardInfo parseTrack2(String track2) {
-        LogUtil.e(Constant.TAG, "track2:" + track2);
-        String track_2 = stringFilter(track2);
-        int index = track_2.indexOf("=");
-        if (index == -1) {
-            index = track_2.indexOf("D");
-        }
-        CardInfo cardInfo = new CardInfo();
-        if (index == -1) {
-            return cardInfo;
-        }
-        String cardNumber = "";
-        if (track_2.length() > index) {
-            cardNumber = track_2.substring(0, index);
-        }
-        String expiryDate = "";
-        if (track_2.length() > index + 5) {
-            expiryDate = track_2.substring(index + 1, index + 5);
-        }
-        String serviceCode = "";
-//        if (track_2.length() > index + 8) {
-//            serviceCode = track_2.substring(index + 5, index + 8);
-//        }
-        LogUtil.e(Constant.TAG, "cardNumber:" + cardNumber + " expireDate:" + expiryDate + " serviceCode:" + serviceCode);
-        cardInfo.cardNo = cardNumber;
-        cardInfo.expireDate = expiryDate;
-        cardInfo.serviceCode = serviceCode;
-        cardInfo.track2     =   track_2;
-        return cardInfo;
     }
     /*
         Function Get Expired Date for ICC Card
@@ -863,7 +837,7 @@ public class SaleActivity extends AppCompatActivity{
             byte[] bytes = Arrays.copyOf(outData, len);
             Map<String, TLV> tlvMap = TLVUtil.buildTLVMap(bytes);
             TLV tlv57 = tlvMap.get("57");
-            CardInfo cardInfo = parseTrack2(tlv57.getValue());
+            CardInfo cardInfo = Tools.parseTrack2(tlv57.getValue());
             return cardInfo.expireDate;
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -915,7 +889,7 @@ public class SaleActivity extends AppCompatActivity{
             Map<String, TLV> tlvMap = TLVUtil.buildTLVMap(bytes);
             if (!TextUtils.isEmpty(Objects.requireNonNull(tlvMap.get("57")).getValue())) {
                 TLV tlv57 = tlvMap.get("57");
-                CardInfo cardInfo = parseTrack2(tlv57.getValue());
+                CardInfo cardInfo = Tools.parseTrack2(tlv57.getValue());
 
                 String trackDua = cardInfo.track2;
                 LogUtil.i("TAG",trackDua);
@@ -926,16 +900,6 @@ public class SaleActivity extends AppCompatActivity{
             e.printStackTrace();
         }
         return null;
-    }
-
-    /**
-     * remove characters not number,=,D
-     */
-    static String stringFilter(String str) {
-        String regEx = "[^0-9=D]";
-        Pattern p = Pattern.compile(regEx);
-        Matcher matcher = p.matcher(str);
-        return matcher.replaceAll("").trim();
     }
     /**
      * Start show PinPad
@@ -973,7 +937,7 @@ public class SaleActivity extends AppCompatActivity{
             PinPadConfigV2 pinPadConfig = new PinPadConfigV2();
             pinPadConfig.setPinPadType(0);
             pinPadConfig.setPinType(0);
-            pinPadConfig.setOrderNumKey(false);
+            pinPadConfig.setOrderNumKey(true);
             byte[] panBytes = mCardNo.substring(mCardNo.length() - 13, mCardNo.length() - 1).getBytes("US-ASCII");
             pinPadConfig.setPan(panBytes);
             pinPadConfig.setTimeout(60 * 1000); // input password timeout
@@ -1031,14 +995,8 @@ public class SaleActivity extends AppCompatActivity{
      * client should connect to a really POSP at this step.
      */
     private void mockRequestToServer() {
-//        new Thread(() -> {
-//
-//        }).start();
-
         try {
-            //showLoadingDialog(R.string.requesting);
             if (AidlConstantsV2.CardType.MAGNETIC.getValue() != mCardType) {
-//                    getTlvData();
                 tempTag55           = getTlvData();
                 transData.setICCData(tempTag55);
                 progressDialog = new ProgressDialog(SaleActivity.this);
@@ -1051,7 +1009,6 @@ public class SaleActivity extends AppCompatActivity{
                     @Override
                     public void run() {
                         try {
-                            //Thread.sleep(3000);
                             AsyncTask task =  new CommProcess(transData);
                             task.execute();
                             synchronized (task){
@@ -1063,13 +1020,12 @@ public class SaleActivity extends AppCompatActivity{
                             }else{
                                 importOnlineProcessStatus(0);
                                 BatchRecord batchRecord = new BatchRecord(transData);
+                                batchRecord.setUseYN("N");
                                 Utility.saveTransactionToDb(batchRecord);
                                 Intent intent = new Intent(SaleActivity.this, PrintActivity.class);
                                 intent.putExtra(PrintActivity.EXTRA_TRANS,transData);
                                 startActivity(intent);
                             }
-
-
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -1079,7 +1035,38 @@ public class SaleActivity extends AppCompatActivity{
                 //new CommProcess(this::afterCommProcess, transData).execute();
             }
             else if (AidlConstantsV2.CardType.MAGNETIC.getValue() == mCardType){
-                //new CommProcess(this::afterCommProcess, transData).execute();
+                progressDialog = new ProgressDialog(SaleActivity.this);
+                progressDialog.setMessage("Connect to server ...");
+                progressDialog.setTitle("Send Receive Message");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
+                progressDialog.setCancelable(false);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            AsyncTask task =  new CommProcess(transData);
+                            task.execute();
+                            synchronized (task){
+                                task.wait();
+                            }
+                            String rcCode = transData.getResponseCode();
+                            if (rcCode == null || !rcCode.equals("00")){
+                                returnFailedMag();
+                            }else{
+                                importOnlineProcessStatus(0);
+                                BatchRecord batchRecord = new BatchRecord(transData);
+                                Utility.saveTransactionToDb(batchRecord);
+                                Intent intent = new Intent(SaleActivity.this, PrintActivity.class);
+                                intent.putExtra(PrintActivity.EXTRA_TRANS,transData);
+                                startActivity(intent);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                    }
+                }).start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1091,12 +1078,15 @@ public class SaleActivity extends AppCompatActivity{
 
     public void returnFailed(){
         importOnlineProcessStatus(-1);
-        //showToast
-//        Toast toast = Toast.makeText(SaleActivity.this,"Transaction Failed", Toast.LENGTH_LONG);
-//        toast.show();
         startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
         checkAndRemoveCard();
-        //back to main menu
+
+    }
+
+    public void returnFailedMag(){
+        importOnlineProcessStatus(-1);
+        startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
+        tryAgain("Transaction Failed");
 
     }
 
@@ -1173,7 +1163,6 @@ public class SaleActivity extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         cancelCheckCard();
-        //SettingUtil.setBuzzerEnable(true);
     }
 
     private void cancelCheckCard() {
@@ -1185,17 +1174,14 @@ public class SaleActivity extends AppCompatActivity{
         }
     }
 
-    private void tryAgain() {
+    private void tryAgain(String Message) {
         try {
-            runOnUiThread(() -> new AlertDialog.Builder(this)
-                    .setTitle("Try again")
-                    .setMessage("Please read the card again")
-                    .setPositiveButton("OK", (dia, which) -> {
-                                dia.dismiss();
-                                checkCard();
-                            }
-                    )
-                    .show()
+            runOnUiThread(
+                    new Runnable() {
+                      public void run() {
+                          Toast.makeText(SaleActivity.this, Message, Toast.LENGTH_SHORT).show();
+                      }
+                    }
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -1208,7 +1194,6 @@ public class SaleActivity extends AppCompatActivity{
             int status = mReadCardOptV2.getCardExistStatus(mCardType);
             if (status < 0) {
                 LogUtil.e(Constant.TAG, "getCardExistStatus error, code:" + status);
-                //dismissLoadingDialog();
                 return;
             }
             if (status == AidlConstantsV2.CardExistStatus.CARD_ABSENT) {
@@ -1262,7 +1247,12 @@ public class SaleActivity extends AppCompatActivity{
                     break;
                 case EMV_SHOW_PIN_PAD:
                     //dismissLoadingDialog();
-                    initPinPad();
+                    if (cardType.equals("Dip")){
+                        initPinPad();
+                    }
+                    else if (cardType.equals("Swipe")){
+                        initPinPadMag();
+                    }
                     break;
                 case EMV_ONLINE_PROCESS:
                     mockRequestToServer();
@@ -1273,7 +1263,12 @@ public class SaleActivity extends AppCompatActivity{
                 case PIN_CLICK_NUMBER:
                     break;
                 case PIN_CLICK_PIN:
-                    importPinInputStatus(0);
+                    if (cardType.equals("Dip")){
+                        importPinInputStatus(0);
+                    }
+                    else if (cardType.equals("Swipe")){
+                        mockRequestToServer();
+                    }
                     break;
                 case PIN_CLICK_CONFIRM:
                     if (cardType.equals("Dip")){
@@ -1282,43 +1277,21 @@ public class SaleActivity extends AppCompatActivity{
                     else if (cardType.equals("Swipe")){
                         mockRequestToServer();
                     }
-
                     break;
                 case PIN_CLICK_CANCEL:
-                    //showToast("user cancel");
+                    tryAgain("user cancel");
                     importPinInputStatus(1);
                     break;
                 case PIN_ERROR:
                     importPinInputStatus(3);
                     break;
                 case EMV_TRANS_FAIL:
-                    //resetUI();
-                    //dismissLoadingDialog();
-                    //showToast("error:" + msg.obj + " -- " + msg.arg1);
+                    tryAgain("Failed Please Try Again");
+                    Intent intent = new Intent(SaleActivity.this, TransactionActivity.class);
+                    startActivity(intent);
                     break;
                 case EMV_TRANS_SUCCESS:
-                    //resetUI();
-//                    ProgressDialog progressDialog = new ProgressDialog(SaleActivity.this);
-//                    progressDialog.setMessage("Connect to server ...");
-//                    progressDialog.setTitle("Send Receive Message");
-//                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//                    progressDialog.show();
-//                    progressDialog.setCancelable(false);
-//                    new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            try {
-//                                Thread.sleep(45000);
-//                                startActivity(new Intent(SaleActivity.this, PrintActivity.class));
-//                                checkAndRemoveCard();
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                            progressDialog.dismiss();
-//                        }
-//                    }).start();
                     checkAndRemoveCard();
-                    //showToast(R.string.success);
                     break;
                 case REMOVE_CARD:
                     checkAndRemoveCard();
@@ -1348,39 +1321,12 @@ public class SaleActivity extends AppCompatActivity{
         }
         expDate = expDate.substring(2, 4) + "/" +expDate.substring(0, 2);
 
-        //LogUtil.i("TAG", track2);
-
         btnConfirm.setVisibility(View.VISIBLE);
         btnCancel.setVisibility(View.VISIBLE);
         tvExpDate.setText(expDate);
-        tvCardNo.setText(separateWithSpace(cardNo));
+        tvCardNo.setText(Tools.separateWithSpace(cardNo));
         pleaseDip.setVisibility(View.GONE);
         tapYourCard.setVisibility(View.GONE);
-    }
-
-    /**
-     * format card no with spaces
-     *
-     * @param cardNo the original card no
-     * @return spaced card no, if card no is null return empty string
-     */
-    public static String separateWithSpace(String cardNo) {
-        if (cardNo == null)
-            return "";
-
-        StringBuilder temp = new StringBuilder();
-        int total = cardNo.length() / 4;
-        for (int i = 0; i < total; i++) {
-            temp.append(cardNo.substring(i * 4, i * 4 + 4));
-            if (i != (total - 1)) {
-                temp.append(" ");
-            }
-        }
-        if (total * 4 < cardNo.length()) {
-            temp.append(" ");
-            temp.append(cardNo.substring(total * 4, cardNo.length()));
-        }
-        return temp.toString();
     }
 
     /**
