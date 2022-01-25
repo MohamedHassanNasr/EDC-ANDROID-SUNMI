@@ -6,93 +6,134 @@
 
     <LinearLayout
         android:id="@+id/linearStruk"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:background="@color/colorBackground">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivYokke"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/yokke_print" />
+
+        <TextView
+            android:id="@+id/print_id_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/arialnarrowbold"
+            android:text="@string/print_id"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvTid"
+                android:id="@+id/tvTid_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="@string/print_tid"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tvMid"
+                android:id="@+id/tvMid_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="end"
                 android:text="@string/print_mid"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
             android:orientation="horizontal"
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvCardType"
+                android:id="@+id/tvCardType_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="card type: "
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
             android:orientation="horizontal"
+
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvNumCard"
+                android:id="@+id/tvNumCard_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.6"
-                android:fontFamily="@font/montserrat"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/print_num_card"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tvSearchCard"
+                android:id="@+id/tvSearchCard_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="DIP"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tvExpDate"
+                android:id="@+id/tvExpDate_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
+                android:text="**/**"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,15 +145,16 @@
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvStatus"
+                android:id="@+id/tvStatus_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="@string/print_sale"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -124,26 +166,28 @@
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvBatch"
+                android:id="@+id/tvBatch_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="@string/print_batch"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tvTrace"
+                android:id="@+id/tvTrace_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="end"
                 android:text="@string/print_trace"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -155,26 +199,28 @@
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvDate"
+                android:id="@+id/tvDate_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="@string/print_date"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tvTime"
+                android:id="@+id/tvTime_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="end"
                 android:text="@string/print_time"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -186,15 +232,28 @@
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvReffNo"
+                android:id="@+id/tvReffNo_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
+                android:text="@string/print_reffNo"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
+            <TextView
+                android:id="@+id/tvAppr_display"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="end"
+                android:text="@string/print_appr"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -206,25 +265,28 @@
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvBase"
+                android:id="@+id/tvBase_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="base"
                 android:textAllCaps="true"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvAmount"
+                android:id="@+id/tvAmount_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="end"
+                android:text="Rp 100.000"
                 android:textAllCaps="true"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -238,38 +300,31 @@
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvTip"
+                android:id="@+id/tvTip_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="tip"
                 android:textAllCaps="true"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv"
+                android:id="@+id/tvTotalTip_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="end"
                 android:text="-------------"
                 android:textAllCaps="true"
+                android:textColor="@color/black"
+
                 android:textSize="12sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvAppr"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
-                android:gravity="end"
-                android:textAllCaps="true"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -281,14 +336,15 @@
             android:paddingTop="0dp">
 
             <TextView
-                android:id="@+id/tvTotalAmount"
+                android:id="@+id/tvTotalAmount_display"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
                 android:text="total amount"
                 android:textAllCaps="true"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -303,50 +359,400 @@
 
 
             <TextView
-                android:id="@+id/tvSignature"
+                android:id="@+id/tvSignature_display"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="3dp"
-                android:fontFamily="@font/montserrat"
+                android:fontFamily="@font/arialnarrowbold"
                 android:text="@string/print_signature"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textSize="10sp" />
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/lnPrintStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearStruk"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/printStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearStruk"
+        android:layout_below="@+id/lnPrintStatus"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
-        android:gravity="bottom"
+        android:gravity="start"
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnClose"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:backgroundTint="@color/grey_50"
-            android:text="Close"
+            android:text="Cancel"
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/btn_print_struct"
+            android:id="@+id/btnPrint"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/yokke"
             android:text="Print"
             android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/print_content"
+        android:layout_width="35mm"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:background="@color/colorBackground"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/yokke_print" />
+
+        <TextView
+            android:id="@+id/print_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/arialnarrowbold"
+            android:text="@string/print_id"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="9sp"
+            android:layout_marginStart="50dp"
+            android:textColor="@color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/print_tid"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="8sp"/>
+
+            <TextView
+                android:id="@+id/tvMid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:text="@string/print_mid"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="35dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvCardType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="card type:MASTER OFFUS"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvNumCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:fontFamily="@font/arialnarrowbold"
+                android:textAllCaps="true"
+                android:text="5243 2503 0126 7438"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tvSearchCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="DIP"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:id="@+id/tvExpDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:textAllCaps="true"
+                android:text="03/21"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                android:textAlignment="textStart"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/print_sale"
+                android:textAllCaps="true"
+                android:textSize="8sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvBatch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/print_batch"
+                android:textAllCaps="true"
+                android:textSize="8sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvTrace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:text="@string/print_trace"
+                android:textAllCaps="true"
+                android:textSize="8sp"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="35dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/print_date"
+                android:textAllCaps="true"
+                android:textSize="8sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:text="@string/print_time"
+                android:textAllCaps="true"
+                android:textSize="8sp"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="35dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvReffNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:textAllCaps="true"
+                android:textSize="8sp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvAppr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:text="@string/print_appr"
+                android:textAllCaps="true"
+                android:textSize="8sp"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="35dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvBase"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="TOTAL"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:text="Rp 100.000.000"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="35dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvTip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="tip"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:text="-------------"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="35dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tvSignature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/arialnarrowbold"
+                android:text="@string/print_signature"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="10sp"
+                android:layout_marginStart="50dp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

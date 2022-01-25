@@ -99,6 +99,7 @@ NOTE:
     <field id="45" format="AN..76" desc="1磁道数据(Track 1 Data)" />
     <field id="47" format="ANS...999" desc="Additional Data" />
     <field id="48" format="ANS...100" desc="附加响应数据(Additional Response Data)" />
+    <field id="49" format="N4" desc="Currency code" />
     <field id="52" format="B64" desc="个人标识码数据(PIN Data)" />
     <field id="53" format="N16" desc="安全控制信息(Security Related Control Information)" />
     <field id="54" format="AN...020" desc="余额(Balance Amount)" />
@@ -106,6 +107,7 @@ NOTE:
     <field id="55" format="ANS...255" desc="IC卡数据域(Integrated Circuit Card System Related Data)" />
     <field id="57" format="ANS...999" desc="TLED" />
     <field id="58" format="ANS...100" desc="自定义域(Private Data)" />
+    <field id="59" format="ANS...999" desc="RESERVED_NATIONAL" />
     <field id="60" format="ANS...22" desc="自定义域(Reserved Private)" />
     <field id="61" format="ANS...29" desc="原始信息域(Original Information)" />
     <field id="62" format="ANS...100" desc="自定义域(Reserved Private)" />

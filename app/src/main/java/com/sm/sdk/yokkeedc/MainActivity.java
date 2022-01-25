@@ -2,15 +2,19 @@ package com.sm.sdk.yokkeedc;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sm.sdk.yokkeedc.initialize.InitializeActivity;
 import com.sm.sdk.yokkeedc.transaction.TransactionActivity;
+import com.sm.sdk.yokkeedc.transaction.qris.QrisActivity;
+import com.sm.sdk.yokkeedc.transaction.sale.SaleActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +33,15 @@ public class MainActivity extends AppCompatActivity{
         String dateTime = simpleDateFormat.format(calendar.getTime());
 
         tv_date.setText(dateTime);
+
+        CardView btnQr = (CardView) findViewById(R.id.btn_qr);
+        btnQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, QrisActivity.class);
+                startActivity(i);
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_main);

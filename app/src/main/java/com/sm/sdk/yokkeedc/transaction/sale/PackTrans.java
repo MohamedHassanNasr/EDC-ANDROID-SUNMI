@@ -31,6 +31,9 @@ public class PackTrans extends PackIso8583 {
                 break;
             case TransConstant.TRANS_TYPE_SETTLEMENT:
                 break;
+            case TransConstant.TRANS_TYPE_QRIS:
+                setGenerateQrData(transData);
+                break;
         }
         byte[] packData = pack();
         return packData;
@@ -93,6 +96,36 @@ public class PackTrans extends PackIso8583 {
                 continue;
             }
             bitMap[(item -1)/8] = (byte)(bit & (~bitNo));
+        }
+    }
+
+    public void setGenerateQrData(TransData transData) {
+        setFinancialData(transData);
+        setMandatoryData(transData);
+        String bit59;
+        StringBuilder sb = new StringBuilder();
+        sb.append("20220125");
+        sb.append(Utility.getInvoiceNum());
+        sb.append("015");
+        sb.append("01");
+
+        /* paymentByChannel(2): 01(EDC Request) */
+        sb.append("01");
+        sb.append("                    ");
+
+        /* qrResponseType(2): 02(TLV EMVCO STRING) */
+        sb.append("02");
+
+        bit59 = sb.toString();
+
+        try {
+            entity.setFieldValue(FieldConstant.BIT_CURRENCY_CODE_TRANSACTION, "0360");
+            entity.setFieldValue(FieldConstant.BIT_ADDITIONAL_AMOUNTS,transData.getTip());
+            //entity.setFieldValue(FieldConstant.BIT_RESERVED_NATIONAL_BIT57, "0360");
+            entity.setFieldValue(FieldConstant.BIT_RESERVED_NATIONAL_BIT59,bit59 );
+
+        } catch (Iso8583Exception e) {
+            e.printStackTrace();
         }
     }
 }

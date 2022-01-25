@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".transaction.qris.QrisActivity">
+
+    <TextView
+        android:id="@+id/tvIdQris"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QRIS PAYMENT"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:background="@drawable/rectangle">
+
+        <ImageView
+            android:id="@+id/ivQr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qris_code"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:id="@+id/garis"
+            android:layout_width="420dp"
+            android:layout_height="5dp"
+            android:background="@color/grey_20"
+            android:layout_marginTop="@dimen/dp_20"/>
+
+        <TextView
+            android:id="@+id/tvEnterAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Amount"
+            android:fontFamily="@font/montserrat_500"
+            android:textSize="14sp"
+            android:textColor="@color/grey_90"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginStart="@dimen/dp_30"/>
+
+        <EditText
+            android:id="@+id/etAmountQr"
+            android:layout_width="311dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="30dp"
+            android:paddingStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rounded_et"
+            android:fontFamily="@font/montserrat_500"
+            android:hint="Amount"
+            android:clickable="false"
+            android:focusable="false"
+            android:inputType="textNoSuggestions"/>
+
+        <Button
+            android:id="@+id/btn_continue"
+            android:layout_width="311dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:backgroundTint="@color/yokke"
+            android:fontFamily="@font/montserrat_500"
+            android:text="CONTINUE"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:id="@+id/lltimeQr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="@dimen/dp_20"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/qr_berakhir"
+                android:fontFamily="@font/montserrat_500"
+                android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/tvTimeQr"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.75"
+                android:textColor="@color/yokke"
+                android:text="01:59"
+                android:fontFamily="@font/montserrat_500"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/print_content_qr"
+        android:layout_width="35mm"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:visibility="visible"
+        android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/ivQris"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/qris_print"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible"/>
+
+    </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPrintQr"
+            android:layout_width="256dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/white"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginStart="50dp"
+            android:outlineSpotShadowColor="@color/yokke"
+            app:cardCornerRadius="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Print QR"
+                android:fontFamily="@font/montserrat_500"
+                android:textColor="@color/yokke"
+                android:textSize="14sp"
+                android:drawableStart="@drawable/ic_print"
+                android:drawablePadding="@dimen/dp_30"/>
+
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <com.sm.sdk.yokkeedc.view.DigitKeyboardView
+        android:id="@+id/view_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@color/white"
+        android:keyPreviewOffset="0dp"
+        android:keyTextColor="#bebebe"
+        android:paddingTop="0dp"
+        android:shadowColor="#FFF"
+        android:shadowRadius="0.0"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.sm.sdk.yokkeedc.view.DigitKeyboardView>
+
+</FrameLayout>

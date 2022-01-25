@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey_90">#424242</color>
+    <color name="grey_20">#F5F5F5</color>
     <color name="colorPrimaryDark">#00ACC2</color><!--#35C031-->
 
     <!--    Yokke-Fardhan -->

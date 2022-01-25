@@ -55,11 +55,14 @@ public class BatchRecord implements Serializable {
     private String reffNo;
     @DatabaseField
     private String invoiceNo;
+    @DatabaseField(columnName = USE_YN_FIELD)
+    private String useYN;
 
     /**
      * field name
      */
     public static final String TRACE_NO_FIELD = "trace_no";
+    public static final String USE_YN_FIELD   = "use_yn";
 
     public BatchRecord() {
 
@@ -262,5 +265,13 @@ public class BatchRecord implements Serializable {
 
     public void setInvoiceNo(String invoiceNo) {
         this.invoiceNo = invoiceNo;
+    }
+
+    public String getUseYN() {
+        return useYN;
+    }
+
+    public void setUseYN(String useYN) {
+        this.useYN = useYN;
     }
 }

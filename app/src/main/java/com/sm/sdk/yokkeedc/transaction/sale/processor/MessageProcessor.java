@@ -1,5 +1,6 @@
 package com.sm.sdk.yokkeedc.transaction.sale.processor;
 
+import com.sm.sdk.yokkeedc.models.QrisData;
 import com.sm.sdk.yokkeedc.transaction.TransData;
 import com.sm.sdk.yokkeedc.utils.FieldConstant;
 import com.sm.sdk.yokkeedc.utils.Tools;
@@ -21,7 +22,8 @@ public class MessageProcessor {
         String transType = transData.getTransactionType();
         if(TransConstant.TRANS_TYPE_SALE.equals(transType)) {
             getSaleData(map, transData);
-
+        }else if (TransConstant.TRANS_TYPE_QRIS.equals(transType)){
+            getqris(map, transData);
         }
     }
 
@@ -53,6 +55,35 @@ public class MessageProcessor {
         transData.setCardBrand(cardBrand);
         transData.setONOFF(OnOff);
         transData.setCardType(cardType);
-
     }
+
+    private static void getqris(HashMap<String, byte[]> map, TransData transData) {
+
+        transData.setResponseCode(Tools.hexToString(Tools.bcd2Str(map.get("39"))));
+        parseQris(map, transData);
+
+        //return transData;
+    }
+
+    private static void parseQris(HashMap<String, byte[]> map, TransData transData){
+        String bit59, carmerchanttransid,carQRHostCode,careffno,camercPAN,caQRCODELen,GenerateQR;
+        bit59 = Tools.hexToString(Tools.bcd2Str(map.get(FieldConstant.BIT_RESERVED_NATIONAL_BIT59)));
+
+        StringBuilder sb = new StringBuilder(bit59);
+        carmerchanttransid = sb.substring(0,15);
+        carQRHostCode = sb.substring(15,17);
+        careffno = sb.substring(17,37);
+        camercPAN = sb.substring(39,58);
+        caQRCODELen = sb.substring(58,61);
+        GenerateQR = sb.substring(61,bit59.length());
+
+        transData.setCarmerchanttransid(carmerchanttransid);
+        transData.setCarQRHostCode(carQRHostCode);
+        transData.setCareffno(careffno);
+        transData.setCamercPAN(camercPAN);
+        transData.setGenerateQR(GenerateQR);
+        transData.setCaQRCODELen(caQRCODELen);
+    }
+
+
 }

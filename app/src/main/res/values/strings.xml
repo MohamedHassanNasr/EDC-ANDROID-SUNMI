@@ -59,5 +59,7 @@
     <string name="print_reffNo">Reff No:132614584851</string>
     <string name="print_appr">appr code:062981</string>
     <string name="print_signature">NO SIGNATURE REQUIRED \n ** MERCHANT COPY **</string>
+    <string name="qr_berakhir">Kode QR berakhir dalam</string>
+
 
 </resources>

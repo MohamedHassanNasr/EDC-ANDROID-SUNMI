@@ -190,6 +190,18 @@
         android:visibility="gone" />
 
     <TextView
+        android:id="@+id/tvSale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Sale"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
+
+
+    <TextView
         android:id="@+id/tvCardNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

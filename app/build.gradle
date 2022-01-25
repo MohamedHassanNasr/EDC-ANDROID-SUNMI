@@ -53,4 +53,5 @@ dependencies {
     implementation 'com.j256.ormlite:ormlite-android:6.1'
     // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-core
     //implementation 'com.j256.ormlite:ormlite-core:6.1'
+    implementation 'com.google.zxing:core:3.3.3'
 }

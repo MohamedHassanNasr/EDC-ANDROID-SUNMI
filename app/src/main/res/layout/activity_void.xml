@@ -40,6 +40,18 @@
             android:text="OK"
             android:textColor="@color/white" />
 
+        <Button
+            android:id="@+id/btn_confirm_void"
+            android:layout_width="311dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etTrace"
+            android:backgroundTint="@color/yokke"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/montserrat_500"
+            android:text="CONFIRM"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
     <ImageView
@@ -67,11 +79,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
         android:fontFamily="@font/montserrat_500"
-        android:text="@string/print_num_card"
         android:textSize="20sp"
         android:gravity="center"
         android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <TextView
         android:id="@+id/tvExpDate"
@@ -80,9 +91,20 @@
         android:layout_marginTop="170dp"
         android:fontFamily="@font/montserrat_500"
         android:textSize="18sp"
-        android:text="22/02"
         android:layout_marginStart="80dp"
-        android:textColor="@color/white"
-        android:visibility="gone"/>
+        android:textColor="@color/white"/>
+
+
+    <TextView
+        android:id="@+id/voidAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="220dp"
+        android:fontFamily="@font/montserrat_500"
+        android:text="Amount: "
+        android:textColor="@color/grey_90"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
 </FrameLayout>
