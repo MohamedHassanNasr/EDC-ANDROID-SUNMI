@@ -5,7 +5,6 @@
     <string name="date">Sunday, 12 12 2021</string>
     <string name="main">Main</string>
     <string name="transaction">Transaction</string>
-    <string name="admin">Admin</string>
     <string name="initialize">Initialize</string>
     <string name="dip_card">Dip Your Card</string>
     <string name="tap_card">Tap Your Card</string>
@@ -17,12 +16,6 @@
     <string name="initialize_btn">Initialize This Device</string>
     <string name="card_cost_hint">Please input correct cost amount</string>
 
-    <string name="mid">MID</string>
-    <string name="tid">TID</string>
-    <string name="site_name">Site name</string>
-    <string name="address_1">Address 1</string>
-    <string name="address_2">Address 2</string>
-    <string name="address_3">Address 3</string>
     <string name="emv_app_select">Please select app</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
@@ -40,13 +33,10 @@
     <string name="num_9">9</string>
     <string name="num_00">00</string>
     <string name="num_000">000</string>
-    <string name="num_ok">OK</string>
     <string name="num_back">&#060;</string>
-    <string name="num_delete_str">&#8592;</string>
     <string name="num_cancel_str">&#215;</string>
     <string name="num_ok_str">OK</string>
 
-    <string name="please_card">Please Dip / Swipe / Tap your Card</string>
     <string name="print_id">Test Android Yokke \n MCC \n Jakarta</string>
     <string name="print_num_card">**** ***** ***** 0285</string>
     <string name="print_tid">TID:73011233</string>
@@ -61,5 +51,24 @@
     <string name="print_signature">NO SIGNATURE REQUIRED \n ** MERCHANT COPY **</string>
     <string name="qr_berakhir">Kode QR berakhir dalam</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tartun">Tarik Tunai</string>
+    <string name="refund">Refund</string>
+    <string name="powerBuy">Power buy</string>
+    <string name="prep_emoney">Prepaid \n E-money</string>
+    <string name="prep_brizzi">Prepaid \n Brizzi</string>
+    <string name="prepaid_tapcash">Prepaid \n Tapcash</string>
+    <string name="options_4">4 Options</string>
+    <string name="options_5">5 Options</string>
+    <string name="options_3">3 Options</string>
+    <string name="btn_sale">Sale</string>
+    <string name="btn_qris">QRIS</string>
+    <string name="reports">Reports</string>
+    <string name="reprint">Reprint</string>
+    <string name="merpan">Merchant PAN : 9360000080100024362</string>
+    <string name="please_qris">Please scan QRIS code below to pay</string>
+    <string name="admin">Admin</string>
+
+    <string name="err_undefine_info">Undefined</string>
 
 </resources>

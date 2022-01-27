@@ -25,7 +25,7 @@
     <color name="colorTextContent">#666666</color>
     <color name="colorTextHelp">#999999</color>
     <color name="colorLineColor">#d7d7d7</color>
-
+    <color name="background">@android:color/background_light</color>
     <color name="accent">@android:color/holo_red_light</color>
     <color name="accent_amount">@android:color/holo_green_light</color>
     <color name="primary_text_light">@android:color/primary_text_light</color>

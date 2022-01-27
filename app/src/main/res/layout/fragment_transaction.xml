@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    tools:context="com.sm.sdk.yokke.fragment.TransactionFragment">
+
+
+        <TextView
+            android:id="@+id/tv_welcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/transaction_menu"
+            android:textColor="@color/white"
+            android:textSize="28sp" />
+
+        <ScrollView
+            android:id="@+id/scrollTrans"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:scrollbars="vertical"
+            tools:layout_editor_absoluteY="400dp"
+            android:background="@drawable/background_white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_sale"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="10dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/sale_icon"/>
+
+                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/btn_sale"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_void"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/void_icon"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/void_icon"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_tartun"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="3dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/tartun"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/tartun"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_refund"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/ic_refund"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/refund"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_powerBuy"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/ic_powerbuy"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/powerBuy"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_qris"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="3dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/ic_qris"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/btn_qris"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/options_4"
+                            android:textColor="@color/grey_50"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_emoney"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="94dp"
+                            android:layout_height="18dp"
+                            android:layout_marginTop="30dp"
+                            android:src="@drawable/ic_emoney"/>
+
+                        <TextView
+                            android:layout_width="96dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="50dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:gravity="center"
+                            android:text="@string/prep_emoney"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_brizzi"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="94dp"
+                            android:layout_height="18dp"
+                            android:layout_marginTop="@dimen/dp_30"
+                            android:src="@drawable/ic_brizzi"/>
+
+                        <TextView
+                            android:layout_width="96dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="50dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:gravity="center"
+                            android:text="@string/prep_brizzi"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_tapcash"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="3dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="94dp"
+                            android:layout_height="18dp"
+                            android:layout_marginTop="@dimen/dp_30"
+                            android:src="@drawable/ic_tapcash"/>
+
+                        <TextView
+                            android:layout_width="96dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="50dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:gravity="center"
+                            android:text="@string/prepaid_tapcash"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="121dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="15dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_settlement"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="94dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/settlement_icon"/>
+
+                        <TextView
+                            android:layout_width="96dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="50dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:gravity="center"
+                            android:text="@string/settlement_icon"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_report"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="6dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="94dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_report"/>
+
+                        <TextView
+                            android:layout_width="96dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="50dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:gravity="center"
+                            android:text="@string/reports"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/options_5"
+                            android:textColor="@color/grey_50"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_reprint"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/shadow"
+                        android:elevation="3dp"
+                        android:outlineSpotShadowColor="@color/grey"
+                        app:cardCornerRadius="8dp"
+                        tools:ignore="UnusedAttribute">
+
+                        <ImageView
+                            android:layout_width="94dp"
+                            android:layout_height="30dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/ic_reprint"/>
+
+                        <TextView
+                            android:layout_width="96dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="50dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:gravity="center"
+                            android:text="@string/reprint"
+                            android:textColor="@color/grey_61"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/montserrat_500"
+                            android:text="@string/options_3"
+                            android:textColor="@color/grey_50"
+                            android:textSize="12sp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+</FrameLayout>
