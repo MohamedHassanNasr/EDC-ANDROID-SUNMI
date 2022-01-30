@@ -35,7 +35,7 @@ public class OnlineProcess extends AsyncTask<Object, Object, TransactionResult> 
     /**
      * todo : ganti jangan static
      */
-    private String serverIP = "172.16.54.24";            // temp data
+    private String serverIP = "172.16.200.22";            // temp data
     private int serverPort = 5088;             // temp data
 
     private int connectTimeout = 2000;

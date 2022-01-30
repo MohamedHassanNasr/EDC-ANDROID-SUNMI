@@ -46,6 +46,8 @@
     <string name="response_96">SYSTEM MALFUNCTION</string>
     <string name="response_97">TEST OK</string>
 
+    <string name="response_AG">QR UNPAID</string>
+
     <string name="response_B1">INVALID AMOUNT</string>
     <string name="response_B2">EXCEED MAX NUMBER OF BILL</string>
     <string name="response_B3">2 BILLS FOR THE SAME MONTH</string>

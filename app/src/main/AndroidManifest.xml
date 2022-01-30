@@ -53,6 +53,7 @@
         <activity android:name="com.sm.sdk.yokke.activities.SaleActivity" />
         <activity android:name="com.sm.sdk.yokke.activities.PrintActivity" />
         <activity android:name="com.sm.sdk.yokke.activities.QrisActivity" />
+        <activity android:name="com.sm.sdk.yokke.activities.QrisPrintActivity" />
     </application>
 
 </manifest>

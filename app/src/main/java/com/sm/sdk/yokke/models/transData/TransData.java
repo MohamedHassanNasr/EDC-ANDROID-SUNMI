@@ -85,6 +85,12 @@ public class TransData implements Parcelable {
         procCode = in.readString();
         dateTime = in.readString();
         invoiceNo = in.readString();
+        merchantTransId = in.readString();
+        qrHostCode = in.readString();
+        mercPan = in.readString();
+        qrCodeLen = in.readString();
+        generateQR = in.readString();
+        NMID = in.readString();
     }
 
     public static final Creator<TransData> CREATOR = new Creator<TransData>() {
@@ -153,6 +159,12 @@ public class TransData implements Parcelable {
         dest.writeString(procCode);
         dest.writeString(dateTime);
         dest.writeString(invoiceNo);
+        dest.writeString(merchantTransId);
+        dest.writeString(qrHostCode);
+        dest.writeString(mercPan);
+        dest.writeString(qrCodeLen);
+        dest.writeString(generateQR);
+        dest.writeString(NMID);
     }
 
     public enum EnterMode {

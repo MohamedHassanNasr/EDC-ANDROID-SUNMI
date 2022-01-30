@@ -54,6 +54,8 @@ public class ResponseCode implements Serializable {
         responses.put("93", R.string.response_93);
         responses.put("96", R.string.response_96);
 
+        responses.put("AG", R.string.response_AG);
+
         responses.put("P1", R.string.response_P1);
         responses.put("P2", R.string.response_P2);
         responses.put("P3", R.string.response_P3);

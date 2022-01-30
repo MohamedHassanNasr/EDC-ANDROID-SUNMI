@@ -53,13 +53,10 @@ public class QrisActivity extends AppCompatActivity {
     private ImageView ivQris_display, ivQris;
     private LinearLayout llTimeQr;
     private CardView btnPrintQr;
-    private long duration;
     private long parseLong = 0 ;
     public String amount;
     public String tempAmount            = "";
     private int result_code = 0;
-    public final static int QRcodeWidth = 500 ;
-    Bitmap bitmap ;
     private ProgressDialog progressDialog;
     TransData transData;
 
@@ -107,8 +104,6 @@ public class QrisActivity extends AppCompatActivity {
         etAmountQr.setOnEditorActionListener(editorActionListener);
         etAmountQr.addTextChangedListener(enterAmountTextWatcher);
 
-        String qrString = "00020101021226690021ID.CO.BANKMANDIRI.WWW01189360000800000000570211710002044420303UMI51440014ID.CO.QRIS.WWW0215ID10200325336860303UMI520430065303360540417005802ID5908FRONTEND6013Jakarta Barat61051181062280708730029035012120016175645630441F8";
-
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,12 +129,10 @@ public class QrisActivity extends AppCompatActivity {
                         finally {
                             MtiApplication.getInstance().runOnUiThread(() ->{
                                 if(result_code == Constant.RTN_COMM_SUCCESS){
-                                    InquiryQrTask.initQrData(transData);
-
-                                    bitmap = createCodeBitmap(transData.getGenerateQR(), 300, 300);
-                                    ivQris.setImageBitmap(bitmap);
-                                    ivQris_display.setImageBitmap(bitmap);
-                                    actionAfterInputAmount();
+                                    //InquiryQrTask.initQrData(transData);
+                                    Intent intent = new Intent(QrisActivity.this, QrisPrintActivity.class);
+                                    intent.putExtra(QrisPrintActivity.QRIS_TRANS,transData);
+                                    startActivity(intent);
                                 }
                             });
                         }
@@ -147,163 +140,6 @@ public class QrisActivity extends AppCompatActivity {
                     }
                 }).start();
             }
-        });
-
-        btnPrintQr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /*TES INQUIRY */
-
-                transData.setTransactionType(TransConstant.TRANS_TYPE_INQUIRY_QRIS);
-                transData.setProcCode(TransConstant.PROCODE_INQUIRY_QRIS);
-                progressDialog = new ProgressDialog(QrisActivity.this);
-                progressDialog.setMessage("Connect to server ...");
-                progressDialog.setTitle("Send Receive Message");
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.show();
-                progressDialog.setCancelable(false);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        int result = 0;
-                        try {
-                            CommTask task = new CommTask(transData);
-                            result = task.startCommTask();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        finally {
-                            if (result == Constant.RTN_COMM_SUCCESS) {
-                                BatchRecord batchRecord = new BatchRecord(transData);
-                                batchRecord.setUseYN("Y");
-                                Utility.saveTransactionToDb(batchRecord);
-                            }
-                            else{
-                                returnFailed();
-                            }
-                        }
-                        progressDialog.dismiss();
-                    }
-                }).start();
-            }
-        });
-
-    }
-    private void actionAfterInputAmount(){
-        etAmountQr.setVisibility(View.GONE);
-        tvEnterAmount.setVisibility(View.GONE);
-        btnContinue.setVisibility(View.GONE);
-        llTimeQr.setVisibility(View.VISIBLE);
-        ivQris_display.setVisibility(View.VISIBLE);
-        btnPrintQr.setVisibility(View.VISIBLE);
-        tvIdQris.setText("Print QRIS");
-        digitKeyboard.setVisibility(View.GONE);
-        timerQr();
-    }
-
-    private void timerQr()
-    {
-        //timer QRIS
-        duration = TimeUnit.MINUTES.toMillis(2); //durasi menitnya
-        new CountDownTimer(duration, 1000){ // lama detiknya
-            @Override
-            public void onTick(long l) {
-                String sDuration = String.format(Locale.ENGLISH, "%02d : %02d"
-                        , TimeUnit.MILLISECONDS.toMinutes(l)
-                        , TimeUnit.MILLISECONDS.toSeconds(l) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
-                tvTimeQr.setText(sDuration);
-            }
-            @Override
-            public void onFinish() {
-                Toast toast = Toast.makeText(QrisActivity.this,"QRIS berakhir",Toast.LENGTH_LONG);
-                toast.show();
-                Intent i = new Intent(QrisActivity.this, MainActivity.class);
-                startActivity(i);
-            }
-        }.start();
-    }
-
-    public static Bitmap createCodeBitmap(String content, int width, int height) {
-        return createCodeBitmap(content, width, height, "UTF-8", "H", "0", 0xff000000, 0xffffffff);
-    }
-    public static Bitmap createCodeBitmap(String content, int width, int height, String characterSet, String errorLevel, String margin, int blackColor, int whiteColor) {
-        try {
-
-            Hashtable<EncodeHintType, String> hashtable = new Hashtable<>();
-            hashtable.put(EncodeHintType.CHARACTER_SET, characterSet);
-            hashtable.put(EncodeHintType.ERROR_CORRECTION, errorLevel);
-            hashtable.put(EncodeHintType.MARGIN, margin);
-            BitMatrix bitMatrix = new QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hashtable);
-
-            int[] pixels = new int[width * height];
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-
-                    boolean bool = bitMatrix.get(x, y);
-                    if (bool) {
-                        pixels[y * width + x] = blackColor; // 黑色色块像素设置
-                    } else {
-                        pixels[y * width + x] = whiteColor; // 白色色块像素设置
-                    }
-                }
-            }
-            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
-            return bitmap;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void printBitmap() {
-        try {
-            if (MtiApplication.app.sunmiPrinterService == null) {
-                //showToast("Print not supported");
-                return;
-            }
-            View content = findViewById(R.id.print_content_qr);
-            Bitmap bitmap = Tools.createViewBitmap(content);
-//            bitmap = getBinaryzationBitmap(bitmap);
-            MtiApplication.app.sunmiPrinterService.enterPrinterBuffer(true);
-            MtiApplication.app.sunmiPrinterService.printBitmap(bitmap, new InnerResultCallbcak() {
-                @Override
-                public void onRunResult(boolean isSuccess) throws RemoteException {
-                    LogUtil.e("TAG", "onRunResult-->isSuccess:" + isSuccess);
-                }
-
-                @Override
-                public void onReturnString(String result) throws RemoteException {
-                    LogUtil.e("TAG", "onReturnString-->result:" + result);
-                }
-
-                @Override
-                public void onRaiseException(int code, String msg) throws RemoteException {
-                    LogUtil.e("TAG", "onRaiseException-->code:" + code + ",msg:" + msg);
-                }
-
-                @Override
-                public void onPrintResult(int code, String msg) throws RemoteException {
-                    LogUtil.e("TAG", "onPrintResult-->code:" + code + ",msg:" + msg);
-                }
-            });
-            MtiApplication.app.sunmiPrinterService.lineWrap(4, null);
-            MtiApplication.app.sunmiPrinterService.exitPrinterBuffer(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void returnFailed(){
-        ResponseCode Rspcode = transData.getResponseCode();
-        String retCode = Rspcode.getCode();
-        String retmessage = Rspcode.getMessage();
-        MtiApplication.getInstance().runOnUiThread(() -> {
-            Toast.makeText(getApplicationContext(), "FAILED, Respon: " + retmessage, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(QrisActivity.this, MainActivity.class);
-            startActivity(intent);
         });
 
     }
