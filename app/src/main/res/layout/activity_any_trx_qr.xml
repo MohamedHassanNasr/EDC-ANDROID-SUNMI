@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AnyTrxQrActivity"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/tvidMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Any TRX History"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:background="@drawable/rectangle">
+
+    <ImageView
+        android:id="@+id/ivQr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/qris_code"
+        android:layout_marginTop="10dp"/>
+
+    <View
+        android:id="@+id/garis"
+        android:layout_width="420dp"
+        android:layout_height="5dp"
+        android:background="@color/grey_20"
+        android:layout_marginTop="@dimen/dp_20"/>
+
+    <TextView
+        android:id="@+id/tvEnterReffNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reff No"
+        android:fontFamily="@font/montserrat_500"
+        android:textSize="14sp"
+        android:textColor="@color/grey_90"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_30"/>
+
+    <EditText
+        android:id="@+id/etReffNo"
+        android:layout_width="311dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:paddingStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_et"
+        android:fontFamily="@font/montserrat_500"
+        android:text=""
+        android:inputType="textAutoComplete"/>
+
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="311dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:backgroundTint="@color/yokke"
+        android:fontFamily="@font/montserrat_500"
+        android:text="CONTINUE"
+        android:textColor="@color/white"/>
+
+    </LinearLayout>
+</FrameLayout>

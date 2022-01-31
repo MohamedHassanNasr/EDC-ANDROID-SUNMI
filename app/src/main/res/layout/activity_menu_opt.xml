@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background">
+
+    <TextView
+        android:id="@+id/tvMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QRIS"
+        android:textColor="@color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        android:background="@drawable/rectangle">
+
+        <ImageView
+            android:id="@+id/ivQr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qris_code"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:id="@+id/garis"
+            android:layout_width="420dp"
+            android:layout_height="5dp"
+            android:background="@color/grey_20"
+            android:layout_marginTop="@dimen/dp_20"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="15dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_printQris"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shadow"
+                    android:elevation="6dp"
+                    android:outlineSpotShadowColor="@color/grey"
+                    app:cardCornerRadius="10dp"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_print_qris"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/montserrat_500"
+                        android:text="@string/print_qriS"
+                        android:textColor="@color/grey_61"
+                        android:textSize="12sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_lastTrx"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shadow"
+                    android:elevation="6dp"
+                    android:outlineSpotShadowColor="@color/grey"
+                    app:cardCornerRadius="8dp"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_last_trans"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/montserrat_500"
+                        android:text="@string/last_trx_status"
+                        android:textColor="@color/grey_61"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_anyTrx"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shadow"
+                    android:elevation="3dp"
+                    android:outlineSpotShadowColor="@color/grey"
+                    app:cardCornerRadius="8dp"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_any"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/montserrat_500"
+                        android:text="@string/any_trx_status"
+                        android:textColor="@color/grey_61"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="15dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_refundQris"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/shadow"
+                    android:elevation="6dp"
+                    android:outlineSpotShadowColor="@color/grey"
+                    app:cardCornerRadius="10dp"
+                    tools:ignore="UnusedAttribute">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_refund_qris"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/montserrat_500"
+                        android:text="@string/refundqr"
+                        android:textColor="@color/grey_61"
+                        android:textSize="12sp" />
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

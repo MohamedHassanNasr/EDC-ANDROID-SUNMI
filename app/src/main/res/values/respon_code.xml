@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_trade">Trade Fail</string>
+    <string name="response_00">Success</string>
+    <string name="response_01">CALL YOUR BANK</string>
+    <string name="response_03">INVALID MERCHANT</string>
+    <string name="response_04">PICK UP CARD</string>
+    <string name="response_05">DO NOT HONOUR</string>
+    <string name="response_06">UNDEFINED ERROR CODE</string>
+    <string name="response_07">PICK UP CARD</string>
+    <string name="response_11">MESSAGE FORMAT ERROR</string>
+    <string name="response_12">INVALID TRANS</string>
+    <string name="response_13">INVALID AMOUNT</string>
+    <string name="response_14">INVALID ACCOUNT NUMBER</string>
+    <string name="response_15">PIN REQUIRED</string>
+    <string name="response_19">RE-ENTER TRANS</string>
+
+    <string name="response_31">MESSAGE EDIT ERROR</string>
+
+    <string name="response_43">PICK UP CARD STOLEN</string>
+
+    <string name="response_51">INSUFF. FUNDS OVER LIMIT</string>
+    <string name="response_52">NO CHECKING ACCOUNT</string>
+    <string name="response_53">NO SAVINGS ACCOUNT</string>
+    <string name="response_54">CARD REFUSED CARD EXPIRED</string>
+    <string name="response_55">INCORRECT PIN</string>
+    <string name="response_56">NO CARD RECORD</string>
+    <string name="response_58">RETRY SETTLEMENT</string>
+
+    <string name="response_61">EXCEED LIMIT</string>
+    <string name="response_62">MORE THAN 3 REFERENCE</string>
+    <string name="response_67">MESSAGE FORMAT ERROR</string>
+    <string name="response_75">PIN RE-TRIES EXCEEDED</string>
+
+    <string name="response_76">INVALID ACCOUNT NUMBER</string>
+
+    <string name="response_86">DORMANT ACCOUNT</string>
+    <string name="response_87">PROVIDER DATABASE PROBLEM</string>
+    <string name="response_88">DUPLICATE KEY</string>
+    <string name="response_89">DATABASE PROBLEM</string>
+    <string name="response_90">TIME OUT</string>
+
+    <string name="response_92">LINK DOWN</string>
+    <string name="response_93">INVALID ROUTING</string>
+    <string name="response_96">SYSTEM MALFUNCTION</string>
+    <string name="response_97">TEST OK</string>
+
+    <string name="response_B1">INVALID AMOUNT</string>
+    <string name="response_B2">EXCEED MAX NUMBER OF BILL</string>
+    <string name="response_B3">2 BILLS FOR THE SAME MONTH</string>
+    <string name="response_B4">MOBILE NUMBER HAS BEEN BLOCK</string>
+    <string name="response_B5">BILL REF NOT FOUND</string>
+    <string name="response_B6">MUST PAY PREVIOUS BILL</string>
+    <string name="response_B7">PARTIAL PAYMENT NOT ALLOWED</string>
+    <string name="response_B8">BILL HAS ALREADY PAID</string>
+    <string name="response_B9">INVALID PH/ CUST ID/USER ID</string>
+
+    <string name="response_C1">UNDEFINED ERROR</string>
+    <string name="response_C2">MESSAGE FORMAT ERROR</string>
+    <string name="response_C3">MESSAGE EDIT ERROR</string>
+    <string name="response_C4">RESTRICTED CARD 3 REF</string>
+    <string name="response_C5">MESSAGE FORMAT ERROR</string>
+    <string name="response_C6">INVALID ACCOUNT NUMBER</string>
+    <string name="response_C7">PROVIDER DATABASE PROBLEM</string>
+    <string name="response_C8">PROVIDER DATABASE PROBLEM</string>
+    <string name="response_C9">TIME OUT</string>
+
+    <string name="response_D1">LINK DOWN</string>
+    <string name="response_D2">INVALID ROUTING</string>
+    <string name="response_DB">INVALID PIN</string>
+    <string name="response_DD">INVALID PIN</string>
+
+    <string name="response_L1">LOYALTY TRANSACTION NOT ALLOWED</string>
+
+    <string name="response_P1">CVV ERROR</string>
+    <string name="response_P2">TRANS LIMIT ERROR</string>
+    <string name="response_P3">CARD NOT ACTIVE</string>
+    <string name="response_P4">ERROR MISMATCH TRACK2</string>
+    <string name="response_P5">EXCEEDED PIN RETRY LIMIT</string>
+    <string name="response_P6">ERROR</string>
+    <string name="response_P7">NO PENDING UPDATE BALANCE</string>
+    <string name="response_P8">KARTU TIDAK TERDAFTAR</string>
+    <string name="response_P9">INVALID SERVICE FOR CARD</string>
+
+    <string name="response_Q1">HOT CARD</string>
+    <string name="response_Q2">CARD LIMIT EXCEDEED</string>
+    <string name="response_Q3">NO CHECKING ACCOUNT</string>
+    <string name="response_Q4">NO SAVINGS ACCOUNT</string>
+    <string name="response_Q5">EXPIRED CARD</string>
+    <string name="response_Q6">PIN MISMATCH</string>
+    <string name="response_Q7">SERVICE NOT ACTIVE</string>
+    <string name="response_Q8">OVER LIMIT</string>
+    <string name="response_Q9">ACCOUNT NOT FOUND</string>
+
+    <string name="response_R1">SYSTEM ERROR TERMINAL HSM</string>
+    <string name="response_R2">SYSTEM ERROR BATCH RUN</string>
+
+    <string name="response_unknown">System Error</string>
+</resources>

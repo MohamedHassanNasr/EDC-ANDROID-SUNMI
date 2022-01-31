@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    tools:context="com.sm.sdk.yokke.fragment.InitializeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/background_white">
+
+        <Button
+            android:id="@+id/btnInit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cyan"
+            android:shadowColor="@color/grey_61"
+            android:text="@string/initialize_btn"
+            android:fontFamily="@font/montserrat_500"
+            android:textColor="#424242"
+            app:backgroundTint="@color/yokke"
+            app:cardCornerRadius="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="20dp">
+        </Button>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_init"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="@string/initialize"
+        android:textColor="@color/white"
+        android:textSize="28sp" />
+
+</FrameLayout>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".transaction.sale.SaleActivity"
+    tools:context=".activities.SaleActivity"
     android:id="@+id/lytInptAmount">
 
     <LinearLayout
@@ -148,7 +148,7 @@
     </ImageView>
 
 
-    <com.sm.sdk.yokkeedc.view.DigitKeyboardView
+    <com.sm.sdk.yokke.view.DigitKeyboardView
         android:id="@+id/view_keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
         android:shadowRadius="0.0"
         app:layout_constraintBottom_toBottomOf="parent">
 
-    </com.sm.sdk.yokkeedc.view.DigitKeyboardView>
+    </com.sm.sdk.yokke.view.DigitKeyboardView>
 
     <TextView
         android:layout_width="wrap_content"
