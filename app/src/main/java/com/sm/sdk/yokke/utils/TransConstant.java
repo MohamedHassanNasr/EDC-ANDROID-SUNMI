@@ -11,16 +11,18 @@ public class TransConstant {
     public static final String TRANS_TYPE_GENERATE_QRIS = "GENERATE_QRIS";
     public static final String TRANS_TYPE_INQUIRY_QRIS = "INQUIRY_QRIS";
     public static final String TRANS_TYPE_REFUND_QRIS = "REFUND_QRIS";
+    public static final String TRANS_TYPE_ANY_TRANS_QRIS = "ANY_TRX_QRIS";
 
 
     /**
      * Processing Code
      */
     public static final String PROCODE_SALE = "000000";
-    public static final String PROCODO_VOID_SALE = "020000";
-    public static final String PROCODO_QRIS = "010002";
+    public static final String PROCODE_VOID_SALE = "020000";
+    public static final String PROCODE_QRIS = "010002";
     public static final String PROCODE_INQUIRY_QRIS = "011002";
     public static final String PROCODE_REFUND_QRIS = "013001";
+    public static final String PROCODE_SETTLEMENT = "920000";
 
     /**
      * Message Type Identifier

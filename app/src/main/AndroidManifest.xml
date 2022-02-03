@@ -56,6 +56,8 @@
         <activity android:name="com.sm.sdk.yokke.activities.MenuOptActivity" />
         <activity android:name="com.sm.sdk.yokke.activities.AnyTrxQrActivity" />
         <activity android:name="com.sm.sdk.yokke.activities.RefundQrisActivity" />
+        <activity android:name="com.sm.sdk.yokke.activities.PrintQrActivity" />
+        <activity android:name="com.sm.sdk.yokke.activities.SettlementActivity" />
     </application>
 
 </manifest>

@@ -59,6 +59,8 @@ public class BatchRecord implements Serializable {
     private String useYN;
     @DatabaseField
     private String bankCode;
+    @DatabaseField
+    private String cardTypeBit44;
 
     /**
      * field name
@@ -92,6 +94,7 @@ public class BatchRecord implements Serializable {
         this.apprCode = transData.getApprCode();
         this.reffNo = transData.getReffNo();
         this.bankCode = transData.getBankCode();
+        this.cardTypeBit44 = transData.getCardTypeBit44();
     }
 
     public int getId() {
@@ -284,5 +287,13 @@ public class BatchRecord implements Serializable {
 
     public void setBankCode(String bankCode) {
         this.bankCode = bankCode;
+    }
+
+    public String getCardTypeBit44() {
+        return cardTypeBit44;
+    }
+
+    public void setCardTypeBit44(String cardTypeBit44) {
+        this.cardTypeBit44 = cardTypeBit44;
     }
 }

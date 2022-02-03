@@ -30,7 +30,7 @@ public class PrintUtil {
     }
 
     public static void printSeparateLine() throws Exception {
-        MtiApplication.app.sunmiPrinterService.setAlignment(1, null);
+        MtiApplication.app.sunmiPrinterService.setAlignment(0, null);
         MtiApplication.app.sunmiPrinterService.printTextWithFont("--------------------------------\n", "", DEFAULT_SIZE, null);
     }
 

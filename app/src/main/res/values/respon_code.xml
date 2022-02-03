@@ -95,6 +95,7 @@
 
     <string name="response_R1">SYSTEM ERROR TERMINAL HSM</string>
     <string name="response_R2">SYSTEM ERROR BATCH RUN</string>
+    <string name="response_AG">ORIGINAL TRANSACTION NOT FOUND</string>
 
     <string name="response_unknown">System Error</string>
 </resources>

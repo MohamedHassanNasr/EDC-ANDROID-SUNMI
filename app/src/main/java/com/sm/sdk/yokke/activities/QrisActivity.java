@@ -29,6 +29,8 @@ import com.sm.sdk.yokke.models.QrTransData;
 import com.sm.sdk.yokke.models.transData.TransData;
 import com.sm.sdk.yokke.utils.Constant;
 import com.sm.sdk.yokke.utils.CurrencyConverter;
+import com.sm.sdk.yokke.utils.PrintTemplate;
+import com.sm.sdk.yokke.utils.PrintUtil;
 import com.sm.sdk.yokke.utils.ResponseCode;
 import com.sm.sdk.yokke.utils.Tools;
 import com.sm.sdk.yokke.utils.TransConstant;
@@ -58,10 +60,10 @@ public class QrisActivity extends AppCompatActivity {
     public String amount;
     public String tempAmount            = "";
     private int result_code = 0;
-    public final static int QRcodeWidth = 500 ;
     Bitmap bitmap ;
     private ProgressDialog progressDialog;
     TransData transData;
+    private String qrCode = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class QrisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_qris);
         transData = new TransData();
         transData.setTransactionType(TransConstant.TRANS_TYPE_GENERATE_QRIS);
-        transData.setProcCode(TransConstant.PROCODO_QRIS);
+        transData.setProcCode(TransConstant.PROCODE_QRIS);
         initView();
 
     }
@@ -132,6 +134,7 @@ public class QrisActivity extends AppCompatActivity {
                         finally {
                             MtiApplication.getInstance().runOnUiThread(() ->{
                                 if(result_code == Constant.RTN_COMM_SUCCESS){
+                                    qrCode = transData.getGenerateQR();
                                     InquiryQrTask.deleteQrDataDb();
                                     InquiryQrTask.initQrData(transData);
 
@@ -152,28 +155,16 @@ public class QrisActivity extends AppCompatActivity {
         btnPrintQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        transData.setTransactionType(TransConstant.TRANS_TYPE_REFUND_QRIS);
-                        transData.setProcCode(TransConstant.PROCODE_REFUND_QRIS);
-                        try {
-                            CommTask task = new CommTask(transData);
-                            result_code = task.startCommTask();
-                            //String rcCode = transData.getResponseCode();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        finally {
-                            MtiApplication.getInstance().runOnUiThread(() ->{
-                                if(result_code == Constant.RTN_COMM_SUCCESS){
-                                    InquiryQrTask.deleteQrDataDb();
-                                    InquiryQrTask.initQrData(transData);
-                                }
-                            });
-                        }
-                    }
-                }).start();
+                try {
+                    printBitmap(R.id.print_content);
+                    MtiApplication.app.sunmiPrinterService.setAlignment(1, null);
+                    PrintTemplate.printQRCode(qrCode);
+                    PrintTemplate.printString("NMID:ID02003233686\n",24);
+                    printBitmap(R.id.print_content_line);
+                    MtiApplication.app.sunmiPrinterService.lineWrap(4, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -215,11 +206,11 @@ public class QrisActivity extends AppCompatActivity {
                         inquiryStatusQr();
                     }
                     if("00".equals(retCode)){
-                        BatchRecord batchRecord = new BatchRecord(transData);
-                        batchRecord.setUseYN("Y");
-                        Utility.saveTransactionToDb(batchRecord);
                         cancel();
-                        Toast.makeText(getApplicationContext(), "SUCCESS ", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(QrisActivity.this, PrintQrActivity.class);
+                        intent.putExtra(PrintQrActivity.EXTRA_TRANS,transData);
+                        startActivity(intent);
+                        //Toast.makeText(getApplicationContext(), "SUCCESS CHECK KE HOST", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -237,6 +228,10 @@ public class QrisActivity extends AppCompatActivity {
     }
 
     public void inquiryStatusQr(){
+        int hideNav = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(hideNav);
 
         /*TES INQUIRY */
         QrTransData qrTransData;
@@ -323,13 +318,14 @@ public class QrisActivity extends AppCompatActivity {
         return null;
     }
 
-    private void printBitmap() {
+    private void printBitmap(int layout) {
         try {
             if (MtiApplication.app.sunmiPrinterService == null) {
                 //showToast("Print not supported");
                 return;
             }
-            View content = findViewById(R.id.print_content_qr);
+            MtiApplication.app.sunmiPrinterService.setAlignment(1, null);
+            View content = findViewById(layout);
             Bitmap bitmap = Tools.createViewBitmap(content);
 //            bitmap = getBinaryzationBitmap(bitmap);
             MtiApplication.app.sunmiPrinterService.enterPrinterBuffer(true);
@@ -354,7 +350,7 @@ public class QrisActivity extends AppCompatActivity {
                     LogUtil.e("TAG", "onPrintResult-->code:" + code + ",msg:" + msg);
                 }
             });
-            MtiApplication.app.sunmiPrinterService.lineWrap(4, null);
+            MtiApplication.app.sunmiPrinterService.lineWrap(1, null);
             MtiApplication.app.sunmiPrinterService.exitPrinterBuffer(true);
         } catch (Exception e) {
             e.printStackTrace();

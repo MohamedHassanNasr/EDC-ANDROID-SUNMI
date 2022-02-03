@@ -13,6 +13,7 @@ import com.sm.sdk.yokke.models.BatchRecord;
 import com.sm.sdk.yokke.models.QrTransData;
 import com.sm.sdk.yokke.models.transData.TransParam;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -336,4 +337,59 @@ public final class Utility {
     public static void saveQrLastTrans(QrTransData qrTransData) {
         MtiApplication.getQrDataDHelper().insertQrtransData(qrTransData);
     }
+
+    public static String getAmountRp(long amount) {
+        String strAmount = null;
+        String amountIDR = NumberFormat.getCurrencyInstance(new Locale("id","ID")).format(amount);
+        return amountIDR;
+    }
+
+    public static String setPaddingDataFromLongToString(long amount, int maxLength) {
+        return Tools.paddingLeft(String.valueOf(amount), '0', maxLength);
+    }
+
+    public static String getBatchNum() {
+        String strBatchNum;
+        String defaultBatchNum = "000001";
+        boolean isSaved;
+
+        TransParam transParam = MtiApplication.getTransParamDBHelper().findTransParamByParamName(TransParam.BATCH_NUM);
+        if (transParam != null) {
+            strBatchNum = transParam.getParamVal();
+            if(strBatchNum != null) {
+                int iBatchNum = Integer.parseInt(strBatchNum);
+                String BatchNum = Tools.paddingLeft(String.valueOf(iBatchNum), '0', 6);
+                return BatchNum;
+            }
+        }
+        else {
+            TransParam newTransParam = new TransParam();
+            newTransParam.setParamName(TransParam.TRACE_AUDIT_NUM);
+            newTransParam.setParamVal(defaultBatchNum);
+            isSaved = MtiApplication.getTransParamDBHelper().insertTransParam(newTransParam);
+            if(isSaved) {
+                return defaultBatchNum;
+            }
+            else {
+                return "";
+            }
+        }
+        return "";
+    }
+
+    public static void updateBatchNum() {
+        TransParam transParam = new TransParam();
+        String batchNum = getBatchNum();
+        int iBatchNum = Integer.parseInt(batchNum);
+
+        if (iBatchNum > 999999 || iBatchNum < 0)
+        {
+            iBatchNum = 0;
+        }
+        iBatchNum++;
+        transParam.setParamName(TransParam.BATCH_NUM);
+        transParam.setParamVal(String.valueOf(iBatchNum));
+        MtiApplication.getTransParamDBHelper().updateTransParam(transParam);
+    }
+
 }

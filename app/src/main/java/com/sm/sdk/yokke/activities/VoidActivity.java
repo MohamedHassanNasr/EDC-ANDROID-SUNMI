@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.sm.sdk.yokke.R;
 import com.sm.sdk.yokke.comm.CommTask;
-import com.sm.sdk.yokke.comm.InquiryQrTask;
 import com.sm.sdk.yokke.models.BatchRecord;
 import com.sm.sdk.yokke.models.transData.TransData;
 import com.sm.sdk.yokke.utils.Constant;
@@ -73,7 +72,7 @@ public class VoidActivity extends AppCompatActivity {
             public void onClick(View v) {
                 transData = new TransData();
                 transData.setTransactionType(TransConstant.TRANS_TYPE_VOID);
-                transData.setProcCode(TransConstant.PROCODO_VOID_SALE);
+                transData.setProcCode(TransConstant.PROCODE_VOID_SALE);
                 transData.setCardType(batchRecord.getCardType());
                 transData.setCardBrand(batchRecord.getCardBrand());
                 transData.setONOFF(batchRecord.getONOFF());

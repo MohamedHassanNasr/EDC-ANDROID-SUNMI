@@ -42,6 +42,9 @@ public class PackTrans extends PackIso8583 {
                 case TransConstant.TRANS_TYPE_REFUND_QRIS:
                     setRefundQr(transData);
                     break;
+                case TransConstant.TRANS_TYPE_ANY_TRANS_QRIS:
+                    setAnyQrisTrans(transData);
+                    break;
             }
         }
 
@@ -210,15 +213,58 @@ public class PackTrans extends PackIso8583 {
                 sb.append("                 ");
             }
             else{
-                //sb.append(Tools.paddingRight(reffNo,' ',20));
-                sb.append(reffNo);
-                sb.append("        ");
+                sb.append(Tools.paddingRight(reffNo,' ',20));
+//                sb.append(reffNo);
+//                sb.append("        ");
             }
             sb.append("01");
 
             bit59 = sb.toString();
             entity.setFieldValue(FieldConstant.BIT_RESERVED_NATIONAL_BIT59,bit59 );//Invoice No
 
+        } catch (Iso8583Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setAnyQrisTrans(TransData transData) {
+        setFinancialData(transData);
+
+        setMandatoryData(transData);
+        String bit59;
+        StringBuilder sb = new StringBuilder();
+        String merchantTransid = transData.getMerchantTransId();
+        if(merchantTransid == null) {
+            sb.append("                 ");
+        }
+        else{
+            sb.append(merchantTransid);
+            sb.append("01");
+        }
+        String reffNo = transData.getReffNo();
+        sb.append(Tools.paddingRight(reffNo,' ',20));
+        sb.append("01");
+
+        bit59 = sb.toString();
+        try {
+            entity.setFieldValue(FieldConstant.BIT_CURRENCY_CODE_TRANSACTION, "0360");
+            entity.setFieldValue(FieldConstant.BIT_ADDITIONAL_AMOUNTS,"000000000000");
+            // entity.setFieldValue(FieldConstant.BIT_ADDITIONAL_DATA_NATIONAL, "1");
+            //  entity.setFieldValue(FieldConstant.BIT_RESERVED_NATIONAL_BIT57, "4D544930303733303033343935FA0005730034950000460000000000000000000031313030303803D748CA2DFDD5BF");
+            entity.setFieldValue(FieldConstant.BIT_RESERVED_NATIONAL_BIT59,bit59 );
+
+        } catch (Iso8583Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setSettlementData(TransData transData) {
+        setFinancialData(transData);
+        setMandatoryData(transData);
+        try {
+            entity.setFieldValue(FieldConstant.BIT_ADDITIONAL_DATA_NATIONAL, "1");
+            entity.setFieldValue(FieldConstant.BIT_RESERVED_NATIONAL_BIT60, Utility.getBatchNum()); //batch number
+            entity.setFieldValue(FieldConstant.BIT_RESERVED_PRIVATE_BIT63, transData.getBit63());
         } catch (Iso8583Exception e) {
             e.printStackTrace();
         }

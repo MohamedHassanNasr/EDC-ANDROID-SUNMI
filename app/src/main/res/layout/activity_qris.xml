@@ -178,7 +178,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/colorBackground"
-        android:layout_gravity="center_horizontal"
         android:visibility="invisible">
 
         <ImageView
@@ -355,12 +354,29 @@
             android:orientation="vertical"
             android:layout_marginTop="5dp">
             <ImageView
-                android:layout_width="300px"
+                android:layout_width="200px"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/qris_logo"/>
 
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/print_content_line"
+        android:layout_width="35mm"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorBackground"
+        android:visibility="invisible">
+
+        <View
+            android:id="@+id/garis3"
+            android:layout_width="420dp"
+            android:layout_height="2dp"
+            android:background="@drawable/dotted"
+            android:layout_marginTop="@dimen/sp_10"/>
+
     </LinearLayout>
 
 </FrameLayout>

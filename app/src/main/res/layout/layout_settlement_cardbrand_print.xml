@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/llCardInfoPrint1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="0dp">
+
+        <TextView
+            android:id="@+id/tvCardInfoPrint1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/arialnarrowbold"
+            android:gravity="start"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:layout_marginRight="35dp"
+            android:textSize="8sp"  />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/llCardInfoPrint2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="0dp">
+
+        <TextView
+            android:id="@+id/tvCardInfoPrint2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/arialnarrowbold"
+            android:gravity="start"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:layout_marginRight="35dp"
+            android:textSize="8sp"  />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSaleSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_horizontal"
+        android:orientation="horizontal"
+        android:paddingTop="0dp">
+
+        <TextView
+            android:id="@+id/tvSale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="start"
+            android:textSize="8sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvSaleCounter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textSize="8sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvTotalSaleAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="end"
+            android:textSize="8sp"
+            android:textColor="@color/black"
+            android:layout_marginRight="35dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llVoidSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal"
+        android:paddingTop="0dp">
+
+        <TextView
+            android:id="@+id/tvVoid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="start"
+            android:textSize="8sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvVoidCounter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textSize="8sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvTotalVoidAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="end"
+            android:textSize="8sp"
+            android:textColor="@color/black"
+            android:layout_marginRight="35dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRefundSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:orientation="horizontal"
+        android:paddingTop="0dp">
+
+        <TextView
+            android:id="@+id/tvRefund"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="start"
+            android:textSize="8sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvRefundCounter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="center"
+            android:textSize="8sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tvTotalRefundAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/arialnarrowbold"
+            android:textAllCaps="true"
+            android:gravity="end"
+            android:textSize="8sp"
+            android:textColor="@color/black"
+            android:layout_marginRight="35dp"/>
+    </LinearLayout>
+
+</LinearLayout>

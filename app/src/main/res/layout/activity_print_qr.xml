@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PrintQrActivity"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:id="@+id/linearSSQris"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivYokke"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/yokke_print"/>
+        <TextView
+            android:id="@+id/print_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/arialnarrowbold"
+            android:text="@string/print_id"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvTid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/print_tid"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvMid"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="end"
+                android:text="@string/print_mid"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvNameAcq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/nama_acquirer"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="end"
+                android:text="@string/tv_DateStrukQr"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvMercPan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/merc_panQr"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="end"
+                android:text="@string/print_time"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvNameIssuer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/uob"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvReffNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="end"
+                android:text="@string/print_reffNo"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvQrisPay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="QRIS PAY"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/status_transaksi"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvTextStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="SUKSES"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvNameCust"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/name_cust"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvTextNameCust"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvCustPan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/customer_pan"
+                android:textColor="@color/black"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tvTextCustPan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvReffId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/reff_id"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvTextReffId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvTip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/tip_qr"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvTextTip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvNominal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/nominal_qr"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/tvTextNominal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/total_amount"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/tvTotalAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="end"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_horizontal"
+            android:layout_marginEnd="@dimen/space_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="0dp">
+
+            <TextView
+                android:id="@+id/tvCustCopy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:fontFamily="@font/arialnarrowbold"
+                android:gravity="start"
+                android:text="@string/cust_copy"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearStruk"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/grey_50"
+            android:text="Close"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnPrint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/yokke"
+            android:text="Print"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+</FrameLayout>

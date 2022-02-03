@@ -12,10 +12,11 @@ import androidx.fragment.app.Fragment;
 import com.sm.sdk.yokke.R;
 import com.sm.sdk.yokke.activities.MenuOptActivity;
 import com.sm.sdk.yokke.activities.SaleActivity;
+import com.sm.sdk.yokke.activities.SettlementActivity;
 import com.sm.sdk.yokke.activities.VoidActivity;
 
 public class TransactionFragment extends Fragment {
-    CardView btnSale, btnVoid, btnQRISMenu;
+    CardView btnSale, btnVoid, btnQRISMenu, btnSettlement;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +46,15 @@ public class TransactionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MenuOptActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSettlement = view.findViewById(R.id.btn_settlement);
+        btnSettlement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SettlementActivity.class);
                 startActivity(intent);
             }
         });

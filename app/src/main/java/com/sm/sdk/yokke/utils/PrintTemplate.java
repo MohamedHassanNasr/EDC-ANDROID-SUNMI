@@ -37,7 +37,6 @@ public class PrintTemplate {
                 return;
             }
             MtiApplication.app.sunmiPrinterService.enterPrinterBuffer(true);
-            MtiApplication.app.sunmiPrinterService.setAlignment(1, null);
             MtiApplication.app.sunmiPrinterService.printQRCode(data,5,1, null);
             MtiApplication.app.sunmiPrinterService.exitPrinterBuffer(true);
         } catch (Exception e) {
@@ -65,6 +64,20 @@ public class PrintTemplate {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void printString(String data, int fontSize){
+        try {
+            MtiApplication.app.sunmiPrinterService.setFontSize(fontSize,null);
+            MtiApplication.app.sunmiPrinterService.printText(data,null);
+            MtiApplication.app.sunmiPrinterService.exitPrinterBuffer(true);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
+
+
+
+
 }

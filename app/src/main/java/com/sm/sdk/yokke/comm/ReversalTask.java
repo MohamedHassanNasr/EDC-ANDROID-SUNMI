@@ -13,7 +13,7 @@ import com.sm.sdk.yokke.utils.Tools;
 
 import java.util.List;
 
-public class ReversalTask {
+public class ReversalTask extends BaseTask{
     private static String TAG = "ReversalTask";
 
     private ReversalTask() {
@@ -50,7 +50,7 @@ public class ReversalTask {
     public static void initReversalData(TransData transData, PackIso8583 packager) {
         byte[] reversalMessage;
 
-        reversalMessage = buildReversalMessage(transData, packager);
+        reversalMessage = buildMessage(transData, packager, true);
         ReversalData data = new ReversalData(reversalMessage);
 
         MtiApplication.getReversalDataDBHelper().insertReversalDataDb(data);
@@ -89,21 +89,5 @@ public class ReversalTask {
 
     public static void deleteReversalDataDb() {
         MtiApplication.getReversalDataDBHelper().deleteAllReversalDataDb();
-
     }
-
-    private static byte[] buildReversalMessage(TransData transData, PackIso8583 packager) {
-        byte[] sendData;
-        byte[] req = packager.pack(transData, true);
-        Log.i(TAG, "REQ: " + Tools.bcd2Str(req));
-        sendData = new byte[2 + req.length];
-        sendData[0] = (byte) (req.length / 256);
-        sendData[1] = (byte) (req.length % 256);
-        System.arraycopy(req, 0, sendData, 2, req.length);
-        Log.i(TAG, "Reversal Message: " + Tools.bcd2Str(sendData));
-        return sendData;
-    }
-
-
-
 }

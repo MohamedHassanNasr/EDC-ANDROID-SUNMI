@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.sm.sdk.yokke.R;
 import com.sm.sdk.yokke.card.wrapper.CheckCardCallbackV2Wrapper;
@@ -46,6 +49,7 @@ import com.sunmi.pay.hardware.aidlv2.pinpad.PinPadListenerV2;
 import com.sunmi.pay.hardware.aidlv2.pinpad.PinPadOptV2;
 import com.sunmi.pay.hardware.aidlv2.readcard.CheckCardCallbackV2;
 import com.sunmi.pay.hardware.aidlv2.readcard.ReadCardOptV2;
+import com.sunmi.pay.hardware.aidlv2.system.BasicOptV2;
 
 import org.json.JSONObject;
 
@@ -67,6 +71,7 @@ public class SaleActivity extends AppCompatActivity{
     /**
      * variable from sdk sunmi
      */
+    private final BasicOptV2 basicOptV2 = MtiApplication.app.basicOptV2;
 
     private EMVOptV2 mEMVOptV2;
     private PinPadOptV2 mPinPadOptV2;
@@ -131,7 +136,16 @@ public class SaleActivity extends AppCompatActivity{
         transData.setProcCode(TransConstant.PROCODE_SALE);
         setContentView(R.layout.activity_sale);
         initView();
+        try {
+            basicOptV2.setNavigationBarVisibility(0);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
+
+
+
+
 
     /**
      * Function Activity After Input Amount
@@ -174,6 +188,7 @@ public class SaleActivity extends AppCompatActivity{
         transData.setCardNo("");
         transData.setExpDate("");
         transData.setCardHolderName("");
+
 
         EditorActionListener editorActionListener = new EditorActionListener() {
             @Override
@@ -1017,7 +1032,20 @@ public class SaleActivity extends AppCompatActivity{
                                 Intent intent = new Intent(SaleActivity.this, PrintActivity.class);
                                 intent.putExtra(PrintActivity.EXTRA_TRANS,transData);
                                 startActivity(intent);
-                            }else{
+                            }
+                            else if(result == Constant.RTN_COMM_REVERSAL_COMPLETE) {
+                            MtiApplication.getInstance().runOnUiThread(() ->{
+                                Toast.makeText(SaleActivity.this, "Reversal Tran Completed", Toast.LENGTH_SHORT).show();
+//                                    try {
+//                                        MtiApplication.app.basicOptV2.buzzerOnDevice(1, 2750, 200, 0);
+//                                    } catch (RemoteException e) {
+//                                        e.printStackTrace();
+//                                    }
+                                Intent intent = new Intent(SaleActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                });
+                            }
+                            else{
                                 returnFailed();
                             }
                         } catch (Exception e) {

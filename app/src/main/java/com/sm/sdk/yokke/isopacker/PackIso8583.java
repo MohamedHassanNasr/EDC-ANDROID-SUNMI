@@ -115,6 +115,9 @@ public abstract class PackIso8583 {
                 case TransConstant.TRANS_TYPE_REFUND_QRIS:
                     messageType = TransConstant.MESSAGE_TYPE_QRIS_REFUND;
                     break;
+                case TransConstant.TRANS_TYPE_ANY_TRANS_QRIS:
+                    messageType = TransConstant.MESSAGE_TYPE_QRIS_INQUIRY;
+                    break;
                 default:
                     messageType = "";
                     break;

@@ -35,15 +35,13 @@ public class OnlineProcess extends AsyncTask<Object, Object, TransactionResult> 
     /**
      * todo : ganti jangan static
      */
-    private String serverIP = "172.16.54.24";
-    //private String serverIP = "172.16.200.22";            // temp data
-    private int serverPort = 5088;
-    //private int serverPort = 5088;             // temp data
+    private String serverIP = "172.16.54.24";            // temp data
+    private int serverPort = 5088;             // temp data
 
     private int connectTimeout = 2000;
     private int socketTimeout = 1000;
     private int receiveDataLen = 21;
-    private long maxRecvDataTimeout = 10000; //60 detik = 60000 milisekon
+    private long maxRecvDataTimeout = 60000; //60 detik = 60000 milisekon
 
     private Socket socket;
     private InputStream inputStream;
@@ -130,6 +128,7 @@ public class OnlineProcess extends AsyncTask<Object, Object, TransactionResult> 
                 Thread.sleep(50);
                 currentTime = System.currentTimeMillis();
                 if(currentTime - startTime >= maxRecvDataTimeout) {
+                    closePOSP();
                     return new TransactionResult(Constant.RTN_COMM_TIMEOUT,null);
                 }
             }
@@ -148,17 +147,13 @@ public class OnlineProcess extends AsyncTask<Object, Object, TransactionResult> 
             System.arraycopy(recBuff, 2, recvData, 0, recvLength-2);
 
             Log.i(TAG, "RECEIVE from HOST: " + Tools.bcd2Str(recvData));
-//            delegate.processFinish(recvData);
-            return new TransactionResult(Constant.RTN_COMM_SUCCESS,recvData);
 
-//            HashMap<String, byte[]> receiveDataMap = parseMessage(recvData);
-//            int result =  MessageValidator.validateMessage(receiveDataMap, transData.getTransactionType());
-//            if(result == Constant.RTN_COMM_SUCCESS) {
-//                MessageProcessor.parseMessage(receiveDataMap, transData);
-//                return result;
-//            }
-
-            //return 123;
+            if(recvData != null) {
+                System.arraycopy(recBuff, 2, recvData, 0, recvLength-2);
+                Log.i(TAG, "RECEIVE from HOST: " + Tools.bcd2Str(recvData));
+                closePOSP();
+                return new TransactionResult(Constant.RTN_COMM_SUCCESS,recvData);
+            }
 
 //            recLen[0] = index;
         } catch (SocketTimeoutException e) {
@@ -170,9 +165,8 @@ public class OnlineProcess extends AsyncTask<Object, Object, TransactionResult> 
             e.printStackTrace();
             Log.i(TAG, "ANSWER_CODE_NETWORK");
 //            throw new Exception(Constant.ANSWER_CODE_NETWORK);
-        } finally {
-            closePOSP();
         }
+        closePOSP();
         return new TransactionResult(Constant.RTN_COMM_ERROR,null);
     }
 
@@ -208,26 +202,6 @@ public class OnlineProcess extends AsyncTask<Object, Object, TransactionResult> 
             }
         }
     }
-
-
-
-//    public byte[] buildMessage(TransData transData) {
-//        byte[] sendData;
-//        private PackTrans transIso = new PackTrans();
-//        byte[] req = transIso.pack(transData);
-//        Log.i(TAG, "REQ: " + Tools.bcd2Str(req));
-//        sendData = new byte[2 + req.length];
-//        sendData[0] = (byte) (req.length / 256);
-//        sendData[1] = (byte) (req.length % 256);
-//        System.arraycopy(req, 0, sendData, 2, req.length);
-//        Log.i(TAG, "SEND to HOST: " + Tools.bcd2Str(sendData));
-//        return sendData;
-//    }
-
-//    private HashMap<String, byte[]> parseMessage(byte[] resp) {
-//
-//        return transIso.unpack(resp);
-//    }
 
     protected void onPostExecute(TransactionResult result) {
         synchronized (this){

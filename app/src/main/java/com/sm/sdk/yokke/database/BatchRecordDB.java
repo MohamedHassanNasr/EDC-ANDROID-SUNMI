@@ -8,6 +8,7 @@ import com.j256.ormlite.stmt.UpdateBuilder;
 import com.sm.sdk.yokke.models.BatchRecord;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class BatchRecordDB {
     private static final String TAG = "BatchRecordDB";
@@ -96,5 +97,26 @@ public class BatchRecordDB {
         }
 
         return null;
+    }
+
+    public List<BatchRecord> getAllBatchRecord() {
+        try {
+            RuntimeExceptionDao<BatchRecord, Integer> dao = getBatchRecordDao();
+            return dao.queryForAll();
+        } catch (RuntimeException e) {
+            Log.e(TAG,"ERROR FIND BATCH RECORD by id",e);
+        }
+
+        return null;
+    }
+
+    public void deleteAllBatchRecord() {
+        try {
+            RuntimeExceptionDao<BatchRecord, Integer> dao = getBatchRecordDao();
+            List<BatchRecord> list = dao.queryForAll();
+            dao.delete(list);
+        } catch (RuntimeException e) {
+            Log.e(TAG,"ERROR FIND BATCH RECORD by id",e);
+        }
     }
 }

@@ -28,6 +28,10 @@ public class MessageValidator {
                 result = checkBitMandatory(map, new String[]{"38"});
             }
         }
+        else if(TransConstant.TRANS_TYPE_SETTLEMENT.equals(transType)){
+            result = Constant.RTN_COMM_SUCCESS;
+
+        }
 
         return result;
     }

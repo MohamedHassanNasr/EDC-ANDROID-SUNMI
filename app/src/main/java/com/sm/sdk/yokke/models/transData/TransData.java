@@ -41,6 +41,8 @@ public class TransData implements Parcelable {
     private String dateTime;
     private String invoiceNo;
     private String bankCode;
+    private String cardTypeBit44;
+    private String bit63;
 
     //QRIS
     private String merchantTransId;
@@ -49,6 +51,23 @@ public class TransData implements Parcelable {
     private String qrCodeLen;
     private String generateQR;
     private String NMID;
+
+    private String qrKindCode;
+    private String payByChannel;
+    private String custName;
+    private String custPan;
+    private String reffId;
+    private String acqBankCode;
+    private String issName;
+    private String memberBankMid;
+    private String memberBankTid;
+    private String paymentType;
+    private String feeAmt;
+    private String tipAmt;
+    private String totalAmt;
+    private String appsUserId;
+    private String merchantAddr;
+
 
     private static TransData instance;
     /**
@@ -85,6 +104,7 @@ public class TransData implements Parcelable {
         procCode = in.readString();
         dateTime = in.readString();
         invoiceNo = in.readString();
+        NMID      = in.readString();
     }
 
     public static final Creator<TransData> CREATOR = new Creator<TransData>() {
@@ -153,6 +173,7 @@ public class TransData implements Parcelable {
         dest.writeString(procCode);
         dest.writeString(dateTime);
         dest.writeString(invoiceNo);
+        dest.writeString(NMID);
     }
 
     public enum EnterMode {
@@ -439,5 +460,141 @@ public class TransData implements Parcelable {
 
     public void setNMID(String NMID) {
         this.NMID = NMID;
+    }
+
+    public String getQrKindCode() {
+        return qrKindCode;
+    }
+
+    public void setQrKindCode(String qrKindCode) {
+        this.qrKindCode = qrKindCode;
+    }
+
+    public String getPayByChannel() {
+        return payByChannel;
+    }
+
+    public void setPayByChannel(String payByChannel) {
+        this.payByChannel = payByChannel;
+    }
+
+    public String getCustName() {
+        return custName;
+    }
+
+    public void setCustName(String custName) {
+        this.custName = custName;
+    }
+
+    public String getCustPan() {
+        return custPan;
+    }
+
+    public void setCustPan(String custPan) {
+        this.custPan = custPan;
+    }
+
+    public String getReffId() {
+        return reffId;
+    }
+
+    public void setReffId(String reffId) {
+        this.reffId = reffId;
+    }
+
+    public String getAcqBankCode() {
+        return acqBankCode;
+    }
+
+    public void setAcqBankCode(String acqBankCode) {
+        this.acqBankCode = acqBankCode;
+    }
+
+    public String getIssName() {
+        return issName;
+    }
+
+    public void setIssName(String issName) {
+        this.issName = issName;
+    }
+
+    public String getMemberBankMid() {
+        return memberBankMid;
+    }
+
+    public void setMemberBankMid(String memberBankMid) {
+        this.memberBankMid = memberBankMid;
+    }
+
+    public String getMemberBankTid() {
+        return memberBankTid;
+    }
+
+    public void setMemberBankTid(String memberBankTid) {
+        this.memberBankTid = memberBankTid;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
+    public String getFeeAmt() {
+        return feeAmt;
+    }
+
+    public void setFeeAmt(String feeAmt) {
+        this.feeAmt = feeAmt;
+    }
+
+    public String getTipAmt() {
+        return tipAmt;
+    }
+
+    public void setTipAmt(String tipAmt) {
+        this.tipAmt = tipAmt;
+    }
+
+    public String getTotalAmt() {
+        return totalAmt;
+    }
+
+    public void setTotalAmt(String totalAmt) {
+        this.totalAmt = totalAmt;
+    }
+
+    public String getAppsUserId() {
+        return appsUserId;
+    }
+
+    public void setAppsUserId(String appsUserId) {
+        this.appsUserId = appsUserId;
+    }
+
+    public String getMerchantAddr() {
+        return merchantAddr;
+    }
+
+    public void setMerchantAddr(String merchantAddr) {
+        this.merchantAddr = merchantAddr;
+    }
+
+    public String getBit63() {
+        return bit63;
+    }
+
+    public void setBit63(String bit63) {
+        this.bit63 = bit63;
+    }
+
+    public String getCardTypeBit44() {
+        return cardTypeBit44;
+    }
+
+    public void setCardTypeBit44(String cardTypeBit44) {
+        this.cardTypeBit44 = cardTypeBit44;
     }
 }
