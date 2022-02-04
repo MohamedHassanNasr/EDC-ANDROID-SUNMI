@@ -20,10 +20,13 @@ import com.sm.sdk.yokke.utils.ResponseCode;
 import com.sm.sdk.yokke.utils.TransConstant;
 import com.sm.sdk.yokke.utils.Utility;
 
+import sunmi.sunmiui.utils.LogUtil;
+
 public class MenuOptActivity extends AppCompatActivity {
     CardView btnPrintQr, btnLast, btnAny, btnRefund;
     TransData transData;
     ProgressDialog progressDialog;
+    QrTransData qrTransData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,15 @@ public class MenuOptActivity extends AppCompatActivity {
         btnLast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inquiryStatusQr();
+                qrTransData = InquiryQrTask.getQrTransDataFromDb();
+                if(qrTransData == null){
+                    Toast.makeText(getApplicationContext(),"NOT FOUND",Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"FOUND",Toast.LENGTH_LONG).show();
+                    inquiryStatusQr();
+                }
             }
         });
 
@@ -73,14 +84,6 @@ public class MenuOptActivity extends AppCompatActivity {
     public void inquiryStatusQr(){
 
         /*TES INQUIRY */
-        QrTransData qrTransData;
-        qrTransData = InquiryQrTask.getQrTransDataFromDb();
-
-        if (qrTransData == null){
-            Toast.makeText(getApplicationContext(),"Transaction not Found",Toast.LENGTH_LONG).show();
-            return;
-        }
-        Toast.makeText(getApplicationContext(),"Transaction Found",Toast.LENGTH_LONG).show();
         transData = new TransData();
         transData.setMerchantTransId(qrTransData.getMerchantTransId());
         transData.setReffNo(qrTransData.getQRreffno());
@@ -112,11 +115,17 @@ public class MenuOptActivity extends AppCompatActivity {
                         String retCode = Rspcode.getCode();
                         String retmessage = Rspcode.getMessage();
                         if("00".equals(retCode)){
-                            InquiryQrTask.deleteQrDataDb();
-                            InquiryQrTask.initQrData(transData);
-                            BatchRecord batchRecord = new BatchRecord(transData);
-                            batchRecord.setUseYN("Y");
-                            Utility.saveTransactionToDb(batchRecord);
+//                            InquiryQrTask.deleteQrDataDb();
+//                            InquiryQrTask.initQrData(transData);
+                            BatchRecord findreffid = Utility.getRefIDByRefNo(transData.getReffId());
+                            if (findreffid == null){
+                                BatchRecord batchRecord = new BatchRecord(transData);
+                                batchRecord.setUseYN("Y");
+                                Utility.saveTransactionToDb(batchRecord);
+                            }
+                            Intent intent = new Intent(MenuOptActivity.this, PrintQrActivity.class);
+                            intent.putExtra(PrintQrActivity.EXTRA_TRANS,transData);
+                            startActivity(intent);
                         }
                     }
                     else{

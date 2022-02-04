@@ -14,10 +14,12 @@ import android.widget.Toast;
 import com.sm.sdk.yokke.R;
 import com.sm.sdk.yokke.comm.CommTask;
 import com.sm.sdk.yokke.comm.InquiryQrTask;
+import com.sm.sdk.yokke.models.BatchRecord;
 import com.sm.sdk.yokke.models.transData.TransData;
 import com.sm.sdk.yokke.utils.Constant;
 import com.sm.sdk.yokke.utils.ResponseCode;
 import com.sm.sdk.yokke.utils.TransConstant;
+import com.sm.sdk.yokke.utils.Utility;
 
 public class AnyTrxQrActivity extends AppCompatActivity {
     private static int LAST_TRX = 1;
@@ -26,6 +28,7 @@ public class AnyTrxQrActivity extends AppCompatActivity {
     Button btn_continue;
     private TransData transData;
     private ProgressDialog progressDialog;
+    BatchRecord batchRecord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +70,20 @@ public class AnyTrxQrActivity extends AppCompatActivity {
                                 String retmessage = Rspcode.getMessage();
 
                                 if("00".equals(retCode)){
-                                    InquiryQrTask.deleteQrDataDb();
-                                    InquiryQrTask.initQrData(transData);
+//                                    InquiryQrTask.deleteQrDataDb();
+//                                    InquiryQrTask.initQrData(transData);
+
+                                    batchRecord = Utility.getRefIDByRefNo(transData.getReffId());
+                                    if (batchRecord == null){
+                                        Utility.saveTransactionToDb(batchRecord);
+                                    }
 
                                     MtiApplication.getInstance().runOnUiThread(() ->{
                                         Toast.makeText(getApplicationContext(), "SUCCESS ", Toast.LENGTH_SHORT).show();
                                     });
+                                    Intent intent = new Intent(AnyTrxQrActivity.this, PrintQrActivity.class);
+                                    intent.putExtra(PrintQrActivity.EXTRA_TRANS,transData);
+                                    startActivity(intent);
                                 }
                                 else{
                                     MtiApplication.getInstance().runOnUiThread(() ->{

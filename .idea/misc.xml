@@ -29,11 +29,13 @@
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/drawable/dotted.xml" value="0.1078125" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_any_trx_qr.xml" value="0.16666666666666666" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_menu_opt.xml" value="0.1" />
-        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_print.xml" value="0.1" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_print.xml" value="0.3333333333333333" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_print_qr.xml" value="0.3333333333333333" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_qris.xml" value="0.3713768115942029" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_qris_print.xml" value="0.1203125" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/activity_settlement.xml" value="0.10989583333333333" />
-        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/fragment_report.xml" value="0.1" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/fragment_report.xml" value="0.303125" />
+        <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/fragment_report_qris.xml" value="0.32620320855614976" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/fragment_transaction.xml" value="0.16666666666666666" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/layout_settlement_cardbrand_display.xml" value="0.10989583333333333" />
         <entry key="..\:/EDC_ANDROID_FINAL/sunmi/widya/Sunmi-27 Januari 2022/app/src/main/res/layout/print_struk_qr.xml" value="0.22" />

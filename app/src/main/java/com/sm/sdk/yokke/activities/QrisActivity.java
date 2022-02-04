@@ -50,7 +50,7 @@ public class QrisActivity extends AppCompatActivity {
     private DigitKeyboard mDigitKeyboard;
     private View digitKeyboard;
     private Button btnContinue;
-    private TextView tvEnterAmount, tvTimeQr, tvIdQris;
+    private TextView tvEnterAmount, tvTimeQr, tvIdQris, tvTime, tvReffNo;
     private EditText etAmountQr;
     private ImageView ivQris_display, ivQris;
     private LinearLayout llTimeQr;
@@ -88,6 +88,8 @@ public class QrisActivity extends AppCompatActivity {
         tvIdQris            = findViewById(R.id.tvIdQris);
         digitKeyboard       = findViewById(R.id.view_keyboard);
         tvTimeQr            = findViewById(R.id.tvTimeQr);
+        tvTime              = findViewById(R.id.tvTime);
+        tvReffNo            = findViewById(R.id.tvReffNo);
         btnContinue.setVisibility(View.INVISIBLE);
         EditorActionListener editorActionListener = new EditorActionListener() {
             @Override
@@ -141,6 +143,12 @@ public class QrisActivity extends AppCompatActivity {
                                     bitmap = createCodeBitmap(transData.getGenerateQR(), 300, 300);
                                     ivQris.setImageBitmap(bitmap);
                                     ivQris_display.setImageBitmap(bitmap);
+                                    String time = transData.getTime();
+                                    time        = "TIME:"+time.substring(0,2) + ":" + time.substring(2,4) + ":" + time.substring(4,6);
+                                    tvTime.setText(time);
+                                    String rrefNo = "REFF NO:"+transData.getReffNo();
+                                    tvReffNo.setText(rrefNo);
+
                                     transData = new TransData();
                                     actionAfterInputAmount();
                                 }
@@ -184,7 +192,7 @@ public class QrisActivity extends AppCompatActivity {
     private void timerQr()
     {
         //timer QRIS
-        duration = TimeUnit.MINUTES.toMillis(3); //durasi menitnya
+        duration = TimeUnit.MINUTES.toMillis(1); //durasi menitnya
         new CountDownTimer(duration, 1000){ // lama detiknya
             @Override
             public void onTick(long l) {
@@ -207,9 +215,6 @@ public class QrisActivity extends AppCompatActivity {
                     }
                     if("00".equals(retCode)){
                         cancel();
-                        Intent intent = new Intent(QrisActivity.this, PrintQrActivity.class);
-                        intent.putExtra(PrintQrActivity.EXTRA_TRANS,transData);
-                        startActivity(intent);
                         //Toast.makeText(getApplicationContext(), "SUCCESS CHECK KE HOST", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -268,11 +273,13 @@ public class QrisActivity extends AppCompatActivity {
                         String retCode = Rspcode.getCode();
                         String retmessage = Rspcode.getMessage();
                         if("00".equals(retCode)){
-                            InquiryQrTask.deleteQrDataDb();
-                            InquiryQrTask.initQrData(transData);
+//                            InquiryQrTask.deleteQrDataDb();
                             BatchRecord batchRecord = new BatchRecord(transData);
                             batchRecord.setUseYN("Y");
                             Utility.saveTransactionToDb(batchRecord);
+                            Intent intent = new Intent(QrisActivity.this, PrintQrActivity.class);
+                            intent.putExtra(PrintQrActivity.EXTRA_TRANS,transData);
+                            startActivity(intent);
                         }
                     }
                     else{

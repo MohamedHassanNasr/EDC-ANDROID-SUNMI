@@ -104,7 +104,28 @@ public class TransData implements Parcelable {
         procCode = in.readString();
         dateTime = in.readString();
         invoiceNo = in.readString();
+
+        merchantTransId = in.readString();
+        qrHostCode = in.readString();
+        mercPan = in.readString();
+        qrCodeLen = in.readString();
         NMID      = in.readString();
+        qrKindCode = in.readString();
+        payByChannel = in.readString();
+        custPan = in.readString();
+        custName = in.readString();
+        reffId = in.readString();
+        acqBankCode = in.readString();
+        issName = in.readString();
+        memberBankMid = in.readString();
+        memberBankTid = in.readString();
+        paymentType = in.readString();
+        feeAmt = in.readString();
+        tipAmt = in.readString();
+        totalAmt = in.readString();
+        appsUserId = in.readString();
+        merchantAddr = in.readString();
+
     }
 
     public static final Creator<TransData> CREATOR = new Creator<TransData>() {
@@ -173,7 +194,28 @@ public class TransData implements Parcelable {
         dest.writeString(procCode);
         dest.writeString(dateTime);
         dest.writeString(invoiceNo);
+
+
+        dest.writeString(merchantTransId);
+        dest.writeString(qrHostCode);
+        dest.writeString(mercPan);
+        dest.writeString(qrCodeLen);
         dest.writeString(NMID);
+        dest.writeString(qrKindCode);
+        dest.writeString(payByChannel);
+        dest.writeString(custPan);
+        dest.writeString(custName);
+        dest.writeString(reffId);
+        dest.writeString(acqBankCode);
+        dest.writeString(issName);
+        dest.writeString(memberBankMid);
+        dest.writeString(memberBankTid);
+        dest.writeString(paymentType);
+        dest.writeString(feeAmt);
+        dest.writeString(tipAmt);
+        dest.writeString(totalAmt);
+        dest.writeString(appsUserId);
+        dest.writeString(merchantAddr);
     }
 
     public enum EnterMode {

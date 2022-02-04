@@ -80,12 +80,12 @@
     <string name="tv_DateStrukQr">Date: 05/01/2022</string>
     <string name="merc_panQr">Merc PAN: </string>
     <string name="uob">UOB</string>
-    <string name="reff_id">Reff Id \t\t\t\t\t\t: </string>
+    <string name="reff_id">Reff Id \t\t\t\t\t: </string>
     <string name="customer_pan">Customer PAN \t\t: </string>
     <string name="name_cust">Nama Customer \t\t: </string>
     <string name="status_transaksi">Status Transaksi \t: </string>
-    <string name="tip_qr">TIP \t\t\t\t\t\t\t\t: </string>
-    <string name="nominal_qr">Nominal \t\t\t\t\t: </string>
+    <string name="tip_qr">TIP \t\t\t\t\t\t: </string>
+    <string name="nominal_qr">Nominal \t\t\t\t: </string>
     <string name="cust_copy">\t\t\t\t** Customer Copy **</string>
     <string name="total_amount">Total Amount</string>
 

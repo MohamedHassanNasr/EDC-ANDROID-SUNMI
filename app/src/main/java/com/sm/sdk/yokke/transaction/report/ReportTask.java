@@ -41,7 +41,6 @@ public class ReportTask extends Fragment{
             Log.e(TAG,"No Record Found");
             return false;
         }
-
         Log.e(TAG, "Batch Data Total(s) : " + String.valueOf(lstBatch.size()));
         for (BatchRecord batch : lstBatch) {
             amount = 0; counter = 0;
@@ -115,6 +114,7 @@ public class ReportTask extends Fragment{
             return reportData;
         }
         for (ReportData stData : lstReportData) {
+            String bit441 = stData.getBit44();
             if(stData.isQrDomestikTransFlag() && stData.getBit44() == null) {
                 return stData;
             }
@@ -138,11 +138,23 @@ public class ReportTask extends Fragment{
     }
 
     private void updateSettlementData(ReportData reportData) {
+        int index = 0;
         for(ReportData sd : lstReportData) {
-            if(reportData.getBit44().equals(sd.getBit44())) {
-                int index = lstReportData.indexOf(sd);
-                lstReportData.set(index, reportData);
+            if(sd.getBit44() != null) {
+                if(reportData.getBit44().equals(sd.getBit44())) {
+                    index = lstReportData.indexOf(sd);
+                    lstReportData.set(index, reportData);
+                    break;
+                }
             }
+            else {
+                if(sd.isQrDomestikTransFlag()) {
+                    index = lstReportData.indexOf(sd);
+                    lstReportData.set(index, reportData);
+                    break;
+                }
+            }
+
         }
     }
 

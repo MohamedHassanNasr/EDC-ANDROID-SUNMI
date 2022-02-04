@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.sm.sdk.yokke.R;
 import com.sm.sdk.yokke.comm.CommTask;
+import com.sm.sdk.yokke.comm.InquiryQrTask;
 import com.sm.sdk.yokke.fragment.ReportFragment;
 import com.sm.sdk.yokke.fragment.ReportQrisFragment;
 import com.sm.sdk.yokke.models.transData.TransData;
@@ -105,6 +106,7 @@ public class SettlementActivity extends AppCompatActivity {
         });
         MtiApplication.getBatchRecordDBHelper().deleteAllBatchRecord();
         Utility.updateBatchNum();
+        InquiryQrTask.deleteQrDataDb();
 
         btnClose = findViewById(R.id.btnCloseSettlement);
 

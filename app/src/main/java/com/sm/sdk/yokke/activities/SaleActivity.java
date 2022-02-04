@@ -228,7 +228,7 @@ public class SaleActivity extends AppCompatActivity{
                 try {
                     mEMVOptV2.abortTransactProcess();
                     checkAndRemoveCard();
-                    Intent cancel = new Intent(SaleActivity.this, TransactionActivity.class);
+                    Intent cancel = new Intent(SaleActivity.this, MainActivity.class);
                     startActivity(cancel);
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -507,7 +507,7 @@ public class SaleActivity extends AppCompatActivity{
             timeMap.put("checkcard_onError", System.currentTimeMillis());
             String error = "onError:" + message + " -- " + code;
             LogUtil.e(Constant.TAG, error);
-            startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
             tryAgain("Please Use Card Correctly");
             overridePendingTransition(0,0);
             timeMap.clear();
@@ -741,7 +741,7 @@ public class SaleActivity extends AppCompatActivity{
             showStepTimestamp();
             if (mCardNo == null) {
                 tryAgain("Card Number is Null, \n Please Try Again");
-                startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 //mCardNo = getCardNo();
                 //getCardInfo();
             }
@@ -1112,7 +1112,7 @@ public class SaleActivity extends AppCompatActivity{
 
     public void returnFailedMag(){
         importOnlineProcessStatus(-1);
-        startActivity(new Intent(getApplicationContext(), TransactionActivity.class));
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
         tryAgain("Transaction Failed");
 
     }
@@ -1314,7 +1314,7 @@ public class SaleActivity extends AppCompatActivity{
                     break;
                 case EMV_TRANS_FAIL:
                     tryAgain("Failed Please Try Again");
-                    Intent intent = new Intent(SaleActivity.this, TransactionActivity.class);
+                    Intent intent = new Intent(SaleActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
                 case EMV_TRANS_SUCCESS:

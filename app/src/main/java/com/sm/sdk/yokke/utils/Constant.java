@@ -13,6 +13,8 @@ public class Constant {
 
     public static final String SCAN_MODEL_NONE_VALUE = "NONE";
     public static final String SCAN_MODEL_P2Lite_VALUE = "P2Lite";
+    public static final String MANDIRI_CODE = "008";
+    public static final String MANDIRI_TEXT = "MANDIRI";
 
     /**
      * RESPONSE CODE
@@ -41,7 +43,5 @@ public class Constant {
     public static final int RTN_COMM_MANDATORY_ERROR	=	-2021;
     public static final int RTN_COMM_SUCCESS = 1;
     public static final int RTN_COMM_ERROR = 0;
-
-
 
 }

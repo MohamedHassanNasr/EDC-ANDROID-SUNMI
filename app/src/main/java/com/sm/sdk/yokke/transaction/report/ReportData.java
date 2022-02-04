@@ -13,6 +13,7 @@ public class ReportData {
     private static String cardType;
     private static String bit44;
     private static String bankCode;
+    private static String tid;
     private static boolean isOnUs;
     private static boolean qrDomestikTransFlag; //true jika transaksi adalah QR
 
@@ -22,7 +23,10 @@ public class ReportData {
         this.bit44 = batch.getCardTypeBit44();
         this.bankCode = batch.getBankCode();
         this.qrDomestikTransFlag = checkQrDomestikTrans(batch);
-        setDataByBit44(bit44);
+        this.tid = batch.getTID();
+        if(batch.getCardTypeBit44() != null) {
+            setDataByBit44(bit44);
+        }
     }
 
     private static void setDataByBit44(String bit44) {
@@ -96,4 +100,13 @@ public class ReportData {
     public static void setQrDomestikTransFlag(boolean qrDomestikTransFlag) {
         ReportData.qrDomestikTransFlag = qrDomestikTransFlag;
     }
+
+    public static String getTid() {
+        return tid;
+    }
+
+    public static void setTid(String tid) {
+        ReportData.tid = tid;
+    }
+
 }

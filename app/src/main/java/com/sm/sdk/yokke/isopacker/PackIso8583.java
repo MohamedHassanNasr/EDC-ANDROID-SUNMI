@@ -135,14 +135,32 @@ public abstract class PackIso8583 {
 
     }
 
+//    protected void setFinancialData(TransData transData) {
+//        try {
+//
+//            entity.setFieldValue("4", transData.getAmount() + "00"); //amount
+////            entity.setFieldValue("41", "73232580"); //tid
+////            entity.setFieldValue("42", "000071000610362"); //mid
+//            entity.setFieldValue("41", "73003495"); //tid
+//            entity.setFieldValue("42", "000071000243621"); //mid
+//        } catch (Iso8583Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
     protected void setFinancialData(TransData transData) {
         try {
-
-            entity.setFieldValue("4", transData.getAmount() + "00"); //amount
-//            entity.setFieldValue("41", "73232580"); //tid
-//            entity.setFieldValue("42", "000071000610362"); //mid
+            if(!TransConstant.TRANS_TYPE_SETTLEMENT.equals(transData.getTransactionType())) {
+                entity.setFieldValue("4", transData.getAmount() + "00"); //amount
+            }
             entity.setFieldValue("41", "73003495"); //tid
             entity.setFieldValue("42", "000071000243621"); //mid
+
+            //UAT
+            //entity.setFieldValue("41", "73232580"); //tid
+            //entity.setFieldValue("42", "000071000610362"); //mid
+
         } catch (Iso8583Exception e) {
             e.printStackTrace();
         }

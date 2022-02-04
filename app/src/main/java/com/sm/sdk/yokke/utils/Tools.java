@@ -302,7 +302,7 @@ public class Tools {
         }
         StringBuilder sb = new StringBuilder();
         sb.append(inputString);
-        while (sb.length() < maxLength) {
+        while (sb.length() < maxLength - inputString.length()) {
             sb.append(ch);
         }
 

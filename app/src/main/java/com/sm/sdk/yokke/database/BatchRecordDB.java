@@ -119,4 +119,18 @@ public class BatchRecordDB {
             Log.e(TAG,"ERROR FIND BATCH RECORD by id",e);
         }
     }
+
+    public BatchRecord findBatchRecordByRefNo(String refID) {
+        try {
+            RuntimeExceptionDao<BatchRecord, Integer> dao = getBatchRecordDao();
+            QueryBuilder<BatchRecord, Integer> queryBuilder = dao.queryBuilder();
+            queryBuilder.where().eq(BatchRecord.REF_ID_FIELD, refID);
+            return queryBuilder.queryForFirst();
+        } catch (SQLException e) {
+            Log.e(TAG, "ERROR findBatchRecordByRefNo", e);
+        }
+
+        return null;
+    }
+
 }

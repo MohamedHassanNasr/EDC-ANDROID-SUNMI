@@ -53,10 +53,11 @@
                 android:layout_weight="2"
                 android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
-                android:text="@string/print_tid"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+
+                />
 
             <TextView
                 android:id="@+id/tvMid_display"
@@ -358,7 +359,6 @@
                 android:layout_weight="2"
                 android:fontFamily="@font/arialnarrowbold"
                 android:gravity="start"
-                android:text="@string/print_tid"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="8sp"/>

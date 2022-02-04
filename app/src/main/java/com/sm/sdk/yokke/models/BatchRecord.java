@@ -61,12 +61,15 @@ public class BatchRecord implements Serializable {
     private String bankCode;
     @DatabaseField
     private String cardTypeBit44;
+    @DatabaseField(columnName = REF_ID_FIELD)
+    private String reffId;
 
     /**
      * field name
      */
     public static final String TRACE_NO_FIELD = "trace_no";
     public static final String USE_YN_FIELD   = "use_yn";
+    public static final String REF_ID_FIELD   = "ref_id";
 
     public BatchRecord() {
 
@@ -95,6 +98,7 @@ public class BatchRecord implements Serializable {
         this.reffNo = transData.getReffNo();
         this.bankCode = transData.getBankCode();
         this.cardTypeBit44 = transData.getCardTypeBit44();
+        this.reffId = transData.getReffId();
     }
 
     public int getId() {
@@ -295,5 +299,13 @@ public class BatchRecord implements Serializable {
 
     public void setCardTypeBit44(String cardTypeBit44) {
         this.cardTypeBit44 = cardTypeBit44;
+    }
+
+    public String getReffId() {
+        return reffId;
+    }
+
+    public void setReffId(String reffId) {
+        this.reffId = reffId;
     }
 }

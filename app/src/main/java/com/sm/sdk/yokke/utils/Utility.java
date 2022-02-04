@@ -14,7 +14,9 @@ import com.sm.sdk.yokke.models.QrTransData;
 import com.sm.sdk.yokke.models.transData.TransParam;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -390,6 +392,28 @@ public final class Utility {
         transParam.setParamName(TransParam.BATCH_NUM);
         transParam.setParamVal(String.valueOf(iBatchNum));
         MtiApplication.getTransParamDBHelper().updateTransParam(transParam);
+    }
+
+    public static String getAcquirerName(String name){
+        if (("").equals(name)){
+            return "";
+        }else if ((Constant.MANDIRI_CODE.equals(name))){
+            return Constant.MANDIRI_TEXT;
+        }
+        else {
+            return "";
+        }
+    }
+
+    public static BatchRecord getRefIDByRefNo(String refID) {
+        return MtiApplication.getBatchRecordDBHelper().findBatchRecordByRefNo(refID);
+    }
+
+    public static String generateDate(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMdd");
+        String datetime = simpleDateFormat.format(calendar.getTime());
+        return datetime;
     }
 
 }

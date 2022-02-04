@@ -65,7 +65,7 @@ public class PrintActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (index == 2){
-                    Intent intent = new Intent(PrintActivity.this, TransactionActivity.class);
+                    Intent intent = new Intent(PrintActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
                 else{
@@ -91,7 +91,7 @@ public class PrintActivity extends AppCompatActivity {
                     else if (index == 2){
                         printBitmap();
                         statusReceipt = false;
-                        Intent intent = new Intent(PrintActivity.this, TransactionActivity.class);
+                        Intent intent = new Intent(PrintActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 }
