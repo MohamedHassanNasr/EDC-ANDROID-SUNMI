@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Yokke Android</string>
     <string name="welcome">Welcome !</string>
     <string name="choose_payment">Choose Payment Method</string>
@@ -50,6 +50,7 @@
     <string name="print_appr">appr code:062981</string>
     <string name="print_signature">NO SIGNATURE REQUIRED \n ** MERCHANT COPY **</string>
     <string name="qr_berakhir">Kode QR berakhir dalam</string>
+    <string name="dialog_trans_succ_liff"><xliff:g id="SUCCESS">%1$s</xliff:g> Success</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tartun">Tarik Tunai</string>
@@ -88,5 +89,9 @@
     <string name="nominal_qr">Nominal \t\t\t\t: </string>
     <string name="cust_copy">\t\t\t\t** Customer Copy **</string>
     <string name="total_amount">Total Amount</string>
+
+    <string name="exit_app">Exit Current APP?</string>
+    <string name="err_password">Wrong Password!</string>
+    <string name="dialog_cancel">Cancel</string>
 
 </resources>

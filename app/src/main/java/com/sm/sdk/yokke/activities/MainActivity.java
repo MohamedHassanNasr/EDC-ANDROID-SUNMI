@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity{
     BottomNavigationView bottomNavigationView;
     private static final int TIME_INTERVAL = 2000;
     private long backPressed;
+    public static final String TAG_EXIT = "EXIT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -38,6 +38,7 @@ import com.sm.sdk.yokke.utils.Utility;
 import com.sm.sdk.yokke.view.DigitKeyboard;
 import com.sm.sdk.yokke.view.EditorActionListener;
 import com.sm.sdk.yokke.view.EnterAmountTextWatcher;
+import com.sm.sdk.yokke.view.dialog.DialogUtils;
 import com.sunmi.peripheral.printer.InnerResultCallbcak;
 
 import java.util.Hashtable;
@@ -64,6 +65,7 @@ public class QrisActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     TransData transData;
     private String qrCode = "";
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,8 @@ public class QrisActivity extends AppCompatActivity {
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideNavButton();
+
                 amount = String.valueOf(CurrencyConverter.parse(etAmountQr.getText().toString()));
                 transData.setAmount(amount);
 
@@ -186,13 +190,14 @@ public class QrisActivity extends AppCompatActivity {
         btnPrintQr.setVisibility(View.VISIBLE);
         tvIdQris.setText("Print QRIS");
         digitKeyboard.setVisibility(View.GONE);
+        hideNavButton();
         timerQr();
     }
 
     private void timerQr()
     {
         //timer QRIS
-        duration = TimeUnit.MINUTES.toMillis(1); //durasi menitnya
+        duration = TimeUnit.MINUTES.toMillis(2); //durasi menitnya
         new CountDownTimer(duration, 1000){ // lama detiknya
             @Override
             public void onTick(long l) {
@@ -203,6 +208,7 @@ public class QrisActivity extends AppCompatActivity {
                 tvTimeQr.setText(sDuration);
                 String retCode;
                 ResponseCode Rspcode = transData.getResponseCode();
+                hideNavButton();
                 if (Rspcode == null){
                     retCode = null;
                 }
@@ -233,10 +239,7 @@ public class QrisActivity extends AppCompatActivity {
     }
 
     public void inquiryStatusQr(){
-        int hideNav = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(hideNav);
+        hideNavButton();
 
         /*TES INQUIRY */
         QrTransData qrTransData;
@@ -251,6 +254,7 @@ public class QrisActivity extends AppCompatActivity {
 
         transData.setTransactionType(TransConstant.TRANS_TYPE_INQUIRY_QRIS);
         transData.setProcCode(TransConstant.PROCODE_INQUIRY_QRIS);
+        hideNavButton();
         progressDialog = new ProgressDialog(QrisActivity.this);
         progressDialog.setMessage("Connect to server ...");
         progressDialog.setTitle("Send Receive Message");
@@ -373,7 +377,29 @@ public class QrisActivity extends AppCompatActivity {
             Intent intent = new Intent(QrisActivity.this, MainActivity.class);
             startActivity(intent);
         });
+    }
 
+    private void hideNavButton(){
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+        decorView.setSystemUiVisibility(uiOptions);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countDownTimer.cancel();
+        //finish();
+    }
+
+    @Override
+    public void onBackPressed(){
+        DialogUtils.showErrMessage(QrisActivity.this,"QRIS","QRIS Canceled",null, Constant.FAILED_DIALOG_SHOW_TIME);
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        Intent i = new Intent(QrisActivity.this, MainActivity.class);
+        startActivity(i);
     }
 
 }

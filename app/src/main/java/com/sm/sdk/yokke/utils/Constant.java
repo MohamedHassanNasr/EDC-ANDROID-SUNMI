@@ -3,6 +3,11 @@ package com.sm.sdk.yokke.utils;
 public class Constant {
     public static final String TAG = "Constant";
 
+    /**
+     * the period of showing dialog of failed transaction, unit: second
+     */
+    public static final int FAILED_DIALOG_SHOW_TIME = 5;
+
     public static final int LANGUAGE_AUTO = 0;
     public static final int LANGUAGE_ZH_CN = 1;
     public static final int LANGUAGE_EN_US = 2;
